@@ -12,3 +12,4 @@ ALTER TABLE IF EXISTS public.students
 
 COMMENT ON TABLE public.students
     IS 'Table that stores data of students in sytstem';
+
