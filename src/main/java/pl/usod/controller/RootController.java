@@ -10,4 +10,9 @@ public class RootController {
     public String root(){
         return "index";
     }
+
+    @RequestMapping ("/formView")
+    public String formView(){
+        return "formView";
+        }
 }

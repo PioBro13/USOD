@@ -1,27 +1,39 @@
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
+/* styles.css */
+
+/* Nadpisanie koloru primary na inny odcień granatowego */
+:root {
+    --bs-primary: #6d89ff;
 }
-header {
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
+
+/* Nadpisanie koloru tła nagłówka */
+header.bg-primary {
+    background-color: var(--bs-primary) !important;
 }
-nav {
-    background-color: #444;
-    display: flex;
-    justify-content: center;
+
+/* Nadpisanie koloru tła nawigacji */
+nav.bg-info {
+    background-color: #1565c0; /* Nowy kolor tła nawigacji */
 }
-nav a {
-    color: #fff;
-    text-decoration: none;
-    padding: 1rem 2rem;
+
+/* Nadpisanie koloru linków w nawigacji */
+nav .nav-link.text-white {
+    color: #fff; /* Nowy kolor tekstu linków w nawigacji */
 }
-section {
-    padding: 2rem;
+
+/* Nadpisanie koloru linków przy najechaniu na nie w nawigacji */
+nav .nav-link.text-white:hover {
+    background-color: #1565c0; /* Nowy kolor tła linków przy najechaniu */
 }
-bg-primary{
-    background-color: #6d89ff; !important;
+
+/* Nadpisanie koloru nagłówków sekcji */
+section h2 {
+    color: var(--bs-primary);
 }
+
+/* Nadpisanie koloru podkreślenia nagłówków sekcji */
+section h2.border-bottom {
+    border-color: var(--bs-primary);
+}
+
+/* Dodatkowe nadpisanie kolorów, jeśli potrzebne */
+/* ... */
