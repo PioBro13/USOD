@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="/css/styles.css">
     <script
             type="text/javascript"
-            src="/orbeon/xforms-server/baseline.js?updates=fr">
+            src="http://localhost:8040/orbeon/xforms-server/baseline.js?updates=fr">
         ORBEON.fr.API.embedForm(
-            document.getElementById("my-container-element"),
-            "/orbeon",
+            document.getElementById("form-viewer"),
+            "fr",
             "document",
             "TEST_FORM",
             "new"
@@ -51,7 +51,7 @@
 <section id="podania" class="py-4">
     <div class="container">
         <h2 class="border-bottom pb-2">Podania</h2>
-        <p onload="ORBEON.fr.API.embedForm()"></p>
+        <p id="form-viewer"></p>
     </div>
 </section>
 
