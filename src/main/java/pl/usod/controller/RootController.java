@@ -15,4 +15,7 @@ public class RootController {
     public String formView(){
         return "formView";
         }
+
+    @RequestMapping("/financialSummary")
+    public String financialSumamry(){return "financialSummary";}
 }
