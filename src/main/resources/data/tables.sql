@@ -25,7 +25,12 @@ CREATE TABLE IF NOT EXISTS public."termResults"
     "finalECTS" integer NOT NULL,
     "obtainedECTS" integer NOT NULL,
     speciality character varying COLLATE pg_catalog."default",
-    CONSTRAINT "termResults_pkey" PRIMARY KEY (id)
+    CONSTRAINT "termResults_pkey" PRIMARY KEY (id),
+    CONSTRAINT "studentId" FOREIGN KEY ("studentId")
+    REFERENCES public.students (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE
+    NOT VALID
     )
 
     TABLESPACE pg_default;
