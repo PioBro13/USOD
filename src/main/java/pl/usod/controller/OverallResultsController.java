@@ -27,4 +27,8 @@ public class OverallResultsController {
                 .orElseThrow(() -> new RuntimeException("There are no term results with given id"));
     }
 
+    @GetMapping("/studentId={studentId}")
+    public OverallResults getByStudent(@PathVariable Long studentId){
+        return overallResultsRepository.findByStudentId(studentId);
+    }
 }
