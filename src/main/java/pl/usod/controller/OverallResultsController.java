@@ -5,26 +5,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.usod.model.Student;
-import pl.usod.model.TermResults;
-import pl.usod.repository.TermResultsRepository;
+import pl.usod.model.OverallResults;
+import pl.usod.repository.OverallResultsRepository;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/termResults")
-public class TermResultsController {
+@RequestMapping("/api/overallResults")
+public class OverallResultsController {
     @Autowired
-    private TermResultsRepository termResultsRepository;
+    private OverallResultsRepository overallResultsRepository;
 
     @GetMapping
-    public List<TermResults> getTermResults(){
-        return termResultsRepository.findAll();
+    public List<OverallResults> getOverallResults(){
+        return overallResultsRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public TermResults getOne(@PathVariable Long id){
-        return termResultsRepository.findById(id)
+    public OverallResults getOne(@PathVariable Long id){
+        return overallResultsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("There are no term results with given id"));
     }
 

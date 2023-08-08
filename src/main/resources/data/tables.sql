@@ -13,28 +13,24 @@ ALTER TABLE IF EXISTS public.students
 COMMENT ON TABLE public.students
     IS 'Table that stores data of students in sytstem';
 
-CREATE TABLE IF NOT EXISTS public."termResults"
+CREATE TABLE IF NOT EXISTS public.overall_results
 (
     id integer NOT NULL,
-    "termId" integer NOT NULL,
-    "studentId" integer NOT NULL,
-    "studentTermNumber" integer NOT NULL,
-    "registerType" character varying COLLATE pg_catalog."default" NOT NULL,
-    "studentGroup" character varying COLLATE pg_catalog."default" NOT NULL,
-    "startingECTS" integer NOT NULL,
-    "finalECTS" integer NOT NULL,
-    "obtainedECTS" integer NOT NULL,
-    speciality character varying COLLATE pg_catalog."default",
-    CONSTRAINT "termResults_pkey" PRIMARY KEY (id),
-    CONSTRAINT "studentId" FOREIGN KEY ("studentId")
-    REFERENCES public.students (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE CASCADE
-    NOT VALID
-    )
+    term_id integer NOT NULL,
+    student_id integer NOT NULL,
+    student_term_number integer NOT NULL,
+    register_type character varying COLLATE pg_catalog."default" NOT NULL,
+    student_group character varying COLLATE pg_catalog."default" NOT NULL,
+    starting_ects integer NOT NULL,
+    final_ects integer NOT NULL,
+    nominal_ects integer NOT NULL,
+    obtained_ects integer NOT NULL,
+    speciality character varying COLLATE pg_catalog."default"
+
+)
 
     TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public."termResults"
+ALTER TABLE IF EXISTS public.overallresults
     OWNER to postgres;
 

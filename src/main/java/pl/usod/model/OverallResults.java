@@ -3,38 +3,38 @@ package pl.usod.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "termResults")
-public class TermResults {
+@Table(name = "overall_results")
+public class OverallResults {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "termId")
-    private int termNumber;
+    @Column(name = "term_id")
+    private int termId;
 
     //TODO link with students table
-    @Column(name = "studentId")
+    @Column(name = "student_id")
     protected Long studentId;
 
-    @Column(name="studentTermNumber")
+    @Column(name="student_term_number")
     private int studentTermNumber;
 
-    @Column(name = "registerType")
+    @Column(name = "register_type")
     private String registerType;
 
-    @Column(name = "studentGroup")
+    @Column(name = "student_group")
     private String studentGroup;
 
-    @Column(name="startingECTS")
+    @Column(name="starting_ects")
     private int startingECTS;
 
-    @Column(name = "finalECTS")
+    @Column(name = "final_ects")
     private int finalECTS;
 
-    @Column(name="nominalECTS")
+    @Column(name="nominal_ects")
     private int nominalECTS;
 
-    @Column(name = "obtainedECTS")
+    @Column(name = "obtained_ects")
     private int obtainedECTS;
 
     @Column(name = "speciality")
@@ -50,12 +50,12 @@ public class TermResults {
         return id;
     }
 
-    public int getTermNumber() {
-        return termNumber;
+    public int getTermId() {
+        return termId;
     }
 
-    public void setTermNumber(int termNumber) {
-        this.termNumber = termNumber;
+    public void setTermId(int termId) {
+        this.termId = termId;
     }
 
     public Long getStudentId() {
