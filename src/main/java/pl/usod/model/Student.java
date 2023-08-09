@@ -18,6 +18,9 @@ public class Student {
     @Column(name="birth_date")
     private Date birhDate;
 
+    @OneToOne
+    private OverallResults overallResults;
+
     public Long getId() {
         return id;
     }
@@ -48,5 +51,13 @@ public class Student {
 
     public void setBirhDate(Date birhDate) {
         this.birhDate = birhDate;
+    }
+
+    public OverallResults getOverallResults() {
+        return overallResults;
+    }
+
+    public void setOverallResults(OverallResults overallResults) {
+        this.overallResults = overallResults;
     }
 }

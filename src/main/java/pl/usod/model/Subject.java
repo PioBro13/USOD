@@ -27,6 +27,9 @@ public class Subject {
     @Column(name="grade")
     private int grade;
 
+    @ManyToOne
+    private TermSubjectJunction termSubjectJunction;
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -81,5 +84,13 @@ public class Subject {
 
     public void setGrade(int grade) {
         this.grade = grade;
+    }
+
+    public TermSubjectJunction getTermSubjectJunction() {
+        return termSubjectJunction;
+    }
+
+    public void setTermSubjectJunction(TermSubjectJunction termSubjectJunction) {
+        this.termSubjectJunction = termSubjectJunction;
     }
 }

@@ -40,6 +40,9 @@ public class OverallResults {
     @Column(name = "speciality")
     private String speciality;
 
+    @OneToOne
+    private Student student;
+
 
 
     public void setId(Long id) {
@@ -128,5 +131,13 @@ public class OverallResults {
 
     public void setSpeciality(String speciality) {
         this.speciality = speciality;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

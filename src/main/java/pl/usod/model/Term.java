@@ -14,9 +14,8 @@ public class Term {
     private int termNumber;
 
 
-    // TODO link to junction table
-    @Column(name = "subject")
-    private String subject;
+    @ManyToOne
+    private TermSubjectJunction termSubjectJunction;
 
     public Long getId() {
         return id;
@@ -32,5 +31,13 @@ public class Term {
 
     public void setTermNumber(int termNumber) {
         this.termNumber = termNumber;
+    }
+
+    public TermSubjectJunction getTermSubjectJunction() {
+        return termSubjectJunction;
+    }
+
+    public void setTermSubjectJunction(TermSubjectJunction termSubjectJunction) {
+        this.termSubjectJunction = termSubjectJunction;
     }
 }
