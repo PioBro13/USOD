@@ -13,8 +13,7 @@ public class OverallResults {
     private int termId;
 
     //TODO link with students table
-    @Column(name = "student_id")
-    protected Long studentId;
+
 
     @Column(name="student_term_number")
     private int studentTermNumber;
@@ -61,13 +60,6 @@ public class OverallResults {
         this.termId = termId;
     }
 
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
 
     public int getStudentTermNumber() {
         return studentTermNumber;
