@@ -34,3 +34,15 @@ CREATE TABLE IF NOT EXISTS public.overall_results
 ALTER TABLE IF EXISTS public.overallresults
     OWNER to postgres;
 
+CREATE TABLE IF NOT EXISTS public.term
+(
+    id integer NOT NULL,
+    term_number integer NOT NULL,
+    CONSTRAINT term_pkey PRIMARY KEY (id)
+    )
+
+    TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.term
+    OWNER to postgres;
+
