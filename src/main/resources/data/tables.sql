@@ -46,3 +46,40 @@ CREATE TABLE IF NOT EXISTS public.term
 ALTER TABLE IF EXISTS public.term
     OWNER to postgres;
 
+CREATE TABLE IF NOT EXISTS public.subject
+(
+    id integer NOT NULL,
+    subject_name character varying COLLATE pg_catalog."default" NOT NULL,
+    exam boolean NOT NULL,
+    student_term_number integer,
+    ects_number integer NOT NULL,
+    instructor character varying COLLATE pg_catalog."default",
+    grade integer,
+    CONSTRAINT subject_pkey PRIMARY KEY (id)
+)
+
+    TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.subject
+    OWNER to postgres;
+
+CREATE TABLE IF NOT EXISTS public.term_subject
+(
+    id integer NOT NULL,
+    subjects integer NOT NULL,
+    terms integer NOT NULL,
+    CONSTRAINT term_subject_pkey PRIMARY KEY (id),
+    CONSTRAINT subjects FOREIGN KEY (subjects)
+        REFERENCES public.subject (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT terms FOREIGN KEY (terms)
+        REFERENCES public.term (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+    TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.term_subject
+    OWNER to postgres;
