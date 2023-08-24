@@ -3,6 +3,7 @@ package pl.usod.model;
 import jakarta.persistence.*;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.List;
 
 @Entity
@@ -14,11 +15,9 @@ public class TermSubjectJunction {
     private Long id;
 
     @OneToMany
-    @Column(name = "subjects")
     private List<Subject> subjectList;
 
     @OneToMany
-    @Column(name="terms")
     private List<Term> TermList;
 
     public Long getId() {
