@@ -1,5 +1,6 @@
 package pl.usod.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -18,7 +19,8 @@ public class Student {
     @Column(name="birth_date")
     private Date birhDate;
 
-    @OneToOne
+    @OneToOne(mappedBy = "student")
+    @JsonManagedReference
     private OverallResults overallResults;
 
     public Long getId() {

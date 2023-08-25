@@ -1,5 +1,6 @@
 package pl.usod.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -40,6 +41,8 @@ public class OverallResults {
     private String speciality;
 
     @OneToOne
+    @JoinColumn(name = "student_id")
+    @JsonBackReference
     private Student student;
 
 
