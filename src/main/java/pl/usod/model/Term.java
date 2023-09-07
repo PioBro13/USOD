@@ -1,5 +1,6 @@
 package pl.usod.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,10 +14,15 @@ public class Term {
     @Column(name="term_number")
     private int termNumber;
 
+    @ManyToOne
+    @JoinColumn(name="overall_results_id")
+    @JsonBackReference
+    private OverallResults overallResults;
 
+/*
     @ManyToOne
     private TermSubjectJunction termSubjectJunction;
-
+*/
     public Long getId() {
         return id;
     }
@@ -32,12 +38,20 @@ public class Term {
     public void setTermNumber(int termNumber) {
         this.termNumber = termNumber;
     }
-
+/*
     public TermSubjectJunction getTermSubjectJunction() {
         return termSubjectJunction;
     }
 
     public void setTermSubjectJunction(TermSubjectJunction termSubjectJunction) {
         this.termSubjectJunction = termSubjectJunction;
+    }
+*/
+    public OverallResults getOverallResults() {
+        return overallResults;
+    }
+
+    public void setOverallResults(OverallResults overallResults) {
+        this.overallResults = overallResults;
     }
 }

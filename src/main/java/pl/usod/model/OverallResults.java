@@ -1,7 +1,12 @@
 package pl.usod.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "overall_results")
@@ -12,8 +17,6 @@ public class OverallResults {
 
     @Column(name = "term_id")
     private int termId;
-
-    //TODO link with students table
 
 
     @Column(name="student_term_number")
@@ -44,6 +47,11 @@ public class OverallResults {
     @JoinColumn(name = "student_id")
     @JsonBackReference
     private Student student;
+
+
+    @OneToMany(mappedBy = "overallResults", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Term> termIds = new ArrayList<>();
 
 
 
@@ -134,5 +142,13 @@ public class OverallResults {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public List<Term> getTermIds() {
+        return termIds;
+    }
+
+    public void setTermIds(List<Term> termIds) {
+        this.termIds = termIds;
     }
 }
