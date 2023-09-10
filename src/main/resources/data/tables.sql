@@ -1,11 +1,14 @@
-CREATE TABLE public.students
+CREATE TABLE IF NOT EXISTS public.students
 (
     id integer NOT NULL,
-    name character varying(100) NOT NULL,
-    surname character varying(100) NOT NULL,
+    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    surname character varying(100) COLLATE pg_catalog."default" NOT NULL,
     birth_date date NOT NULL,
-    PRIMARY KEY (id)
-);
+    overall_results_id integer,
+    CONSTRAINT students_pkey PRIMARY KEY (id)
+)
+
+    TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.students
     OWNER to postgres;
@@ -26,12 +29,11 @@ CREATE TABLE IF NOT EXISTS public.overall_results
     nominal_ects integer NOT NULL,
     obtained_ects integer NOT NULL,
     speciality character varying COLLATE pg_catalog."default"
-
 )
 
     TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.overallresults
+ALTER TABLE IF EXISTS public.overall_results
     OWNER to postgres;
 
 CREATE TABLE IF NOT EXISTS public.term
@@ -82,4 +84,17 @@ CREATE TABLE IF NOT EXISTS public.term_subject
     TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.term_subject
+    OWNER to postgres;
+
+CREATE TABLE IF NOT EXISTS public.term
+(
+    id integer NOT NULL,
+    term_number integer NOT NULL,
+    overall_results_id integer,
+    CONSTRAINT term_pkey PRIMARY KEY (id)
+)
+
+    TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.term
     OWNER to postgres;
