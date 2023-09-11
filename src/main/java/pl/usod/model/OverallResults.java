@@ -51,9 +51,7 @@ public class OverallResults {
 
     @OneToMany(mappedBy = "overallResults", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Term> termIds = new ArrayList<>();
-
-
+    private List<Term> terms = new ArrayList<>();
 
     public void setId(Long id) {
         this.id = id;
@@ -144,11 +142,11 @@ public class OverallResults {
         this.student = student;
     }
 
-    public List<Term> getTermIds() {
-        return termIds;
+    public List<Term> getTerms() {
+        return terms;
     }
 
-    public void setTermIds(List<Term> termIds) {
-        this.termIds = termIds;
+    public void setTerms(List<Term> terms) {
+        this.terms = terms;
     }
 }

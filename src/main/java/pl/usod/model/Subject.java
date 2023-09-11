@@ -1,5 +1,6 @@
 package pl.usod.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -28,7 +29,10 @@ public class Subject {
     private int grade;
 
     @ManyToOne
-    private TermSubjectJunction termSubjectJunction;
+    @JoinColumn(name="term_id")
+    @JsonBackReference
+    private Term term;
+
 
     public void setId(Long id) {
         this.id = id;
@@ -86,11 +90,11 @@ public class Subject {
         this.grade = grade;
     }
 
-    public TermSubjectJunction getTermSubjectJunction() {
-        return termSubjectJunction;
+    public Term getTerm() {
+        return term;
     }
 
-    public void setTermSubjectJunction(TermSubjectJunction termSubjectJunction) {
-        this.termSubjectJunction = termSubjectJunction;
+    public void setTermId(Term term) {
+        this.term = term;
     }
 }
