@@ -23,6 +23,10 @@ public class Student {
     @JsonManagedReference
     private OverallResults overallResults;
 
+    @OneToOne(mappedBy = "student")
+    @JsonManagedReference
+    private OverallFinances overallFinances;
+
     public Long getId() {
         return id;
     }
@@ -61,5 +65,13 @@ public class Student {
 
     public void setOverallResults(OverallResults overallResults) {
         this.overallResults = overallResults;
+    }
+
+    public OverallFinances getOverallFinances() {
+        return overallFinances;
+    }
+
+    public void setOverallFinances(OverallFinances overallFinances) {
+        this.overallFinances = overallFinances;
     }
 }

@@ -2,17 +2,11 @@ package pl.usod.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 @Entity
-@Table(name = "finances")
-public class Finances {
+@Table(name = "operation_finances")
+public class OperationFinances {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
-
 }
