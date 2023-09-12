@@ -27,6 +27,10 @@ public class Term {
     @JsonManagedReference
     private List<Subject> subjects = new ArrayList<>();
 
+    @OneToOne(mappedBy = "term")
+    @JsonManagedReference
+    private TermFinances termFinances;
+
     public Long getId() {
         return id;
     }
