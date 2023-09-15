@@ -17,7 +17,7 @@ public class Student {
     @Column(name="surname")
     private String surname;
     @Column(name="birth_date")
-    private Date birhDate;
+    private Date birthDate;
 
     @OneToOne(mappedBy = "student")
     @JsonManagedReference
@@ -51,12 +51,12 @@ public class Student {
         this.surname = surname;
     }
 
-    public Date getBirhDate() {
-        return birhDate;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirhDate(Date birhDate) {
-        this.birhDate = birhDate;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public OverallResults getOverallResults() {
