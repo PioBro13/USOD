@@ -18,4 +18,7 @@ public class RootController {
 
     @RequestMapping("/financialSummary")
     public String financialSumamry(){return "financialSummary";}
+
+    @RequestMapping("/adminIndex")
+    public String adminIndex(){return  "adminIndex";}
 }
