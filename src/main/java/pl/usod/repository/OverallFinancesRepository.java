@@ -4,4 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import pl.usod.model.OverallFinances;
 
 public interface OverallFinancesRepository extends JpaRepository<OverallFinances , Long> {
+
+    OverallFinances findOverallFinancesById (Long overallFinancesId);
 }
