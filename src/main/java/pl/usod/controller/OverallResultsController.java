@@ -1,10 +1,8 @@
 package pl.usod.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import pl.usod.model.OverallResults;
 import pl.usod.repository.OverallResultsRepository;
 
@@ -31,4 +29,17 @@ public class OverallResultsController {
     public OverallResults getByStudent(@PathVariable Long studentId){
         return overallResultsRepository.findByStudentId(studentId);
     }
+
+    @GetMapping("/addOverallResults")
+    public String showOverallResultsForm(Model model){
+        model.addAttribute("overallResults",new OverallResults());
+        return "addOverallResults";
+    }
+
+    @PostMapping("/addOverallResults")
+    public OverallResults newOverallResults(@ModelAttribute OverallResults overallResults){
+        overallResultsRepository.save(overallResults);
+        return overallResults;
+    }
+
 }
