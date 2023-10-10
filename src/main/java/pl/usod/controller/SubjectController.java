@@ -1,9 +1,9 @@
 package pl.usod.controller;
 
+import jakarta.jws.WebParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import pl.usod.model.Subject;
 import pl.usod.repository.SubjectRepository;
 
@@ -20,5 +20,16 @@ public class SubjectController {
         return subjectRepository.findAll();
     }
 
+    @GetMapping("/addSubject")
+    public String showSubjectForm(Model model){
+        model.addAttribute("subject", new Subject());
+        return "addSubject";
+    }
+
+    @PostMapping("/addSubject")
+    public Subject newSubject(@ModelAttribute Subject subject){
+        subjectRepository.save(subject);
+        return subject;
+    }
 
 }
