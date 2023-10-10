@@ -1,7 +1,9 @@
 package pl.usod.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -17,6 +19,7 @@ public class Student {
     @Column(name="surname")
     private String surname;
     @Column(name="birth_date")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
 
     @OneToOne(mappedBy = "student")

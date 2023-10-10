@@ -1,10 +1,8 @@
 package pl.usod.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import pl.usod.model.Student;
 import pl.usod.repository.StudentRepository;
 
@@ -26,6 +24,18 @@ public class StudentController {
     public Student getOne(@PathVariable Long id){
         return studentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("no student with given id"));
+    }
+
+    @GetMapping("/addStudent")
+    public String showStudentForm(Model model){
+        model.addAttribute("student", new Student());
+        return "addStudent";
+    }
+
+    @PostMapping("/addStudent")
+    public Student newStudent(@ModelAttribute Student student){
+        studentRepository.save(student);
+        return student;
     }
 
 }
