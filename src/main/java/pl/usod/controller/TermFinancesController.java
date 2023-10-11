@@ -1,10 +1,8 @@
 package pl.usod.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import pl.usod.model.TermFinances;
 import pl.usod.repository.TermFinancesRepository;
 
@@ -25,5 +23,15 @@ public class TermFinancesController {
         return  termFinancesRepository.findTermFinancesById(termFinancesId);
     }
 
+    @GetMapping("/addTermFinances")
+    public String showTermFinancesForm(Model model){
+        model.addAttribute("termFinances", new TermFinances());
+        return "addTermFinances";
+    }
 
+    @PostMapping("/addTermFinances")
+    public TermFinances newTermFinances(@ModelAttribute TermFinances termFinances){
+        termFinancesRepository.save(termFinances);
+        return termFinances;
+    }
 }
