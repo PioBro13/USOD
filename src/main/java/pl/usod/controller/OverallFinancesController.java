@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.usod.model.OverallFinances;
-import pl.usod.model.OverallResults;
 import pl.usod.repository.OverallFinancesRepository;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class OverallFinancesController {
     public List<OverallFinances> getOverallFinances(){return overallFinancesRepository.findAll();}
 
     @GetMapping("/{overallFinancesId}")
-    public OverallFinances getOverallFinances(@PathVariable Long overallFinancesId){
+    public OverallFinances getOneOverallFinances(@PathVariable Long overallFinancesId){
         return overallFinancesRepository.findOverallFinancesById(overallFinancesId);
     }
 
