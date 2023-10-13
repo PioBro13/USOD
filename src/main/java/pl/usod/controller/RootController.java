@@ -24,4 +24,8 @@ public class RootController {
 
     @RequestMapping("/adminIndex/newTerm")
     public String newTerm(){return "newTerm";}
+
+    @RequestMapping("/adminIndex/newOperationFinances")
+    public String newOperationFinances(){return "newOperationFinances";}
+
 }
