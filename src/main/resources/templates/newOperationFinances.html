@@ -29,9 +29,17 @@
 </nav>
 
 <section id="add-term-form">
+    <div class="alert alert-success alert-dismissible fade show" id="success-popup" style="display: none;">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>Sukces!</strong> Pomyślnie dodano nowy rekord
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>Błąd!</strong> Podczas dodawania rekordu wystąpił błąd. Nie udało się go zapisać
+    </div>
     <div class="container mt-5">
-        <h2 class="mb-4">Add Term</h2>
-        <form th:action="@{/api/operationFinances/addOperationFinances}" method="post" >
+        <h2 class="mb-4">Nowy rekord finansowy</h2>
+        <form th:action="@{/api/operationFinances/addOperationFinances}" method="post" id="post-form-data" endpoint="/operationFinances/addOperationFinances">
             <div class="mb-3">
                 <label for="operationName" class="form-label">Rodzaj operacji:</label>
                 <input type="text" class="form-control" id="operationName" name="operationName" required>
@@ -58,5 +66,7 @@
 
 <!-- Dodanie Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/js/newEntity.js"></script>
+<script type="text/javascript" src="/js/popup.js"></script>
 </body>
 </html>
