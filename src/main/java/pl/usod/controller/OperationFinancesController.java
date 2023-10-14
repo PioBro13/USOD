@@ -1,6 +1,8 @@
 package pl.usod.controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.usod.model.OperationFinances;
@@ -33,6 +35,12 @@ public class OperationFinancesController {
     public OperationFinances addOperationFinances(@ModelAttribute OperationFinances operationFinances){
         operationFinancesRepository.save(operationFinances);
         return operationFinances;
+    }
+
+    @PutMapping("/editOperationFinaces/{operationFinancesId}")
+    public ResponseEntity<?> editOperationFinances(@PathVariable("operationFinancesId") OperationFinances targetOperationFinances, @ModelAttribute OperationFinances sourceOperationFinances){
+        BeanUtils.copyProperties(sourceOperationFinances , targetOperationFinances, "id" );
+        return ResponseEntity.ok(operationFinancesRepository.save(targetOperationFinances));
     }
 
 }
