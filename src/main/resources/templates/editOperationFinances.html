@@ -43,11 +43,11 @@
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" endpoint="/operationFinances">
         Wybierz element
       </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="myDropdown">
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdownList">
       </ul>
     </div>
     <br/>
-    <form th:action="@{/api/operationFinances/addOperationFinances}" method="post" id="post-form-data" endpoint="/operationFinances/addOperationFinances">
+    <form th:action="@{/api/operationFinances/addOperationFinances}" method="post" id="put-form-data" endpoint="/operationFinances/addOperationFinances">
       <div class="mb-3">
         <label for="operationName" class="form-label">Rodzaj operacji:</label>
         <input type="text" class="form-control" id="operationName" name="operationName" required>
@@ -78,5 +78,6 @@
 <script type="text/javascript" src="/js/newEntity.js"></script>
 <script type="text/javascript" src="/js/popup.js"></script>
 <script type="text/javascript" src="/js/fillDropdown.js"></script>
+<script type="text/javascript" src="/js/fillFormFromApi.js"></script>
 </body>
 </html>
