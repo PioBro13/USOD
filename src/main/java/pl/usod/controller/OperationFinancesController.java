@@ -1,5 +1,6 @@
 package pl.usod.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +45,14 @@ public class OperationFinancesController {
         return operationFinances;
     }
 
-    @PutMapping("/editOperationFinaces/{operationFinancesId}")
+    @GetMapping("/editOperationFinances/{operationFinancesId}")
+    public String showEditOperationFinacesForm(@PathVariable Long operationFinancesId, Model model) {
+        OperationFinances operationFinances = operationFinancesRepository.findById(operationFinancesId).orElseThrow(() -> new EntityNotFoundException("Nie znaleziono operacji finansowej o podanym ID: " + operationFinancesId));
+        model.addAttribute("operationFinances", operationFinances);
+        return "editOperationFinances";
+    }
+
+    @PutMapping("/editOperationFinances/{operationFinancesId}")
     public ResponseEntity<?> editOperationFinances(@PathVariable("operationFinancesId") OperationFinances targetOperationFinances, @ModelAttribute OperationFinances sourceOperationFinances){
         BeanUtils.copyProperties(sourceOperationFinances , targetOperationFinances, "id" );
         return ResponseEntity.ok(operationFinancesRepository.save(targetOperationFinances));
