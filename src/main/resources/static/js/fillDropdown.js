@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            console.log("Received data:", data);
             const dropdownMenu = document.getElementById('dropdownList');
             if (Array.isArray(data)) {
                 data.forEach(item => {

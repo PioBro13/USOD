@@ -4,7 +4,7 @@ function fillFormFromAPI(endpoint) {
     const formData = new FormData(form);
     const dataMapping = {};
     for (let pair of formData.entries()) {
-        dataMapping[pair[0]] = pair[1];
+        dataMapping[pair[0]] = pair[0];
     }
 
     fetch(fullEndpoint)
@@ -17,7 +17,12 @@ function fillFormFromAPI(endpoint) {
         .then(data => {
             for (const key in dataMapping) {
                 if (dataMapping.hasOwnProperty(key) && data.hasOwnProperty(key)) {
-                    document.getElementById(dataMapping[key]).value = data[key];
+                    const element = document.getElementById(dataMapping[key]);
+                    if (element) {
+                        element.value = data[key];
+                    } else {
+                        console.error("Element not found:", dataMapping[key]);
+                    }
                 }
             }
         })
