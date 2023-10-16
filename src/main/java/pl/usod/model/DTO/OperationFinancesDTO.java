@@ -1,11 +1,19 @@
 package pl.usod.model.DTO;
 
-public class operationFinancesDTO {
+public class OperationFinancesDTO {
     private Long id;
     private String operationName;
     private double value;
     private String description;
-    private Long termFinancesId;
+    private Long termFinances;
+
+    public OperationFinancesDTO(Long id, String operationName, double value, String description, Long termFinances) {
+        this.id = id;
+        this.operationName = operationName;
+        this.value = value;
+        this.description = description;
+        this.termFinances = termFinances;
+    }
 
     public Long getId() {
         return id;
@@ -39,11 +47,11 @@ public class operationFinancesDTO {
         this.description = description;
     }
 
-    public Long getTermFinancesId() {
-        return termFinancesId;
+    public Long getTermFinances() {
+        return termFinances;
     }
 
-    public void setTermFinancesId(Long termFinancesId) {
-        this.termFinancesId = termFinancesId;
+    public void setTermFinances(Long termFinances) {
+        this.termFinances = termFinances;
     }
 }

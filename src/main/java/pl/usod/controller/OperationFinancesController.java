@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.usod.model.DTO.OperationFinancesDTO;
 import pl.usod.model.OperationFinances;
 import pl.usod.repository.OperationFinancesRepository;
 
@@ -21,8 +22,14 @@ public class OperationFinancesController {
     public List<OperationFinances> getOperationFinances(){return operationFinancesRepository.findAll();}
 
     @GetMapping("/{operationFinancesId}")
-    public OperationFinances getOneOperationFinances(@PathVariable Long operationFinancesId){
-        return  operationFinancesRepository.findOperationFinancesById(operationFinancesId);
+    public ResponseEntity<OperationFinancesDTO> getOneOperationFinances(@PathVariable Long operationFinancesId){
+        OperationFinances operationFinances = operationFinancesRepository.findOperationFinancesById(operationFinancesId);
+
+        OperationFinancesDTO operationFinancesDTO = new OperationFinancesDTO(operationFinances.getId(),operationFinances.getOperationName(),
+                operationFinances.getValue(),operationFinances.getDescription(), operationFinances.getTermFinances().getId()
+        );
+
+        return ResponseEntity.ok(operationFinancesDTO);
     }
 
     @GetMapping("/addOperationFinances")
