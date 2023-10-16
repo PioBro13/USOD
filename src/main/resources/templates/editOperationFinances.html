@@ -38,15 +38,15 @@
     <strong>Błąd!</strong> Podczas dodawania rekordu wystąpił błąd. Proszę sprawdź podane dane.
   </div>
   <div class="container mt-5">
-    <h2 class="mb-4">Edycja rekord finansowy</h2>
-    <div class="dropdown" endpoint="">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+    <h2 class="mb-4">Edycja rekordu finansowego</h2>
+    <div class="dropdown" >
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" endpoint="/operationFinances">
         Wybierz element
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="myDropdown">
-
       </ul>
     </div>
+    <br/>
     <form th:action="@{/api/operationFinances/addOperationFinances}" method="post" id="post-form-data" endpoint="/operationFinances/addOperationFinances">
       <div class="mb-3">
         <label for="operationName" class="form-label">Rodzaj operacji:</label>
