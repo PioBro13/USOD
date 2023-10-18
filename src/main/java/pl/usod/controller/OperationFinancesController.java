@@ -58,4 +58,10 @@ public class OperationFinancesController {
         return ResponseEntity.ok(operationFinancesRepository.save(targetOperationFinances));
     }
 
+    @DeleteMapping("/deleteOperationFinances/{operationFinancesId}")
+    public ResponseEntity<String> deleteOperationFinances(@PathVariable("operationFinancesId") Long id){
+        operationFinancesRepository.deleteById(id);
+        return  ResponseEntity.ok("Operation finances has been removed. Id: " + id);
+    }
+
 }
