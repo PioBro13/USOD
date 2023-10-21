@@ -29,9 +29,13 @@
 </nav>
 
 <section id="add-term-form">
-  <div class="alert alert-success alert-dismissible fade show" id="success-popup" style="display: none;">
+  <div class="alert alert-success alert-dismissible fade show" id="success-edit-popup" style="display: none;">
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     <strong>Sukces!</strong> Pomyślnie edytowano rekord
+  </div>
+  <div class="alert alert-success alert-dismissible fade show" id="success-remove-popup" style="display: none;">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Sukces!</strong> Pomyślnie usunięto rekord
   </div>
   <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -68,7 +72,7 @@
       <div class="mb-3">
         <button type="submit" class="btn btn-primary">Potwierdź edycję</button>
         <button type="reset" class="btn btn-secondary" id="reset-button">Reset danych</button>
-        <button type="button" class="btn btn-danger" id="delete-button">Usuń pozycję</button>
+        <button type="button" class="btn btn-danger" id="delete-button" endpoint="/operationFinances/deleteOperationFinances/">Usuń pozycję</button>
       </div>
 
     </form>
@@ -84,5 +88,6 @@
 <script type="text/javascript" src="/js/fillDropdown.js"></script>
 <script type="text/javascript" src="/js/fillFormFromApi.js"></script>
 <script type="text/javascript" src="/js/resetDropdown.js"></script>
+<script type="text/javascript" src="/js/removeEntity.js"></script>
 </body>
 </html>

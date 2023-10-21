@@ -1,7 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const dropdownButton = document.getElementById('dropdownMenu')
     const apiUrl = 'http://localhost:8080/api' + dropdownButton.getAttribute('endpoint');
-    fetch(apiUrl)
+    fillDropdown(apiUrl, dropdownButton);
+});
+
+function fillDropdown (endpointUrl, dropdownButton){
+    fetch(endpointUrl)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -19,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     listItem.addEventListener('click', function() {
                         dropdownButton.textContent =  item.id + ' ' +item.operationName;
                         dropdownButton.setAttribute('selected-value' , item.id);
-                        fillFormFromAPI(apiUrl);
+                        fillFormFromAPI(endpointUrl);
                     });
                     dropdownMenu.appendChild(listItem);
                 });
@@ -30,4 +34,4 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             console.error('Error:', error);
         });
-});
+}

@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
-                console.log('Dane zostały zaktualizowane:', data);
-                const successPopup = document.getElementById('success-popup');
+                console.log('Data has been modified:', data);
+                const successPopup = document.getElementById('success-edit-popup');
                 showPopup(successPopup);
                 form.reset();
             })
             .catch(error => {
 
-                console.error('Błąd podczas edycji danych:', error);
+                console.error('Error during data modifying:', error);
                 const errorPopup = document.getElementById('error-popup');
                 showPopup(errorPopup);
             });
