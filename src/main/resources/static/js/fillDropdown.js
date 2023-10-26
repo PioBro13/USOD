@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fillDropdown (endpointUrl, dropdownButton){
+    const dropdownMenu = document.getElementById('dropdownList');
+    dropdownMenu.innerHTML="";
     fetch(endpointUrl)
         .then(response => {
             if (!response.ok) {
@@ -13,7 +15,7 @@ function fillDropdown (endpointUrl, dropdownButton){
             return response.json();
         })
         .then(data => {
-            const dropdownMenu = document.getElementById('dropdownList');
+
             if (Array.isArray(data)) {
                 data.forEach(item => {
                     const listItem = document.createElement('li');
