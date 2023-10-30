@@ -67,7 +67,7 @@
       </ul>
     </div>
     <br/>
-    <form th:action="@{/api/operationFinances/editSubject}" method="post" id="put-form-data" endpoint="/operationFinances/editSubject">
+    <form th:action="@{/api/subject/editSubject}" method="post" id="put-form-data" endpoint="/subject/editSubject">
       <div class="mb-3">
         <label for="subjectName" class="form-label">Nazwa przedmiotu:</label>
         <input type="text" class="form-control" id="subjectName" name="subjectName" required>
@@ -96,7 +96,7 @@
       <div class="mb-3">
         <button type="submit" class="btn btn-primary">Potwierdź edycję</button>
         <button type="reset" class="btn btn-secondary" id="reset-button">Reset danych</button>
-        <button type="button" class="btn btn-danger" id="delete-button" endpoint="/operationFinances/deleteOperationFinances/">Usuń pozycję</button>
+        <button type="button" class="btn btn-danger" id="delete-button" endpoint="/subject/deleteSubject/">Usuń pozycję</button>
       </div>
 
     </form>

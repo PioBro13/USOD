@@ -20,10 +20,11 @@ function fillDropdown (endpointUrl, dropdownButton){
                 data.forEach(item => {
                     const listItem = document.createElement('li');
                     listItem.classList.add('dropdown-item');
-                    listItem.textContent = item.id + ' ' +item.operationName;
+                    const content = Object.values(item).slice(0, 2).join(' ');
+                    listItem.textContent = content;
                     listItem.setAttribute('value', item.id);
                     listItem.addEventListener('click', function() {
-                        dropdownButton.textContent =  item.id + ' ' +item.operationName;
+                        dropdownButton.textContent =  content;
                         dropdownButton.setAttribute('selected-value' , item.id);
                         fillFormFromAPI(endpointUrl);
                     });
