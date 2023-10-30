@@ -6,4 +6,5 @@ import pl.usod.model.Subject;
 
 @Repository
 public interface SubjectRepository  extends JpaRepository<Subject,Long> {
+    Subject findSubjectById(Long subjectId);
 }
