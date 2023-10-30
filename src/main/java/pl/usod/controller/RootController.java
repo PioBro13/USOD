@@ -31,4 +31,7 @@ public class RootController {
     @RequestMapping("/adminIndex/editOperationFinances")
     public String editOperationFinances(){return "editOperationFinances";}
 
+    @RequestMapping("/adminIndex/newSubject")
+    public String newSubject(){return "newSubject";}
+
 }

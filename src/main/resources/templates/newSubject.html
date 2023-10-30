@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uczelniany System Obiegu Dokumentów</title>
+  <!-- Dodanie Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header class="bg-primary text-white text-center py-4">
+  <h1><a class="nav-link" href="../">Uczelniany System Obiegu Dokumentów</a></h1>
+</header>
+<nav class="bg-info py-2">
+  <div class="container">
+    <ul class="nav nav-tabs justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#przebieg-studiow">Przebieg studiów</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/financialSummary">Finanse</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#podania">Podania</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<section id="add-term-form">
+  <div class="alert alert-success alert-dismissible fade show" id="success-popup" style="display: none;">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Sukces!</strong> Pomyślnie dodano nowy rekord
+  </div>
+  <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Błąd!</strong> Podczas dodawania rekordu wystąpił błąd. Proszę sprawdź podane dane.
+  </div>
+  <div class="container mt-5">
+    <h2 class="mb-4">Nowy przedmiot w semestrze studenta</h2>
+    <form th:action="@{/api/subject/addSubject}" method="post" id="post-form-data" endpoint="/subject/addSubject">
+      <div class="mb-3">
+        <label for="subjectName" class="form-label">Nazwa przedmiotu:</label>
+        <input type="text" class="form-control" id="subjectName" name="subjectName" required>
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="exam">
+        <label class="form-check-label" for="exam" value="false">Przewidywany egzamin</label>
+      </div>
+      <div class="mb-3">
+        <label for="studentTermNumber" class="form-label">Numer semestru studenta:</label>
+        <input type="number" class="form-control" id="studentTermNumber" name="studentTermNumber">
+      </div>
+      <div class="mb-3">
+        <label for="ectsNumber" class="form-label">Liczba punktów ECTS:</label>
+        <input type="number" class="form-control" id="ectsNumber" name="ectsNumber" required>
+      </div>
+      <div class="mb-3">
+        <label for="instructor" class="form-label">Imię i Nazwisko prowadzącego:</label>
+        <input type="text" class="form-control" id="instructor" name="instructor" required>
+      </div>
+      <div class="mb-3">
+        <label for="termId" class="form-label">Id semestru:</label>
+        <input type="number" class="form-control" id="termId" name="termId" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Dodaj</button>
+    </form>
+  </div>
+</section>
+
+
+<!-- Dodanie Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/js/newEntity.js"></script>
+<script type="text/javascript" src="/js/toggleSwitch.js"></script>
+<script type="text/javascript" src="/js/popup.js"></script>
+</body>
+</html>
