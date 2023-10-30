@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.usod.model.DTO.SubjectDTO;
 import pl.usod.model.Subject;
 import pl.usod.repository.SubjectRepository;
 
@@ -24,9 +25,12 @@ public class SubjectController {
     }
 
     @GetMapping("/{subjectId}")
-    public Subject getOneSubject(@PathVariable Long subjectId){
-        return subjectRepository.findById(subjectId)
-                .orElseThrow(() -> new RuntimeException("no subject with given id"));
+    public ResponseEntity<SubjectDTO> getOneSubject(@PathVariable Long subjectId){
+        Subject subject = subjectRepository.findSubjectById(subjectId);
+        SubjectDTO subjectDTO = new SubjectDTO(subject.getId(),subject.getSubjectName(),subject.getExam(),
+                subject.getStudentTermNumber(),subject.getEctsNumber(),subject.getInstructor(),subject.getGrade(),
+                subject.getTerm().getId());
+        return ResponseEntity.ok(subjectDTO);
     }
 
     @GetMapping("/addSubject")

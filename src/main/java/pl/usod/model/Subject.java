@@ -50,7 +50,7 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
-    public boolean isExam() {
+    public boolean getExam() {
         return exam;
     }
 
@@ -95,6 +95,10 @@ public class Subject {
     }
 
     public void setTermId(Term term) {
+        this.term = term;
+    }
+
+    public void setTerm(Term term) {
         this.term = term;
     }
 }

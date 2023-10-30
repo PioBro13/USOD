@@ -8,9 +8,9 @@ public class SubjectDTO {
     private int ectsNumber;
     private String instructor;
     private int grade;
-    private Long term;
+    private Long termId;
 
-    public SubjectDTO(Long id, String subjectName, boolean exam, int studentTermNumber, int ectsNumber, String instructor, int grade, Long term) {
+    public SubjectDTO(Long id, String subjectName, boolean exam, int studentTermNumber, int ectsNumber, String instructor, int grade, Long termId) {
         this.id = id;
         this.subjectName = subjectName;
         this.exam = exam;
@@ -18,7 +18,7 @@ public class SubjectDTO {
         this.ectsNumber = ectsNumber;
         this.instructor = instructor;
         this.grade = grade;
-        this.term = term;
+        this.termId = termId;
     }
 
     public Long getId() {
@@ -77,11 +77,11 @@ public class SubjectDTO {
         this.grade = grade;
     }
 
-    public Long getTerm() {
-        return term;
+    public Long getTermId() {
+        return termId;
     }
 
-    public void setTerm(Long term) {
-        this.term = term;
+    public void setTermId(Long termId) {
+        this.termId = termId;
     }
 }
