@@ -20,6 +20,12 @@ public class TermController {
         return termRepository.findAll();
     }
 
+    @GetMapping("/{termId}")
+    public Term getOneTerm(@PathVariable Long termId){
+        return  termRepository.findById(termId)
+                .orElseThrow(() -> new RuntimeException("no term with given id"));
+    }
+
     @GetMapping("/addTerm")
     public String showTermForm(Model model) {
         model.addAttribute("term", new Term());
