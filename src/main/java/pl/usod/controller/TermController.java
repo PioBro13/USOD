@@ -1,10 +1,12 @@
 package pl.usod.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.usod.model.DTO.TermDTO;
 import pl.usod.model.Term;
 import pl.usod.repository.TermRepository;
 import java.util.List;
@@ -21,9 +23,13 @@ public class TermController {
     }
 
     @GetMapping("/{termId}")
-    public Term getOneTerm(@PathVariable Long termId){
-        return  termRepository.findById(termId)
-                .orElseThrow(() -> new RuntimeException("no term with given id"));
+    public ResponseEntity<TermDTO> getOneTerm(@PathVariable Long termId){
+        Term term = termRepository.findTermById(termId);
+        TermDTO termDTO = new TermDTO(term.getId(), term.getTermNumber(), term.getRegisterType(),
+                term.getStudentGroup(),term.getStartingECTS(),term.getFinalECTS(),term.getNominalECTS(),
+                term.getObtainedECTS(),term.getSpeciality(),term.getOverallResults().getId(),
+                term.getTermFinances().getId());
+        return ResponseEntity.ok(termDTO);
     }
 
     @GetMapping("/addTerm")

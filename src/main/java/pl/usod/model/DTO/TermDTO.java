@@ -11,8 +11,9 @@ public class TermDTO {
     private int obtainedECTS;
     private String speciality;
     private Long overallResultsId;
+    private Long termFinancesId;
 
-    public TermDTO(Long id, int termNumber, String registerType, String studentGroup, int startingECTS, int finalECTS, int nominalECTS, int obtainedECTS, String speciality, Long overallResultsId) {
+    public TermDTO(Long id, int termNumber, String registerType, String studentGroup, int startingECTS, int finalECTS, int nominalECTS, int obtainedECTS, String speciality, Long overallResultsId ,Long termFinancesId) {
         this.id = id;
         this.termNumber = termNumber;
         this.registerType = registerType;
@@ -23,6 +24,7 @@ public class TermDTO {
         this.obtainedECTS = obtainedECTS;
         this.speciality = speciality;
         this.overallResultsId = overallResultsId;
+        this.termFinancesId = termFinancesId;
     }
 
     public Long getId() {
@@ -103,5 +105,13 @@ public class TermDTO {
 
     public void setOverallResultsId(Long overallResultsId) {
         this.overallResultsId = overallResultsId;
+    }
+
+    public Long getTermFinancesId() {
+        return termFinancesId;
+    }
+
+    public void setTermFinancesId(Long termFinancesId) {
+        this.termFinancesId = termFinancesId;
     }
 }

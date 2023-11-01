@@ -6,4 +6,6 @@ import pl.usod.model.Term;
 
 @Repository
 public interface TermRepository extends JpaRepository<Term, Long> {
+
+    Term findTermById(Long termId);
 }
