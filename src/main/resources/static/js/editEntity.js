@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Data has been modified:', data);
                 const successPopup = document.getElementById('success-edit-popup');
                 showPopup(successPopup);
+                resetDropdown('dropdownMenu');
                 form.reset();
             })
             .catch(error => {

@@ -59,7 +59,7 @@ public class SubjectController {
     }
 
     @DeleteMapping("/deleteSubject/{subjectId}")
-    public ResponseEntity<String> deleteSuject(@PathVariable("subjectId") Long subjectId){
+    public ResponseEntity<String> deleteSubject(@PathVariable("subjectId") Long subjectId){
         subjectRepository.deleteById(subjectId);
         return ResponseEntity.ok("Subject has been removed. ID: " + subjectId);
     }
