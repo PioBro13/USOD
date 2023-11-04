@@ -40,5 +40,7 @@ public class RootController {
     @RequestMapping("/adminIndex/editTerm")
     public String editTerm(){return "editTerm";}
 
+    @RequestMapping("/adminIndex/newOverallResults")
+    public String newOverallResults(){return "newOverallResults";}
 
 }
