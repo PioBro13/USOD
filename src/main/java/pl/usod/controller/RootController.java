@@ -43,4 +43,7 @@ public class RootController {
     @RequestMapping("/adminIndex/newOverallResults")
     public String newOverallResults(){return "newOverallResults";}
 
+    @RequestMapping("/adminIndex/editOverallResults")
+    public String editOverallResults(){return "editOverallResults";}
+
 }

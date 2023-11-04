@@ -8,4 +8,5 @@ import java.util.List;
 public interface OverallResultsRepository extends JpaRepository<OverallResults,Long> {
 
     OverallResults findByStudentId(Long studentId);
+    OverallResults findOverallResultsById(Long overallResultsId);
 }
