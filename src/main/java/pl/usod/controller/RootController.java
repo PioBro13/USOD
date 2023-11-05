@@ -46,4 +46,9 @@ public class RootController {
     @RequestMapping("/adminIndex/editOverallResults")
     public String editOverallResults(){return "editOverallResults";}
 
+    @RequestMapping("/adminIndex/newTermFinances")
+    public String newTermFinances(){return "newTermFinances";}
+
+    @RequestMapping("/adminIndex/editTermFinances")
+    public String editTermFinances(){return "editTermFinances";}
 }
