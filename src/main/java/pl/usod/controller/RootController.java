@@ -51,4 +51,11 @@ public class RootController {
 
     @RequestMapping("/adminIndex/editTermFinances")
     public String editTermFinances(){return "editTermFinances";}
+
+    @RequestMapping("/adminIndex/newOverallFinances")
+    public String newOverallFinances(){return "newOverallFinances";}
+
+    @RequestMapping("/adminIndex/editOverallFinances")
+    public String editOverallFinances(){return "editOverallFinances";}
+
 }

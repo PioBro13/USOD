@@ -1,8 +1,11 @@
 package pl.usod.controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.usod.model.DTO.OverallFinancesDTO;
 import pl.usod.model.OverallFinances;
 import pl.usod.repository.OverallFinancesRepository;
 
@@ -19,8 +22,10 @@ public class OverallFinancesController {
     public List<OverallFinances> getOverallFinances(){return overallFinancesRepository.findAll();}
 
     @GetMapping("/{overallFinancesId}")
-    public OverallFinances getOneOverallFinances(@PathVariable Long overallFinancesId){
-        return overallFinancesRepository.findOverallFinancesById(overallFinancesId);
+    public ResponseEntity<OverallFinancesDTO> getOneOverallFinances(@PathVariable Long overallFinancesId){
+        OverallFinances overallFinances = overallFinancesRepository.findOverallFinancesById(overallFinancesId);
+        OverallFinancesDTO overallFinancesDTO = new OverallFinancesDTO(overallFinances.getId(), overallFinances.getStudent().getId());
+        return ResponseEntity.ok(overallFinancesDTO);
     }
 
     @GetMapping("/addOverallFinances")
@@ -35,6 +40,17 @@ public class OverallFinancesController {
         return overallFinances;
     }
 
+    @PutMapping("/editOverallFinances/{overallFinancesId}")
+    public ResponseEntity<?> editOverallFinances(@PathVariable("overallFinancesId") OverallFinances targetOverallFinances, @ModelAttribute OverallFinances sourceOverallFinances){
+        BeanUtils.copyProperties(sourceOverallFinances,targetOverallFinances);
+        return ResponseEntity.ok(overallFinancesRepository.save(targetOverallFinances));
+    }
+
+    @DeleteMapping("/deleteOverallFinances/{overallFinancesId}")
+    public ResponseEntity<String> deleteTerm(@PathVariable("overallFinancesId") Long overallFinancesId){
+        overallFinancesRepository.deleteById(overallFinancesId);
+        return ResponseEntity.ok("Overall finances has been removed. ID: " + overallFinancesId);
+    }
 
 
 }
