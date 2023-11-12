@@ -24,7 +24,7 @@ public class OverallFinancesController {
     @GetMapping("/{overallFinancesId}")
     public ResponseEntity<OverallFinancesDTO> getOneOverallFinances(@PathVariable Long overallFinancesId){
         OverallFinances overallFinances = overallFinancesRepository.findOverallFinancesById(overallFinancesId);
-        OverallFinancesDTO overallFinancesDTO = new OverallFinancesDTO(overallFinances.getId(), overallFinances.getStudent().getId());
+        OverallFinancesDTO overallFinancesDTO = new OverallFinancesDTO(overallFinances.getId(), overallFinances.getUser().getId());
         return ResponseEntity.ok(overallFinancesDTO);
     }
 

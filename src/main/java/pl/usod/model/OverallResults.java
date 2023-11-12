@@ -18,9 +18,9 @@ public class OverallResults {
 
 
     @OneToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "user_id")
     @JsonBackReference
-    private Student student;
+    private User user;
 
 
     @OneToMany(mappedBy = "overallResults", cascade = CascadeType.ALL)
@@ -37,12 +37,12 @@ public class OverallResults {
 
 
 
-      public Student getStudent() {
-        return student;
+    public User getUser() {
+        return user;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Term> getTerms() {

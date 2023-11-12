@@ -8,8 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 @Entity
-@Table(name = "students")
-public class Student {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,11 +22,11 @@ public class Student {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
 
-    @OneToOne(mappedBy = "student")
+    @OneToOne(mappedBy = "user")
     @JsonManagedReference
     private OverallResults overallResults;
 
-    @OneToOne(mappedBy = "student")
+    @OneToOne(mappedBy = "user")
     @JsonManagedReference
     private OverallFinances overallFinances;
 

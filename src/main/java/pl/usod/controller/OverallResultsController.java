@@ -25,13 +25,13 @@ public class OverallResultsController {
     @GetMapping("/{id}")
     public ResponseEntity<OverallResultsDTO> getOne(@PathVariable Long id){
         OverallResults overallResults = overallResultsRepository.findOverallResultsById(id);
-        OverallResultsDTO overallResultsDTO = new OverallResultsDTO(overallResults.getId(), overallResults.getStudent().getId());
+        OverallResultsDTO overallResultsDTO = new OverallResultsDTO(overallResults.getId(), overallResults.getUser().getId());
         return ResponseEntity.ok(overallResultsDTO);
     }
 
     @GetMapping("/studentId={studentId}")
-    public OverallResults getByStudent(@PathVariable Long studentId){
-        return overallResultsRepository.findByStudentId(studentId);
+    public OverallResults getByStudent(@PathVariable Long userId){
+        return overallResultsRepository.findByUserId(userId);
     }
 
     @GetMapping("/addOverallResults")
