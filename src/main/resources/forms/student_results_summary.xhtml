@@ -1,0 +1,366 @@
+<xh:html xmlns:xh="http://www.w3.org/1999/xhtml"
+         xmlns:xxf="http://orbeon.org/oxf/xml/xforms"
+         xmlns:xxi="http://orbeon.org/oxf/xml/xinclude"
+         xmlns:saxon="http://saxon.sf.net/"
+         xmlns:fr="http://orbeon.org/oxf/xml/form-runner"
+         xmlns:xf="http://www.w3.org/2002/xforms"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:sql="http://orbeon.org/oxf/xml/sql"
+         xmlns:ev="http://www.w3.org/2001/xml-events"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:exf="http://www.exforms.org/exf/1-0"
+         xmlns:array="http://www.w3.org/2005/xpath-functions/array"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+         xmlns:fb="http://orbeon.org/oxf/xml/form-builder"
+         xmlns:map="http://www.w3.org/2005/xpath-functions/map"
+         xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <xh:head>
+        <xh:title>Podsumowanie wyników</xh:title>
+        <xf:model id="fr-form-model" xxf:expose-xpath-types="true" xxf:analysis.calculate="true">
+
+            <!-- Main instance -->
+            <xf:instance id="fr-form-instance" xxf:exclude-result-prefixes="#all" xxf:index="id">
+                <form>
+                    <personal-data-section>
+                        <grid-1>
+                            <name/>
+                            <surname/>
+                            <birth-date/>
+
+                            <student-id/>
+                        </grid-1>
+                    </personal-data-section>
+                    <overall-results-section>
+                        <grid-2/>
+                        <grid-3>
+                            <grid-3-iteration>
+                                <term-number/>
+                                <register-type/>
+                                <student-group/>
+                                <starting-ects/>
+                                <final-ects/>
+                                <nominal-ects/>
+                                <obtained-ects/>
+                                <speciality/>
+                                <ects-difference/>
+                            </grid-3-iteration>
+                        </grid-3>
+                        <grid-4/>
+                    </overall-results-section>
+                </form>
+            </xf:instance>
+
+            <!-- Bindings -->
+            <xf:bind id="fr-form-binds" ref="instance('fr-form-instance')">
+                <xf:bind id="personal-data-section-bind" name="personal-data-section"
+                         ref="personal-data-section">
+                    <xf:bind id="grid-1-bind" ref="grid-1" name="grid-1">
+                        <xf:bind id="name-bind" name="name" ref="name" xxf:whitespace="trim"
+                                 calculate="fr:dataset('studentDataset')//name"/>
+                        <xf:bind id="surname-bind" ref="surname" name="surname" xxf:whitespace="trim"
+                                 calculate="fr:dataset('studentDataset')//surname"/>
+                        <xf:bind id="student-id-bind" ref="student-id" name="student-id" xxf:whitespace="trim"/>
+                        <xf:bind id="birth-date-bind" ref="birth-date" name="birth-date" type="xf:date"
+                                 calculate="fr:dataset('studentDataset')//birthDate"/>
+
+                    </xf:bind>
+                </xf:bind>
+                <xf:bind id="overall-results-section-bind" ref="overall-results-section"
+                         name="overall-results-section">
+                    <xf:bind id="grid-2-bind" ref="grid-2" name="grid-2"/>
+                    <xf:bind id="grid-3-bind" ref="grid-3" name="grid-3">
+                        <xf:bind id="grid-3-iteration-bind" ref="grid-3-iteration" name="grid-3-iteration">
+                            <xf:bind id="term-number-bind" ref="term-number" name="term-number"
+                                     xxf:whitespace="trim"/>
+                            <xf:bind id="register-type-bind" ref="register-type" name="register-type"
+                                     xxf:whitespace="trim"/>
+                            <xf:bind id="student-group-bind" ref="student-group" name="student-group"
+                                     xxf:whitespace="trim"/>
+                            <xf:bind id="starting-ects-bind" ref="starting-ects" name="starting-ects"
+                                     xxf:whitespace="trim"/>
+                            <xf:bind id="final-ects-bind" ref="final-ects" name="final-ects" xxf:whitespace="trim"/>
+                            <xf:bind id="nominal-ects-bind" ref="nominal-ects" name="nominal-ects"
+                                     xxf:whitespace="trim"/>
+                            <xf:bind id="obtained-ects-bind" ref="obtained-ects" name="obtained-ects"
+                                     xxf:whitespace="trim"/>
+                            <xf:bind id="speciality-bind" ref="speciality" name="speciality" xxf:whitespace="trim"/>
+                            <xf:bind id="ects-difference-bind" ref="ects-difference" name="ects-difference"
+                                     xxf:whitespace="trim"/>
+                        </xf:bind>
+                    </xf:bind>
+                    <xf:bind id="grid-4-bind" ref="grid-4" name="grid-4"/>
+                </xf:bind>
+            </xf:bind>
+
+            <!-- Metadata -->
+            <xf:instance id="fr-form-metadata" xxf:readonly="true" xxf:exclude-result-prefixes="#all">
+                <metadata>
+                    <application-name>summary</application-name>
+                    <form-name>student_results_summary</form-name>
+                    <title xml:lang="pl">Podsumowanie wyników</title>
+                    <description xml:lang="pl">Podsumowanie wyników studenta</description>
+                    <created-with-version>2022.1.4.1.202305310006 PE</created-with-version>
+                    <updated-with-version>2022.1.4.1.202305310006 PE</updated-with-version>
+                    <email>
+                        <templates>
+                            <template name="default">
+                                <form-fields/>
+                            </template>
+                        </templates>
+                        <parameters/>
+                    </email>
+                    <library-versions>
+                        <orbeon>1</orbeon>
+                    </library-versions>
+                    <xbl>
+                        <fr:number decimal-separator="," grouping-separator=" " digits-after-decimal="2"/>
+                        <fr:time output-format="[H]:[m]:[s]"/>
+                    </xbl>
+                </metadata>
+            </xf:instance>
+
+            <!-- Attachments -->
+            <xf:instance id="fr-form-attachments" xxf:exclude-result-prefixes="#all">
+                <attachments/>
+            </xf:instance>
+
+            <!-- All form resources -->
+            <xf:instance xxf:readonly="true" id="fr-form-resources" xxf:exclude-result-prefixes="#all">
+                <resources>
+                    <resource xml:lang="pl">
+                        <term-number>
+                            <label>Numer semestru</label>
+                            <hint/>
+                        </term-number>
+                        <register-type>
+                            <label>Typ rejestracji</label>
+                            <hint/>
+                        </register-type>
+                        <student-group>
+                            <label>Grupa studencka</label>
+                            <hint/>
+                        </student-group>
+                        <starting-ects>
+                            <label>Początkowe ECTS</label>
+                            <hint/>
+                        </starting-ects>
+                        <final-ects>
+                            <label>Końcowe ECTS</label>
+                            <hint/>
+                        </final-ects>
+                        <nominal-ects>
+                            <label>Nominalne ECTS</label>
+                            <hint/>
+                        </nominal-ects>
+                        <obtained-ects>
+                            <label>Zdobyte ECTS</label>
+                            <hint/>
+                        </obtained-ects>
+                        <speciality>
+                            <label>Specjalizacja</label>
+                            <hint/>
+                        </speciality>
+                        <ects-difference>
+                            <label>Różnica ECTS</label>
+                            <hint/>
+                        </ects-difference>
+                        <personal-data-section>
+                            <label>Dane osobowe</label>
+                        </personal-data-section>
+                        <overall-results-section>
+                            <label>Podsumowanie przebiegu studiów</label>
+                        </overall-results-section>
+                        <name>
+                            <label>Imię</label>
+                            <hint/>
+                        </name>
+                        <surname>
+                            <label>Nazwisko</label>
+                            <hint/>
+                        </surname>
+                        <birth-date>
+                            <label>Data urodzenia</label>
+                            <hint/>
+                        </birth-date>
+
+                        <student-id>
+                            <label>Id studenta</label>
+                            <hint/>
+                        </student-id>
+                    </resource>
+                </resources>
+            </xf:instance>
+            <xf:instance xxf:readonly="true" xxf:exclude-result-prefixes="#all" id="grid-3-template">
+                <grid-3-iteration>
+                    <term-number/>
+                    <register-type/>
+                    <student-group/>
+                    <starting-ects/>
+                    <final-ects/>
+                    <nominal-ects/>
+                    <obtained-ects/>
+                    <speciality/>
+                    <ects-difference/>
+                </grid-3-iteration>
+            </xf:instance>
+            <xf:instance id="getStudentData-instance" class="fr-service"
+                         xxf:exclude-result-prefixes="#all">
+                <body xmlns:xxbl="http://orbeon.org/oxf/xml/xbl"
+                      xmlns:fbf="java:org.orbeon.oxf.fb.FormBuilderXPathApi">&lt;params&gt;
+                &lt;param name="id"/&gt;
+                &lt;/params&gt;</body>
+            </xf:instance>
+            <xf:submission id="getStudentData-submission" class="fr-service"
+                           resource="http://localhost:8080/api/users/user"
+                           method="get"
+                           serialization="application/x-www-form-urlencoded"
+                           mediatype="application/x-www-form-urlencoded"/>
+            <xf:action id="getStudentData-binding">
+                <xf:action event="xforms-value-changed" ev:observer="student-id-control" if="true()">
+                    <xf:send submission="getStudentData-submission"/>
+                </xf:action>
+                <xf:action event="xforms-submit" ev:observer="getStudentData-submission">
+                    <xf:var name="request-instance-name" value="'getStudentData-instance'"/>
+                    <xf:action>
+                        <xf:action class="fr-set-service-value-action">
+                            <xf:var name="control-name" value="'student-id'"/>
+                            <xf:var name="parameter-name" value="'id'"/>
+                        </xf:action>
+                    </xf:action>
+                </xf:action>
+                <xf:action event="xforms-submit-done" ev:observer="getStudentData-submission">
+                    <xf:action class="fr-save-to-dataset-action">
+                        <xf:var name="dataset-name">studentDataset</xf:var>
+                    </xf:action>
+                </xf:action>
+            </xf:action>
+        </xf:model>
+    </xh:head>
+    <xh:body>
+        <fr:view>
+            <fr:body xmlns:xbl="http://www.w3.org/ns/xbl" xmlns:p="http://www.orbeon.com/oxf/pipeline"
+                     xmlns:oxf="http://www.orbeon.com/oxf/processors">
+                <fr:section id="personal-data-section-section" bind="personal-data-section-bind">
+                    <xf:label ref="$form-resources/personal-data-section/label"/>
+                    <fr:grid id="grid-1-grid" bind="grid-1-bind">
+                        <fr:c y="1" x="1" w="6">
+                            <xf:input id="name-control" bind="name-bind">
+                                <xf:label ref="$form-resources/name/label"/>
+                                <xf:hint ref="$form-resources/name/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+                            </xf:input>
+                        </fr:c>
+                        <fr:c y="1" x="7" w="6">
+                            <xf:input id="surname-control" bind="surname-bind">
+                                <xf:label ref="$form-resources/surname/label"/>
+                                <xf:hint ref="$form-resources/surname/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="1" y="2" w="6">
+                            <fr:date xmlns:xxbl="http://orbeon.org/oxf/xml/xbl"
+                                     xmlns:DateSupport="java:org.orbeon.xbl.DateSupportJava"
+                                     id="birth-date-control"
+                                     bind="birth-date-bind">
+                                <xf:label ref="$form-resources/birth-date/label"/>
+                                <xf:hint ref="$form-resources/birth-date/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+                            </fr:date>
+
+                        </fr:c>
+                        <fr:c x="7" y="2" w="6">
+                            <xf:input id="student-id-control" bind="student-id-bind">
+                                <xf:label ref="$form-resources/student-id/label"/>
+                                <xf:hint ref="$form-resources/student-id/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+                            </xf:input>
+                        </fr:c>
+                    </fr:grid>
+                </fr:section>
+                <fr:section id="overall-results-section-section" bind="overall-results-section-bind">
+                    <xf:label ref="$form-resources/overall-results-section/label"/>
+                    <fr:grid id="grid-2-grid" bind="grid-2-bind">
+                        <fr:c x="1" y="1" w="12"/>
+                    </fr:grid>
+                    <fr:grid id="grid-3-grid" bind="grid-3-bind" repeat="content" min="1"
+                             template="instance('grid-3-template')"
+                             apply-defaults="true"
+                             fb:initial-iterations="first">
+                        <fr:c x="1" y="1" w="4">
+                            <xf:input id="term-number-control" bind="term-number-bind">
+                                <xf:label ref="$form-resources/term-number/label"/>
+                                <xf:hint ref="$form-resources/term-number/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="5" y="1" w="4" h="1">
+                            <xf:input id="register-type-control" bind="register-type-bind">
+                                <xf:label ref="$form-resources/register-type/label"/>
+                                <xf:hint ref="$form-resources/register-type/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="9" y="1" w="4">
+                            <xf:input id="student-group-control" bind="student-group-bind">
+                                <xf:label ref="$form-resources/student-group/label"/>
+                                <xf:hint ref="$form-resources/student-group/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="1" y="2" w="4">
+                            <xf:input id="starting-ects-control" bind="starting-ects-bind">
+                                <xf:label ref="$form-resources/starting-ects/label"/>
+                                <xf:hint ref="$form-resources/starting-ects/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="5" y="2" w="4" h="1">
+                            <xf:input id="final-ects-control" bind="final-ects-bind">
+                                <xf:label ref="$form-resources/final-ects/label"/>
+                                <xf:hint ref="$form-resources/final-ects/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="9" y="2" w="4">
+                            <xf:input id="nominal-ects-control" bind="nominal-ects-bind">
+                                <xf:label ref="$form-resources/nominal-ects/label"/>
+                                <xf:hint ref="$form-resources/nominal-ects/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="1" y="3" w="4">
+                            <xf:input id="obtained-ects-control" bind="obtained-ects-bind">
+                                <xf:label ref="$form-resources/obtained-ects/label"/>
+                                <xf:hint ref="$form-resources/obtained-ects/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="5" y="3" w="4">
+                            <xf:input id="speciality-control" bind="speciality-bind">
+                                <xf:label ref="$form-resources/speciality/label"/>
+                                <xf:hint ref="$form-resources/speciality/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="9" y="3" w="4">
+                            <xf:input id="ects-difference-control" bind="ects-difference-bind">
+                                <xf:label ref="$form-resources/ects-difference/label"/>
+                                <xf:hint ref="$form-resources/ects-difference/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+                            </xf:input>
+                        </fr:c>
+                    </fr:grid>
+                    <fr:grid id="grid-4-grid" bind="grid-4-bind">
+                        <fr:c x="1" y="1" w="6"/>
+                        <fr:c x="7" y="1" w="6"/>
+                    </fr:grid>
+                </fr:section>
+                <fr:xforms-inspector/>
+            </fr:body>
+        </fr:view>
+    </xh:body>
+</xh:html>
