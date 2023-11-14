@@ -18,8 +18,8 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public User getOne(@PathVariable Long id){
+    @GetMapping("/user")
+    public User getOne(@RequestParam Long id){
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("no student with given id"));
     }
