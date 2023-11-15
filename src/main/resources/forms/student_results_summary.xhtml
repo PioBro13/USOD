@@ -23,16 +23,16 @@
             <xf:instance id="fr-form-instance" xxf:exclude-result-prefixes="#all" xxf:index="id">
                 <form>
                     <personal-data-section>
-                        <grid-1>
+                        <personal-data-grid>
                             <name/>
                             <surname/>
                             <birth-date/>
 
                             <student-id/>
-                        </grid-1>
+                        </personal-data-grid>
                     </personal-data-section>
                     <overall-results-section>
-                        <grid-2/>
+
                         <overall-results-repeat>
                             <overall-results-repeat-iteration>
                                 <term-number/>
@@ -46,8 +46,15 @@
                                 <ects-difference/>
                             </overall-results-repeat-iteration>
                         </overall-results-repeat>
-                        <grid-4/>
+                        <overall-results-grid/>
+
                     </overall-results-section>
+                    <term-results-section>
+                        <term-results-grid>
+                            <term/>
+
+                        </term-results-grid>
+                    </term-results-section>
                 </form>
             </xf:instance>
 
@@ -55,7 +62,7 @@
             <xf:bind id="fr-form-binds" ref="instance('fr-form-instance')">
                 <xf:bind id="personal-data-section-bind" name="personal-data-section"
                          ref="personal-data-section">
-                    <xf:bind id="grid-1-bind" ref="grid-1" name="grid-1">
+                    <xf:bind id="personal-data-grid-bind" ref="personal-data-grid" name="personal-data-grid">
                         <xf:bind id="name-bind" name="name" ref="name" xxf:whitespace="trim"
                                  calculate="fr:dataset('studentDataset')//name"/>
                         <xf:bind id="surname-bind" ref="surname" name="surname" xxf:whitespace="trim"
@@ -68,7 +75,7 @@
                 </xf:bind>
                 <xf:bind id="overall-results-section-bind" ref="overall-results-section"
                          name="overall-results-section">
-                    <xf:bind id="grid-2-bind" ref="grid-2" name="grid-2"/>
+
                     <xf:bind id="overall-results-repeat-bind" ref="overall-results-repeat"
                              name="overall-results-repeat">
                         <xf:bind id="overall-results-repeat-iteration-bind"
@@ -89,10 +96,21 @@
                                      xxf:whitespace="trim"/>
                             <xf:bind id="speciality-bind" ref="speciality" name="speciality" xxf:whitespace="trim"/>
                             <xf:bind id="ects-difference-bind" ref="ects-difference" name="ects-difference"
-                                     xxf:whitespace="trim"/>
+                                     xxf:whitespace="trim"
+                                     calculate="$obtained-ects - $nominal-ects"
+                                     readonly="false()"/>
                         </xf:bind>
                     </xf:bind>
-                    <xf:bind id="grid-4-bind" ref="grid-4" name="grid-4"/>
+                    <xf:bind id="overall-results-grid-bind" ref="overall-results-grid"
+                             name="overall-results-grid"/>
+
+                </xf:bind>
+                <xf:bind id="term-results-section-bind" ref="term-results-section"
+                         name="term-results-section">
+                    <xf:bind id="term-results-grid-bind" ref="term-results-grid" name="term-results-grid">
+                        <xf:bind id="term-bind" ref="term" name="term"/>
+
+                    </xf:bind>
                 </xf:bind>
             </xf:bind>
 
@@ -133,6 +151,14 @@
             <xf:instance xxf:readonly="true" id="fr-form-resources" xxf:exclude-result-prefixes="#all">
                 <resources>
                     <resource xml:lang="pl">
+                        <term>
+                            <label/>
+                            <hint/>
+
+
+
+                        </term>
+
                         <term-number>
                             <label>Numer semestru</label>
                             <hint/>
@@ -175,6 +201,9 @@
                         <overall-results-section>
                             <label>Podsumowanie przebiegu studiów</label>
                         </overall-results-section>
+                        <term-results-section>
+                            <label>Podsumowanie semestru</label>
+                        </term-results-section>
                         <name>
                             <label>Imię</label>
                             <hint/>
@@ -209,6 +238,15 @@
                     <ects-difference/>
                 </overall-results-repeat-iteration>
             </xf:instance>
+            <xf:instance id="empty-term">
+                <root>
+                    <_>
+                        <empty-item-label>Nie wybieram żadnego semestru</empty-item-label>
+                        <empty-item-value>none</empty-item-value>
+                    </_>
+                </root>
+
+            </xf:instance>
             <xf:instance id="getStudentData-instance" class="fr-service"
                          xxf:exclude-result-prefixes="#all">
                 <body xmlns:xxbl="http://orbeon.org/oxf/xml/xbl"
@@ -238,6 +276,46 @@
                     <xf:action class="fr-save-to-dataset-action">
                         <xf:var name="dataset-name">studentDataset</xf:var>
                     </xf:action>
+                    <xf:action class="fr-itemset-action">
+                        <xf:var name="control-name" value="'term'"/>
+                        <xf:var name="response-items" value="(//term/_ | instance('empty-term')//_)"/>
+                        <xf:var name="item-label" value="/termNumber | empty-item-label"/>
+                        <xf:var name="item-value" value="/termNumber | empty-item-value"/>
+                    </xf:action>
+                </xf:action>
+            </xf:action>
+            <xf:dispatch name="load-student-data" delay="10" targetid="fr-form-model"
+                         event="xforms-submit-done"
+                         ev:observer="getStudentData-submission"/>
+            <xf:action event="load-student-data" if="true()">
+                <xf:var name="insert-template"
+                        select="xxf:extract-document(instance('overall-results-repeat-template'))">
+                </xf:var>
+                <xf:delete ref="instance('fr-form-instance')//overall-results-repeat-iteration"/>
+                <xf:action iterate="fr:dataset('studentDataset')//overallResults/terms/_">
+                    <xf:var name="current" select="."/>
+                    <xf:setvalue ref="$insert-template//term-number" value="$current//termNumber"/>
+                    <xf:setvalue ref="$insert-template//register-type" value="$current//registerType"/>
+                    <xf:setvalue ref="$insert-template//student-group" value="$current//studentGroup"/>
+                    <xf:setvalue ref="$insert-template//starting-ects" value="$current//startingECTS"/>
+                    <xf:setvalue ref="$insert-template//final-ects" value="$current//finalECTS"/>
+                    <xf:setvalue ref="$insert-template//nominal-ects" value="$current//nominalECTS"/>
+                    <xf:setvalue ref="$insert-template//obtained-ects" value="$current//obtainedECTS"/>
+                    <xf:setvalue ref="$insert-template//speciality" value="$current//speciality"/>
+
+
+                    <xf:insert if="count(instance('fr-form-instance')//overall-results-section/overall-results-repeat/overall-results-repeat-iteration) &gt; 0"
+                               ref="instance('fr-form-instance')//overall-results-section/overall-results-repeat/overall-results-repeat-iteration"
+                               at="last()"
+                               position="after"
+                               origin="$insert-template">
+                    </xf:insert>
+                    <xf:insert if="count(instance('fr-form-instance')//overall-results-section/overall-results-repeat/overall-results-repeat-iteration) = 0"
+                               context="instance('fr-form-instance')//overall-results-section/overall-results-repeat"
+                               at="last()"
+                               origin="$insert-template">
+
+                    </xf:insert>
                 </xf:action>
             </xf:action>
         </xf:model>
@@ -248,7 +326,7 @@
                      xmlns:oxf="http://www.orbeon.com/oxf/processors">
                 <fr:section id="personal-data-section-section" bind="personal-data-section-bind">
                     <xf:label ref="$form-resources/personal-data-section/label"/>
-                    <fr:grid id="grid-1-grid" bind="grid-1-bind">
+                    <fr:grid id="personal-data-grid-grid" bind="personal-data-grid-bind">
                         <fr:c y="1" x="1" w="6">
                             <xf:input id="name-control" bind="name-bind">
                                 <xf:label ref="$form-resources/name/label"/>
@@ -288,9 +366,7 @@
                 </fr:section>
                 <fr:section id="overall-results-section-section" bind="overall-results-section-bind">
                     <xf:label ref="$form-resources/overall-results-section/label"/>
-                    <fr:grid id="grid-2-grid" bind="grid-2-bind">
-                        <fr:c x="1" y="1" w="12"/>
-                    </fr:grid>
+
                     <fr:grid id="overall-results-repeat-grid" bind="overall-results-repeat-bind"
                              repeat="content"
                              min="1"
@@ -358,13 +434,15 @@
                                 <xf:label ref="$form-resources/ects-difference/label"/>
                                 <xf:hint ref="$form-resources/ects-difference/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
                             </xf:input>
                         </fr:c>
                     </fr:grid>
-                    <fr:grid id="grid-4-grid" bind="grid-4-bind">
+                    <fr:grid id="overall-results-grid-grid" bind="overall-results-grid-bind">
                         <fr:c x="1" y="1" w="6"/>
                         <fr:c x="7" y="1" w="6"/>
                     </fr:grid>
+
                     <br/>
                     <xh:table border="1" width="100%">
                         <xh:tr class="table-header">
@@ -410,6 +488,29 @@
                             </xh:tr>
                         </xf:repeat>
                     </xh:table>
+                </fr:section>
+                <fr:section id="term-results-section-section" bind="term-results-section-bind">
+                    <xf:label ref="$form-resources/term-results-section/label"/>
+                    <fr:grid id="term-results-grid-grid" bind="term-results-grid-bind">
+                        <fr:c x="1" y="1" w="6">
+                            <xf:select1 id="term-control" bind="term-bind" appearance="dropdown">
+                                <xf:label ref="$form-resources/term/label"/>
+                                <xf:hint ref="$form-resources/term/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+
+                                <xf:itemset ref="$form-resources/term/item">
+                                    <xf:label ref="label"/>
+                                    <xf:value ref="value"/>
+                                    <xf:hint ref="hint"/>
+                                </xf:itemset>
+                            </xf:select1>
+
+                        </fr:c>
+                        <fr:c x="7" y="1" w="6"/>
+                        <fr:c x="1" y="2" w="6"/>
+                        <fr:c x="7" y="2" w="6"/>
+                    </fr:grid>
                 </fr:section>
                 <fr:xforms-inspector/>
             </fr:body>
