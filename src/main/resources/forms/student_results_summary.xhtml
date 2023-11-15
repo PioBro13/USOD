@@ -53,7 +53,19 @@
                         <term-results-grid>
                             <term/>
 
+
+
                         </term-results-grid>
+                        <term-subjects-repeat>
+                            <term-subjects-repeat-iteration>
+                                <subject-name/>
+                                <exam/>
+                                <student-term-number/>
+                                <ects-number/>
+                                <instructor/>
+                                <grade/>
+                            </term-subjects-repeat-iteration>
+                        </term-subjects-repeat>
                     </term-results-section>
                 </form>
             </xf:instance>
@@ -110,6 +122,28 @@
                     <xf:bind id="term-results-grid-bind" ref="term-results-grid" name="term-results-grid">
                         <xf:bind id="term-bind" ref="term" name="term"/>
 
+
+
+                    </xf:bind>
+                    <xf:bind id="term-subjects-repeat-bind" ref="term-subjects-repeat"
+                             name="term-subjects-repeat">
+                        <xf:bind id="term-subjects-repeat-iteration-bind" ref="term-subjects-repeat-iteration"
+                                 name="term-subjects-repeat-iteration">
+                            <xf:bind id="subject-name-bind" ref="subject-name" name="subject-name"
+                                     xxf:whitespace="trim"/>
+                            <xf:bind id="exam-bind" ref="exam" name="exam" xxf:whitespace="trim"
+                                     calculate="if (. != 'true') then 'NIE' else 'TAK'"
+                                     readonly="false()"/>
+                            <xf:bind id="student-term-number-bind" ref="student-term-number"
+                                     name="student-term-number"
+                                     xxf:whitespace="trim"/>
+                            <xf:bind id="ects-number-bind" ref="ects-number" name="ects-number"
+                                     xxf:whitespace="trim"/>
+                            <xf:bind id="instructor-bind" ref="instructor" name="instructor" xxf:whitespace="trim"/>
+                            <xf:bind id="grade-bind" ref="grade" name="grade" xxf:whitespace="trim"
+                                     calculate="if(. &gt; 1) then . else '-'"
+                                     readonly="false()"/>
+                        </xf:bind>
                     </xf:bind>
                 </xf:bind>
             </xf:bind>
@@ -151,13 +185,39 @@
             <xf:instance xxf:readonly="true" id="fr-form-resources" xxf:exclude-result-prefixes="#all">
                 <resources>
                     <resource xml:lang="pl">
+                        <subject-name>
+                            <label>Nazwa przedmiotu</label>
+                            <hint/>
+                        </subject-name>
+                        <exam>
+                            <label>Egzamin</label>
+                            <hint/>
+                        </exam>
+                        <student-term-number>
+                            <label>Numer semestru studenta</label>
+                            <hint/>
+                        </student-term-number>
+                        <ects-number>
+                            <label>Liczba ECTS</label>
+                            <hint/>
+                        </ects-number>
+                        <instructor>
+                            <label>Prowadzący</label>
+                            <hint/>
+                        </instructor>
+                        <grade>
+                            <label>Ocena</label>
+                            <hint/>
+                        </grade>
                         <term>
-                            <label/>
+                            <label>Semestr</label>
                             <hint/>
 
 
 
                         </term>
+
+
 
                         <term-number>
                             <label>Numer semestru</label>
@@ -247,6 +307,17 @@
                 </root>
 
             </xf:instance>
+            <xf:instance xxf:readonly="true" xxf:exclude-result-prefixes="#all"
+                         id="term-subjects-repeat-template">
+                <term-subjects-repeat-iteration>
+                    <subject-name/>
+                    <exam/>
+                    <student-term-number/>
+                    <ects-number/>
+                    <instructor/>
+                    <grade/>
+                </term-subjects-repeat-iteration>
+            </xf:instance>
             <xf:instance id="getStudentData-instance" class="fr-service"
                          xxf:exclude-result-prefixes="#all">
                 <body xmlns:xxbl="http://orbeon.org/oxf/xml/xbl"
@@ -278,9 +349,9 @@
                     </xf:action>
                     <xf:action class="fr-itemset-action">
                         <xf:var name="control-name" value="'term'"/>
-                        <xf:var name="response-items" value="(//term/_ | instance('empty-term')//_)"/>
-                        <xf:var name="item-label" value="/termNumber | empty-item-label"/>
-                        <xf:var name="item-value" value="/termNumber | empty-item-value"/>
+                        <xf:var name="response-items" value="(//terms/_ | instance('empty-term')//_)"/>
+                        <xf:var name="item-label" value="termNumber | empty-item-label"/>
+                        <xf:var name="item-value" value="termNumber | empty-item-value"/>
                     </xf:action>
                 </xf:action>
             </xf:action>
@@ -369,10 +440,12 @@
 
                     <fr:grid id="overall-results-repeat-grid" bind="overall-results-repeat-bind"
                              repeat="content"
-                             min="1"
+                             min="{'1000'}"
                              template="instance('overall-results-repeat-template')"
                              apply-defaults="true"
-                             fb:initial-iterations="first">
+                             fb:initial-iterations="first"
+                             max="{'0'}"
+                             freeze="{'1000'}">
                         <fr:c x="1" y="1" w="4">
                             <xf:input id="term-number-control" bind="term-number-bind">
                                 <xf:label ref="$form-resources/term-number/label"/>
@@ -474,7 +547,7 @@
                                     <xf:output value="./final-ects"/>
                                 </xh:td>
                                 <xh:td class="td-number-value">
-                                    <xf:output value="nominal-ects"/>
+                                    <xf:output value="./nominal-ects"/>
                                 </xh:td>
                                 <xh:td class="td-number-value">
                                     <xf:output value="./obtained-ects"/>
@@ -507,10 +580,106 @@
                             </xf:select1>
 
                         </fr:c>
-                        <fr:c x="7" y="1" w="6"/>
-                        <fr:c x="1" y="2" w="6"/>
-                        <fr:c x="7" y="2" w="6"/>
+                        <fr:c x="7" y="1" w="6">
+
+                        </fr:c>
+
+
                     </fr:grid>
+                    <fr:grid id="term-subjects-repeat-grid" bind="term-subjects-repeat-bind"
+                             repeat="content"
+                             min="1"
+                             template="instance('term-subjects-repeat-template')"
+                             apply-defaults="true"
+                             fb:initial-iterations="first">
+                        <fr:c x="1" y="1" w="4">
+                            <xf:input id="subject-name-control" bind="subject-name-bind">
+                                <xf:label ref="$form-resources/subject-name/label"/>
+                                <xf:hint ref="$form-resources/subject-name/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="5" y="1" w="4" h="1">
+                            <xf:input id="exam-control" bind="exam-bind">
+                                <xf:label ref="$form-resources/exam/label"/>
+                                <xf:hint ref="$form-resources/exam/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="9" y="1" w="4">
+                            <xf:input id="student-term-number-control" bind="student-term-number-bind">
+                                <xf:label ref="$form-resources/student-term-number/label"/>
+                                <xf:hint ref="$form-resources/student-term-number/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="1" y="2" w="4">
+                            <xf:input id="ects-number-control" bind="ects-number-bind">
+                                <xf:label ref="$form-resources/ects-number/label"/>
+                                <xf:hint ref="$form-resources/ects-number/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="5" y="2" w="4">
+                            <xf:input id="instructor-control" bind="instructor-bind">
+                                <xf:label ref="$form-resources/instructor/label"/>
+                                <xf:hint ref="$form-resources/instructor/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="9" y="2" w="4">
+                            <xf:input id="grade-control" bind="grade-bind">
+                                <xf:label ref="$form-resources/grade/label"/>
+                                <xf:hint ref="$form-resources/grade/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+
+                            </xf:input>
+                        </fr:c>
+                    </fr:grid>
+                    <br/>
+                    <xh:table border="1" width="100%">
+                        <xh:tr class="table-header">
+                            <xh:th>Nazwa przedmiotu</xh:th>
+                            <xh:th>Egzamin</xh:th>
+                            <xh:th>Numer semestru studenta</xh:th>
+                            <xh:th>Liczba ECTS</xh:th>
+                            <xh:th>Prowadzący</xh:th>
+                            <xh:th>Ocena</xh:th>
+                        </xh:tr>
+                        <xf:repeat ref=".//term-subjects-repeat-iteration">
+                            <xh:tr>
+                                <xh:td class="td-text-value">
+                                    <xf:output value="./subject-name"/>
+                                </xh:td>
+                                <xh:td class="td-text-value">
+                                    <xf:output value="./exam"/>
+                                </xh:td>
+                                <xh:td class="td-text-value">
+                                    <xf:output value="./student-term-number"/>
+                                </xh:td>
+                                <xh:td class="td-number-value">
+                                    <xf:output value="./ects-number"/>
+                                </xh:td>
+                                <xh:td class="td-number-value">
+                                    <xf:output value="./instructor"/>
+                                </xh:td>
+                                <xh:td class="td-number-value">
+                                    <xf:output value="./grade"/>
+                                </xh:td>
+                            </xh:tr>
+                        </xf:repeat>
+                    </xh:table>
                 </fr:section>
                 <fr:xforms-inspector/>
             </fr:body>
