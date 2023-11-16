@@ -333,6 +333,10 @@
                            method="get"
                            serialization="application/x-www-form-urlencoded"
                            mediatype="application/x-www-form-urlencoded"/>
+            <xf:action event="xforms-ready">
+                <xf:delete ref="instance('fr-form-instance')//overall-results-repeat-iteration"/>
+                <xf:delete ref="instance('fr-form-instance')//term-subjects-repeat-iteration"/>
+            </xf:action>
             <xf:action id="getStudentData-binding">
                 <xf:action event="xforms-value-changed" ev:observer="student-id-control" if="true()">
                     <xf:send submission="getStudentData-submission"/>
@@ -399,8 +403,7 @@
                 <xf:var name="insert-template"
                         select="xxf:extract-document(instance('term-subjects-repeat-template'))">
                 </xf:var>
-                <xf:var name="selected-term"
-                        value="instance('fr-form-instance')//term"/>
+                <xf:var name="selected-term" value="instance('fr-form-instance')//term"/>
                 <xf:delete ref="instance('fr-form-instance')//term-subjects-repeat-iteration"/>
                 <xf:action iterate="fr:dataset('studentDataset')//overallResults/terms/_[./termNumber = $selected-term]/subjects/_">
                     <xf:var name="current" select="."/>
@@ -482,7 +485,8 @@
                              apply-defaults="true"
                              fb:initial-iterations="first"
                              max="{'0'}"
-                             freeze="{'1000'}">
+                             freeze="{'1000'}"
+                             class="hide-section">
                         <fr:c x="1" y="1" w="4">
                             <xf:input id="term-number-control" bind="term-number-bind">
                                 <xf:label ref="$form-resources/term-number/label"/>
@@ -628,7 +632,8 @@
                              min="1"
                              template="instance('term-subjects-repeat-template')"
                              apply-defaults="true"
-                             fb:initial-iterations="first">
+                             fb:initial-iterations="first"
+                             class="hide-section">
                         <fr:c x="1" y="1" w="4">
                             <xf:input id="subject-name-control" bind="subject-name-bind">
                                 <xf:label ref="$form-resources/subject-name/label"/>
