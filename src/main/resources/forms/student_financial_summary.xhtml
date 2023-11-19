@@ -94,8 +94,8 @@
                         <xf:bind id="surname-bind" ref="surname" name="surname" xxf:whitespace="trim"
                                  calculate="fr:dataset('studentDataset')//surname"/>
                         <xf:bind id="student-id-bind" ref="student-id" name="student-id" xxf:whitespace="trim"/>
-                        <xf:bind id="birth-date-bind" ref="birth-date" name="birth-date" type="xf:date"
-                                 calculate="fr:dataset('studentDataset')//birthDate"/>
+                        <xf:bind id="birth-date-bind" ref="birth-date" name="birth-date"
+                                 calculate="format-date(xs:date(substring-before((fr:dataset('studentDataset')//birthDate), 'T')), '[D01]-[M01]-[Y0001]')"/>
                         <xf:bind id="show-overall-finances-bind" ref="show-overall-finances"
                                  name="show-overall-finances"/>
 
@@ -486,15 +486,13 @@
                             </xf:input>
                         </fr:c>
                         <fr:c x="1" y="2" w="6">
-                            <fr:date xmlns:xxbl="http://orbeon.org/oxf/xml/xbl"
-                                     xmlns:DateSupport="java:org.orbeon.xbl.DateSupportJava"
-                                     id="birth-date-control"
-                                     bind="birth-date-bind">
+                            <xf:input id="birth-date-control" bind="birth-date-bind">
                                 <xf:label ref="$form-resources/birth-date/label"/>
                                 <xf:hint ref="$form-resources/birth-date/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
 
-                            </fr:date>
+
+                            </xf:input>
 
                         </fr:c>
                         <fr:c x="7" y="2" w="6">
