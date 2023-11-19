@@ -124,9 +124,7 @@
 
                             <xf:bind id="term-operation-type-bind" ref="term-operation-type"
                                      name="term-operation-type"
-                                     xxf:whitespace="trim"
-                                     calculate="if (. != 'true') then 'NIE' else 'TAK'"
-                                     readonly="false()"/>
+                                     xxf:whitespace="trim"/>
                             <xf:bind id="term-operation-id-bind" ref="term-operation-id" name="term-operation-id"
                                      xxf:whitespace="trim"/>
                             <xf:bind id="term-value-bind" ref="term-value" name="term-value" xxf:whitespace="trim"/>
@@ -372,8 +370,8 @@
                            serialization="application/x-www-form-urlencoded"
                            mediatype="application/x-www-form-urlencoded"/>
             <xf:action event="xforms-ready">
-                <xf:delete ref="instance('fr-form-instance')//overall-results-repeat-iteration"/>
-                <xf:delete ref="instance('fr-form-instance')//term-subjects-repeat-iteration"/>
+                <xf:delete ref="instance('fr-form-instance')//overall-financial-repeat-iteration"/>
+                <xf:delete ref="instance('fr-form-instance')//term-finances-repeat-iteration"/>
             </xf:action>
             <xf:action id="getStudentData-binding">
                 <xf:action event="xforms-value-changed" ev:observer="student-id-control" if="true()">
@@ -405,29 +403,26 @@
                          ev:observer="getStudentData-submission"/>
             <xf:action event="load-student-data" if="true()">
                 <xf:var name="insert-template"
-                        select="xxf:extract-document(instance('overall-results-repeat-template'))">
+                        select="xxf:extract-document(instance('overall-financial-repeat-template'))">
                 </xf:var>
-                <xf:delete ref="instance('fr-form-instance')//overall-results-repeat-iteration"/>
-                <xf:action iterate="fr:dataset('studentDataset')//overallResults/terms/_">
+                <xf:delete ref="instance('fr-form-instance')//overall-financial-repeat-iteration"/>
+                <xf:action iterate="fr:dataset('studentDataset')//overallResults//termFinances//operationFinances//_">
                     <xf:var name="current" select="."/>
-                    <xf:setvalue ref="$insert-template//term-number" value="$current//termNumber"/>
-                    <xf:setvalue ref="$insert-template//register-type" value="$current//registerType"/>
-                    <xf:setvalue ref="$insert-template//student-group" value="$current//studentGroup"/>
-                    <xf:setvalue ref="$insert-template//starting-ects" value="$current//startingECTS"/>
-                    <xf:setvalue ref="$insert-template//final-ects" value="$current//finalECTS"/>
-                    <xf:setvalue ref="$insert-template//nominal-ects" value="$current//nominalECTS"/>
-                    <xf:setvalue ref="$insert-template//obtained-ects" value="$current//obtainedECTS"/>
-                    <xf:setvalue ref="$insert-template//speciality" value="$current//speciality"/>
+                    <xf:setvalue ref="$insert-template//overall-operation-id" value="$current//id"/>
+                    <xf:setvalue ref="$insert-template//term-number" value="$current/../../../..//termNumber"/>
+                    <xf:setvalue ref="$insert-template//overall-operation-type" value="$current//operationName"/>
+                    <xf:setvalue ref="$insert-template//overall-value" value="$current//value"/>
+                    <xf:setvalue ref="$insert-template//overall-description" value="$current//description"/>
 
 
-                    <xf:insert if="count(instance('fr-form-instance')//overall-results-section/overall-results-repeat/overall-results-repeat-iteration) &gt; 0"
-                               ref="instance('fr-form-instance')//overall-results-section/overall-results-repeat/overall-results-repeat-iteration"
+                    <xf:insert if="count(instance('fr-form-instance')//overall-finances-section/overall-financial-repeat/overall-financial-repeat-iteration) &gt; 0"
+                               ref="instance('fr-form-instance')//overall-finances-section/overall-financial-repeat/overall-financial-repeat-iteration"
                                at="last()"
                                position="after"
                                origin="$insert-template">
                     </xf:insert>
-                    <xf:insert if="count(instance('fr-form-instance')//overall-results-section/overall-results-repeat/overall-results-repeat-iteration) = 0"
-                               context="instance('fr-form-instance')//overall-results-section/overall-results-repeat"
+                    <xf:insert if="count(instance('fr-form-instance')//overall-finances-section/overall-financial-repeat/overall-financial-repeat-iteration) = 0"
+                               context="instance('fr-form-instance')//overall-finances-section/overall-financial-repeat"
                                at="last()"
                                origin="$insert-template">
 
@@ -439,28 +434,26 @@
                          ev:observer="term-control"/>
             <xf:action event="term-changed-data" if="true()">
                 <xf:var name="insert-template"
-                        select="xxf:extract-document(instance('term-subjects-repeat-template'))">
+                        select="xxf:extract-document(instance('term-finances-repeat-template'))">
                 </xf:var>
                 <xf:var name="selected-term" value="instance('fr-form-instance')//term"/>
-                <xf:delete ref="instance('fr-form-instance')//term-subjects-repeat-iteration"/>
-                <xf:action iterate="fr:dataset('studentDataset')//overallResults/terms/_[./termNumber = $selected-term]/subjects/_">
+                <xf:delete ref="instance('fr-form-instance')//term-finances-repeat-iteration"/>
+                <xf:action iterate="fr:dataset('studentDataset')//overallResults/terms/_[./termNumber = $selected-term]/termFinances/operationFinances/_">
                     <xf:var name="current" select="."/>
-                    <xf:setvalue ref="$insert-template//subject-name" value="$current//subjectName"/>
-                    <xf:setvalue ref="$insert-template//exam" value="$current//exam"/>
-                    <xf:setvalue ref="$insert-template//student-term-number" value="$current//studentTermNumber"/>
-                    <xf:setvalue ref="$insert-template//ects-number" value="$current//ectsNumber"/>
-                    <xf:setvalue ref="$insert-template//instructor" value="$current//instructor"/>
-                    <xf:setvalue ref="$insert-template//grade" value="$current//grade"/>
+                    <xf:setvalue ref="$insert-template//term-operation-id" value="$current//id"/>
+                    <xf:setvalue ref="$insert-template//term-operation-type" value="$current//operationName"/>
+                    <xf:setvalue ref="$insert-template//term-value" value="$current//value"/>
+                    <xf:setvalue ref="$insert-template//term-description" value="$current//description"/>
 
 
-                    <xf:insert if="count(instance('fr-form-instance')//term-subjects-repeat/term-subjects-repeat-iteration) &gt; 0"
-                               ref="instance('fr-form-instance')//term-subjects-repeat/term-subjects-repeat-iteration"
+                    <xf:insert if="count(instance('fr-form-instance')//term-finances-repeat/term-finances-repeat-iteration) &gt; 0"
+                               ref="instance('fr-form-instance')//term-finances-repeat/term-finances-repeat-iteration"
                                at="last()"
                                position="after"
                                origin="$insert-template">
                     </xf:insert>
-                    <xf:insert if="count(instance('fr-form-instance')//term-subjects-repeat/term-subjects-repeat-iteration) = 0"
-                               context="instance('fr-form-instance')//term-subjects-repeat"
+                    <xf:insert if="count(instance('fr-form-instance')//term-finances-repeat/term-finances-repeat-iteration) = 0"
+                               context="instance('fr-form-instance')//term-finances-repeat"
                                at="last()"
                                origin="$insert-template">
 
@@ -631,12 +624,12 @@
                                 </xh:td>
                             </xh:tr>
                         </xf:repeat>
-                        <xh:tr class="table-footer" >
+                        <xh:tr class="table-footer">
                             <xh:td class="td-text-value" colspan="4">
                                 <b>Razem:</b>
                             </xh:td>
-                            <xh:td class="td-number-value" >
-                                <xf:output value="./overall-summed-up"/>
+                            <xh:td class="td-number-value">
+                                <xf:output value=".//overall-summed-up"/>
                             </xh:td>
                         </xh:tr>
                     </xh:table>
@@ -689,6 +682,7 @@
                                 <xf:label ref="$form-resources/term-operation-type/label"/>
                                 <xf:hint ref="$form-resources/term-operation-type/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
 
 
 
@@ -763,12 +757,12 @@
                                 </xh:td>
                             </xh:tr>
                         </xf:repeat>
-                        <xh:tr class="table-footer" >
+                        <xh:tr class="table-footer">
                             <xh:td class="td-text-value" colspan="3">
                                 <b>Razem:</b>
                             </xh:td>
-                            <xh:td class="td-number-value" >
-                                <xf:output value="./term-summed-up"/>
+                            <xh:td class="td-number-value">
+                                <xf:output value=".//term-summed-up"/>
                             </xh:td>
                         </xh:tr>
                     </xh:table>
