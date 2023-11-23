@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -21,6 +23,10 @@ public class User {
     @Column(name="birth_date")
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @OneToOne(mappedBy = "user")
     @JsonManagedReference
@@ -76,5 +82,13 @@ public class User {
 
     public void setOverallFinances(OverallFinances overallFinances) {
         this.overallFinances = overallFinances;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
