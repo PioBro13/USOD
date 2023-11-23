@@ -1,6 +1,6 @@
 package pl.usod.model;
 
-public enum Erole {
+public enum ERole {
     ROLE_USER,
     ROLE_ADMIN,
 }
