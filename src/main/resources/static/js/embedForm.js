@@ -1,9 +1,9 @@
 
     ORBEON.fr.API.embedForm(
         document.getElementById("form-viewer"),
-        "/orbeon",
-        "document",
-        "TEST_FORM",
+        "http://localhost:8040/orbeon",
+        "summary",
+        "student_financal_summary",
         "new"
     )
         .then(() => {
