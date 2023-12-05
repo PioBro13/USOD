@@ -45,6 +45,16 @@ public class User {
     @JsonManagedReference
     private OverallFinances overallFinances;
 
+    public User(String username, String email, String encode) {
+        this.username = username;
+        this.email = email;
+        this.password = encode;
+    }
+
+    public User() {
+
+    }
+
     public Long getId() {
         return id;
     }
