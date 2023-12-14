@@ -41,12 +41,12 @@
         <h2 class="mb-4">Nowy rekord finansowy</h2>
         <form th:action="@{/api/auth/signin}" method="post" id="login-form-data" endpoint="/auth/signin">
             <div class="mb-3">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="username" class="form-label">Login:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
             </div>
             <div class="mb-3">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <label for="password" class="form-label">Hasło:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
             </div>
 
 

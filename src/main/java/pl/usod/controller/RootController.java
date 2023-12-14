@@ -61,5 +61,7 @@ public class RootController {
     public String editOverallFinances(){return "editOverallFinances";}
     @RequestMapping("/auth/login")
     public String login(){return "login";}
+    @RequestMapping("/auth/register")
+    public String register(){return "register";}
 
 }

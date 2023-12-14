@@ -1,6 +1,7 @@
 package pl.usod.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.usod.model.ERole;
 import pl.usod.model.Role;
@@ -20,6 +22,8 @@ import pl.usod.security.jwt.JwtUtils;
 import pl.usod.security.sevices.UserDetailsImpl;
 
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,46 +67,29 @@ public class AuthController {
         return ResponseEntity
                 .ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
     }
-
-    @PostMapping(value = "/signup", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> registerUser(
-            @RequestParam("username") String username,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            @RequestParam(value = "role", required = false) Set<String> roles
+    @GetMapping("/signup")
+    public String showSignUpForm(Model model){
+        model.addAttribute("user", new User());
+        return "signup";
+    }
+    @PostMapping(value = "/signup")
+    public ResponseEntity<?> registerUser(@ModelAttribute User user
     ) {
-        if (userRepository.existsByUsername(username)) {
+        if (userRepository.existsByUsername(user.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
         }
-
-        if (userRepository.existsByEmail(email)) {
+/*
+        if (userRepository.existsByEmail(user.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
-
+*/
         // Create new user's account
-        User user = new User(username, email,
-                encoder.encode(password));
+        user.setPassword(encoder.encode(user.getPassword()));
 
         Set<Role> userRoles = new HashSet<>();
-        if (roles != null && !roles.isEmpty()) {
-            for (String role : roles) {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        userRoles.add(adminRole);
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        userRoles.add(userRole);
-                }
-            }
-        } else {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             userRoles.add(userRole);
-        }
 
         user.setRoles(userRoles);
         userRepository.save(user);

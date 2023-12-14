@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +23,7 @@ public class User {
     private String surname;
     @Column(name="birth_date")
     @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(name="username")
     private String username;
@@ -49,6 +50,15 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = encode;
+    }
+
+    public User(String name, String surname, LocalDate birthDate, String username, String email, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = birthDate;
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 
     public User() {
@@ -79,11 +89,11 @@ public class User {
         this.surname = surname;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
