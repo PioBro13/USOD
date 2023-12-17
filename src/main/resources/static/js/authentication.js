@@ -1,16 +1,30 @@
-document.addEventListener('click', function () {
-    console.log('click detected')
-    const token = localStorage.getItem('jwtToken');
+document.addEventListener('DOMContentLoaded', function() {
+    authentication("/api/auth/user");
+    authenticationAdmin("/api/auth/admin");
+});
 
-    // Sprawdź, czy token jest dostępny
+
+function authentication(redirect){
+    const token = localStorage.getItem('jwtToken');
+    const content = document.getElementById('content')
+    authorize(token , content , redirect)
+};
+
+function authenticationAdmin(redirect){
+    const token = localStorage.getItem('jwtToken');
+    const content = document.getElementById('content-admin')
+    authorize(token , content , redirect)
+};
+
+function authorize(token , content, redirect) {
     if (token) {
-        // Dodaj token do nagłówka Authorization
-        var headers = new Headers({
+
+        const headers = new Headers({
             'Authorization': 'Bearer ' + token
         });
 
-        // Przykładowe żądanie GET do zabezpieczonego zasobu
-        fetch('/api/protected/resource', {
+
+        fetch(redirect, {
             method: 'GET',
             headers: headers
         })
@@ -18,10 +32,10 @@ document.addEventListener('click', function () {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.json();
+                return response.text();
             })
             .then(data => {
-                // Obsługa danych zabezpieczonego zasobu
+                content.classList.remove("hide")
                 console.log('Protected Resource Data:', data);
             })
             .catch(error => {
@@ -32,4 +46,4 @@ document.addEventListener('click', function () {
         console.error('Token not available. User not logged in.');
         // Tutaj możesz obsługiwać sytuację, gdy token nie jest dostępny (użytkownik niezalogowany)
     }
-});
+}

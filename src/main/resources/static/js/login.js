@@ -20,11 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem('userData',data);
                 localStorage.setItem('role', data.roles)
                 localStorage.setItem('jwtToken',data.accessToken);
-                console.log(data.roles);
-                console.log('Token:', data.accessToken);
 
-                // Przekierowanie na stronę główną
-                //window.location.href = '/'; // Zmień '/' na odpowiednią ścieżkę
+                window.location.href = '/';
             })
             .catch(error => {
                 // Obsługa błędu, np. wyświetlenie komunikatu użytkownikowi

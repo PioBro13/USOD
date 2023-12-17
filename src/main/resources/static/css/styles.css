@@ -43,5 +43,9 @@ section h2.border-bottom {
     padding: 10px;
 }
 
+.hide{
+    display: none;
+}
+
 /* Dodatkowe nadpisanie kolorów, jeśli potrzebne */
 /* ... */
