@@ -37,32 +37,32 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     <strong>Błąd!</strong> Niepoprawne dane logowania
   </div>
-  <div class="container mt-5">
-    <h2 class="mb-4">Nowy rekord finansowy</h2>
-    <form th:action="@{/api/auth/signup}" method="post" id="post-form-data" endpoint="/auth/signup">
-      <div class="mb-3">
-        <label for="name" class="form-label">Imię:</label>
-        <input type="text" class="form-control" id="name" name="name" required>
+  <div class="container mt-5 center">
+    <h2 class="mb-4 center">Rejestracja</h2>
+    <form th:action="@{/api/auth/signup}" method="post" class="center" id="post-form-data" endpoint="/auth/signup">
+      <div class="col-xs-5">
+        <label for="name" class="form-label center">Imię:</label>
+        <input type="text" class="form-control " id="name" name="name" required>
       </div>
-      <div class="mb-3">
-        <label for="surname" class="form-label">Nazwisko:</label>
-        <input type="text" class="form-control" id="surname" name="surname" required>
+      <div class="col-xs-5">
+        <label for="surname" class="form-label center">Nazwisko:</label>
+        <input type="text" class="form-control " id="surname" name="surname" required>
       </div>
-      <div class="mb-3">
-        <label for="birthDate" class="form-label">Data urodzenia:</label>
-        <input type="date" class="form-control" id="birthDate" name="birthDate" required>
+      <div class="col-xs-5">
+        <label for="birthDate" class="form-label center">Data urodzenia:</label>
+        <input type="date" class="form-control " id="birthDate" name="birthDate" required>
       </div>
-      <div class="mb-3">
-        <label for="username" class="form-label">Login:</label>
-        <input type="text" class="form-control" id="username" name="username" required>
+      <div class="col-xs-5">
+        <label for="username" class="form-label center">Login:</label>
+        <input type="text" class="form-control " id="username" name="username" required>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Hasło:</label>
-        <input type="password" class="form-control" id="password" name="password" required>
+      <div class="col-xs-5">
+        <label for="password" class="form-label center">Hasło:</label>
+        <input type="password" class="form-control " id="password" name="password" required>
       </div>
 
-
-      <button type="submit" class="btn btn-primary">Zarejestruj</button>
+      <br/>
+      <button type="submit" class="btn btn-primary center">Zarejestruj</button>
     </form>
   </div>
 </section>
