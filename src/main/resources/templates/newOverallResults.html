@@ -41,8 +41,8 @@
         <h2 class="mb-4">Nowy przedmiot w semestrze studenta</h2>
         <form th:action="@{/api/overallResults/addOverallResults}" method="post" id="post-form-data" endpoint="/overallResults/addOverallResults">
             <div class="mb-3">
-                <label for="student" class="form-label">Id studenta:</label>
-                <input type="text" class="form-control" id="student" name="student" required>
+                <label for="user" class="form-label">Id studenta:</label>
+                <input type="text" class="form-control" id="user" name="user" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Dodaj</button>

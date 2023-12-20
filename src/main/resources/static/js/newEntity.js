@@ -10,11 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
             requestData[pair[0]] = pair[1];
         }
 
+        const token = localStorage.getItem('jwtToken');
 
         fetch(apiUrl, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'Authorization' : 'Bearer ' + token
             },
             body: new URLSearchParams(requestData)
         })
