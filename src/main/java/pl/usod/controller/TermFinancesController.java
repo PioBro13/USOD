@@ -3,6 +3,7 @@ package pl.usod.controller;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.usod.model.DTO.TermFinancesDTO;
@@ -29,12 +30,14 @@ public class TermFinancesController {
     }
 
     @GetMapping("/addTermFinances")
+    @PreAuthorize("hasRole('ADMIN')")
     public String showTermFinancesForm(Model model){
         model.addAttribute("termFinances", new TermFinances());
         return "addTermFinances";
     }
 
     @PostMapping("/addTermFinances")
+    @PreAuthorize("hasRole('ADMIN')")
     public TermFinances newTermFinances(@ModelAttribute TermFinances termFinances){
         termFinancesRepository.save(termFinances);
         return termFinances;

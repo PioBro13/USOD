@@ -5,6 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.usod.model.DTO.SubjectDTO;
@@ -34,12 +35,14 @@ public class SubjectController {
     }
 
     @GetMapping("/addSubject")
+    @PreAuthorize("hasRole('ADMIN')")
     public String showSubjectForm(Model model){
         model.addAttribute("subject", new Subject());
         return "addSubject";
     }
 
     @PostMapping("/addSubject")
+    @PreAuthorize("hasRole('ADMIN')")
     public Subject newSubject(@ModelAttribute Subject subject){
         subjectRepository.save(subject);
         return subject;

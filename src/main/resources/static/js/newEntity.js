@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
             requestData[pair[0]] = pair[1];
         }
 
+
+        // if statement for boolean input on new subject form
+        if((document.getElementById('exam'))){
+            console.log('inside if');
+            requestData.exam = document.getElementById('exam').getAttribute('value');
+        }
+
         const token = localStorage.getItem('jwtToken');
 
         fetch(apiUrl, {
