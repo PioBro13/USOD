@@ -3,6 +3,7 @@ package pl.usod.controller;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.usod.model.DTO.OverallFinancesDTO;
@@ -29,12 +30,14 @@ public class OverallFinancesController {
     }
 
     @GetMapping("/addOverallFinances")
+    @PreAuthorize("hasRole('ADMIN')")
     public String showOverallFinancesForm(Model model){
         model.addAttribute("overallFinances", new OverallFinances());
         return "addOverallFinances";
     }
 
     @PostMapping("/addOverallFinances")
+    @PreAuthorize("hasRole('ADMIN')")
     public OverallFinances newOverallFinances(@ModelAttribute OverallFinances overallFinances){
         overallFinancesRepository.save(overallFinances);
         return overallFinances;
