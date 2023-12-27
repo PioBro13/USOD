@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.usod.model.DTO.OperationFinancesDTO;
@@ -34,12 +35,14 @@ public class OperationFinancesController {
     }
 
     @GetMapping("/addOperationFinances")
+    @PreAuthorize("hasRole('ADMIN')")
     public String showOperationFinacesForm(Model model){
         model.addAttribute("operationFinaces", new OperationFinances());
         return "addOperationFinances";
     }
 
     @PostMapping("/addOperationFinances")
+    @PreAuthorize("hasRole('ADMIN')")
     public OperationFinances addOperationFinances(@ModelAttribute OperationFinances operationFinances){
         operationFinancesRepository.save(operationFinances);
         return operationFinances;
