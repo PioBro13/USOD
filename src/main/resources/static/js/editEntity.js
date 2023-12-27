@@ -16,10 +16,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         console.log(JSON.stringify(requestData));
 
+        const token = localStorage.getItem('jwtToken');
+
         const options = {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'Authorization' : 'Bearer ' + token
             },
             body: new URLSearchParams(requestData)
         };

@@ -49,6 +49,7 @@ public class OperationFinancesController {
     }
 
     @GetMapping("/editOperationFinances/{operationFinancesId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String showEditOperationFinacesForm(@PathVariable Long operationFinancesId, Model model) {
         OperationFinances operationFinances = operationFinancesRepository.findById(operationFinancesId).orElseThrow(() -> new EntityNotFoundException("Nie znaleziono operacji finansowej o podanym ID: " + operationFinancesId));
         model.addAttribute("operationFinances", operationFinances);
@@ -56,12 +57,14 @@ public class OperationFinancesController {
     }
 
     @PutMapping("/editOperationFinances/{operationFinancesId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> editOperationFinances(@PathVariable("operationFinancesId") OperationFinances targetOperationFinances, @ModelAttribute OperationFinances sourceOperationFinances){
         BeanUtils.copyProperties(sourceOperationFinances , targetOperationFinances, "id" );
         return ResponseEntity.ok(operationFinancesRepository.save(targetOperationFinances));
     }
 
     @DeleteMapping("/deleteOperationFinances/{operationFinancesId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteOperationFinances(@PathVariable("operationFinancesId") Long id){
         operationFinancesRepository.deleteById(id);
         return  ResponseEntity.ok("Operation finances has been removed. Id: " + id);
