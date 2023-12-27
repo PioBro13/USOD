@@ -31,7 +31,6 @@ public class OverallResultsController {
     }
 
     @GetMapping("/studentId={studentId}")
-    @PreAuthorize("hasRole('ADMIN')")
     public OverallResults getByStudent(@PathVariable Long userId){
         return overallResultsRepository.findByUserId(userId);
     }
