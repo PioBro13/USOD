@@ -44,43 +44,45 @@
     </div>
   </div>
 </div>
-<section id="add-term-form">
-  <div class="alert alert-success alert-dismissible fade show" id="success-edit-popup" style="display: none;">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Sukces!</strong> Pomyślnie edytowano rekord
-  </div>
-  <div class="alert alert-success alert-dismissible fade show" id="success-remove-popup" style="display: none;">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Sukces!</strong> Pomyślnie usunięto rekord
-  </div>
-  <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Błąd!</strong> Podczas edytowania rekordu wystąpił błąd. Proszę sprawdź podane dane.
-  </div>
-  <div class="container mt-5">
-    <h2 class="mb-4">Edycja podsumowania wyników</h2>
-    <div class="dropdown" >
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" endpoint="/overallResults">
-        Wybierz element
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdownList">
-      </ul>
+<section id="content-admin" class="hide">
+  <section id="add-term-form">
+    <div class="alert alert-success alert-dismissible fade show" id="success-edit-popup" style="display: none;">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Sukces!</strong> Pomyślnie edytowano rekord
     </div>
-    <br/>
-    <form th:action="@{/api/opera/api/overallResults/editOverallResults}" method="post" id="put-form-data" endpoint="/overallResults/editOverallResults">
-      <div class="mb-3">
-        <label for="student" class="form-label">Id studenta:</label>
-        <input type="text" class="form-control" id="student" name="student" required>
+    <div class="alert alert-success alert-dismissible fade show" id="success-remove-popup" style="display: none;">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Sukces!</strong> Pomyślnie usunięto rekord
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Błąd!</strong> Podczas edytowania rekordu wystąpił błąd. Proszę sprawdź podane dane.
+    </div>
+    <div class="container mt-5">
+      <h2 class="mb-4">Edycja podsumowania wyników</h2>
+      <div class="dropdown" >
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" endpoint="/overallResults">
+          Wybierz element
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdownList">
+        </ul>
       </div>
+      <br/>
+      <form th:action="@{/api/opera/api/overallResults/editOverallResults}" method="post" id="put-form-data" endpoint="/overallResults/editOverallResults">
+        <div class="mb-3">
+          <label for="student" class="form-label">Id studenta:</label>
+          <input type="text" class="form-control" id="student" name="student" required>
+        </div>
 
-      <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Potwierdź edycję</button>
-        <button type="reset" class="btn btn-secondary" id="reset-button">Reset danych</button>
-        <button type="button" class="btn btn-danger" id="delete-button" endpoint="/overallResults/deleteOverallResults/">Usuń pozycję</button>
-      </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Potwierdź edycję</button>
+          <button type="reset" class="btn btn-secondary" id="reset-button">Reset danych</button>
+          <button type="button" class="btn btn-danger" id="delete-button" endpoint="/overallResults/deleteOverallResults/">Usuń pozycję</button>
+        </div>
 
-    </form>
-  </div>
+      </form>
+    </div>
+  </section>
 </section>
 
 
@@ -93,5 +95,7 @@
 <script type="text/javascript" src="/js/fillFormFromApi.js"></script>
 <script type="text/javascript" src="/js/resetDropdown.js"></script>
 <script type="text/javascript" src="/js/removeEntity.js"></script>
+<script type="text/javascript" src="/js/authentication.js"></script>
+
 </body>
 </html>

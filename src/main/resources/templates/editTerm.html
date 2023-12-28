@@ -44,75 +44,77 @@
     </div>
   </div>
 </div>
-<section id="add-term-form">
-  <div class="alert alert-success alert-dismissible fade show" id="success-edit-popup" style="display: none;">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Sukces!</strong> Pomyślnie edytowano rekord
-  </div>
-  <div class="alert alert-success alert-dismissible fade show" id="success-remove-popup" style="display: none;">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Sukces!</strong> Pomyślnie usunięto rekord
-  </div>
-  <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Błąd!</strong> Podczas edytowania rekordu wystąpił błąd. Proszę sprawdź podane dane.
-  </div>
-  <div class="container mt-5">
-    <h2 class="mb-4">Edycja semestru studenta</h2>
-    <div class="dropdown" >
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" endpoint="/term">
-        Wybierz element
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdownList">
-      </ul>
+<section id="content-admin" class="hide">
+  <section id="add-term-form">
+    <div class="alert alert-success alert-dismissible fade show" id="success-edit-popup" style="display: none;">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Sukces!</strong> Pomyślnie edytowano rekord
     </div>
-    <br/>
-    <form th:action="@{/api/term/editTerm}" method="post" id="put-form-data" endpoint="/term/editTerm">
-      <div class="mb-3">
-        <label for="termNumber" class="form-label">Numer semestru:</label>
-        <input type="number" class="form-control" id="termNumber" name="termNumber" required>
+    <div class="alert alert-success alert-dismissible fade show" id="success-remove-popup" style="display: none;">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Sukces!</strong> Pomyślnie usunięto rekord
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Błąd!</strong> Podczas edytowania rekordu wystąpił błąd. Proszę sprawdź podane dane.
+    </div>
+    <div class="container mt-5">
+      <h2 class="mb-4">Edycja semestru studenta</h2>
+      <div class="dropdown" >
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" endpoint="/term">
+          Wybierz element
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdownList">
+        </ul>
       </div>
-      <div class="mb-3">
-        <label for="registerType" class="form-label">Typ rejestracji:</label>
-        <input type="text" class="form-control" id="registerType" name="registerType" required>
-      </div>
-      <div class="mb-3">
-        <label for="studentGroup" class="form-label">Numer grupy:</label>
-        <input type="text" class="form-control" id="studentGroup" name="studentGroup" required>
-      </div>
-      <div class="mb-3">
-        <label for="startingECTS" class="form-label">Początkowe ECTS:</label>
-        <input type="number" class="form-control" id="startingECTS" name="startingECTS" required>
-      </div>
-      <div class="mb-3">
-        <label for="finalECTS" class="form-label">Końcowe ECTS:</label>
-        <input type="number" class="form-control" id="finalECTS" name="finalECTS" required>
-      </div>
-      <div class="mb-3">
-        <label for="nominalECTS" class="form-label">Nominalne ECTS:</label>
-        <input type="number" class="form-control" id="nominalECTS" name="nominalECTS" required>
-      </div>
-      <div class="mb-3">
-        <label for="obtainedECTS" class="form-label">Zdobyte ECTS:</label>
-        <input type="number" class="form-control" id="obtainedECTS" name="obtainedECTS" required>
-      </div>
-      <div class="mb-3">
-        <label for="speciality" class="form-label">Specjalizacja:</label>
-        <input type="text" class="form-control" id="speciality" name="speciality" required>
-      </div>
-      <div class="mb-3">
-        <label for="overallResults" class="form-label">Id rezultatów ogólnych:</label>
-        <input type="number" class="form-control" id="overallResults" name="overallResults" required>
-      </div>
+      <br/>
+      <form th:action="@{/api/term/editTerm}" method="post" id="put-form-data" endpoint="/term/editTerm">
+        <div class="mb-3">
+          <label for="termNumber" class="form-label">Numer semestru:</label>
+          <input type="number" class="form-control" id="termNumber" name="termNumber" required>
+        </div>
+        <div class="mb-3">
+          <label for="registerType" class="form-label">Typ rejestracji:</label>
+          <input type="text" class="form-control" id="registerType" name="registerType" required>
+        </div>
+        <div class="mb-3">
+          <label for="studentGroup" class="form-label">Numer grupy:</label>
+          <input type="text" class="form-control" id="studentGroup" name="studentGroup" required>
+        </div>
+        <div class="mb-3">
+          <label for="startingECTS" class="form-label">Początkowe ECTS:</label>
+          <input type="number" class="form-control" id="startingECTS" name="startingECTS" required>
+        </div>
+        <div class="mb-3">
+          <label for="finalECTS" class="form-label">Końcowe ECTS:</label>
+          <input type="number" class="form-control" id="finalECTS" name="finalECTS" required>
+        </div>
+        <div class="mb-3">
+          <label for="nominalECTS" class="form-label">Nominalne ECTS:</label>
+          <input type="number" class="form-control" id="nominalECTS" name="nominalECTS" required>
+        </div>
+        <div class="mb-3">
+          <label for="obtainedECTS" class="form-label">Zdobyte ECTS:</label>
+          <input type="number" class="form-control" id="obtainedECTS" name="obtainedECTS" required>
+        </div>
+        <div class="mb-3">
+          <label for="speciality" class="form-label">Specjalizacja:</label>
+          <input type="text" class="form-control" id="speciality" name="speciality" required>
+        </div>
+        <div class="mb-3">
+          <label for="overallResults" class="form-label">Id rezultatów ogólnych:</label>
+          <input type="number" class="form-control" id="overallResults" name="overallResults" required>
+        </div>
 
-      <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Potwierdź edycję</button>
-        <button type="reset" class="btn btn-secondary" id="reset-button">Reset danych</button>
-        <button type="button" class="btn btn-danger" id="delete-button" endpoint="/term/deleteTerm/">Usuń pozycję</button>
-      </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Potwierdź edycję</button>
+          <button type="reset" class="btn btn-secondary" id="reset-button">Reset danych</button>
+          <button type="button" class="btn btn-danger" id="delete-button" endpoint="/term/deleteTerm/">Usuń pozycję</button>
+        </div>
 
-    </form>
-  </div>
+      </form>
+    </div>
+  </section>
 </section>
 
 
@@ -125,5 +127,7 @@
 <script type="text/javascript" src="/js/fillFormFromApi.js"></script>
 <script type="text/javascript" src="/js/resetDropdown.js"></script>
 <script type="text/javascript" src="/js/removeEntity.js"></script>
+<script type="text/javascript" src="/js/authentication.js"></script>
+
 </body>
 </html>

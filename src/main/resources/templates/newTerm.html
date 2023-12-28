@@ -28,58 +28,60 @@
     </div>
 </nav>
 
-<section id="add-term-form">
-    <div class="alert alert-success alert-dismissible fade show" id="success-popup" style="display: none;">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>Sukces!</strong> Pomyślnie dodano nowy rekord
-    </div>
-    <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>Błąd!</strong> Podczas dodawania rekordu wystąpił błąd. Proszę sprawdź podane dane.
-    </div>
-    <div class="container mt-5">
-        <h2 class="mb-4">Nowy semestr studenta</h2>
-        <form th:action="@{/api/term/addTerm}" method="post" id="post-form-data" endpoint="/term/addTerm">
-            <div class="mb-3">
-                <label for="term_number" class="form-label">Numer semestru:</label>
-                <input type="number" class="form-control" id="term_number" name="termNumber" required>
-            </div>
-            <div class="mb-3">
-                <label for="registerType" class="form-label">Typ rejestracji:</label>
-                <input type="text" class="form-control" id="registerType" name="registerType" required>
-            </div>
-            <div class="mb-3">
-                <label for="studentGroup" class="form-label">Numer grupy:</label>
-                <input type="text" class="form-control" id="studentGroup" name="studentGroup" required>
-            </div>
-            <div class="mb-3">
-                <label for="startingECTS" class="form-label">Początkowe ECTS:</label>
-                <input type="number" class="form-control" id="startingECTS" name="startingECTS" required>
-            </div>
-            <div class="mb-3">
-                <label for="finalECTS" class="form-label">Końcowe ECTS:</label>
-                <input type="number" class="form-control" id="finalECTS" name="finalECTS" required>
-            </div>
-            <div class="mb-3">
-                <label for="nominalECTS" class="form-label">Nominalne ECTS:</label>
-                <input type="number" class="form-control" id="nominalECTS" name="nominalECTS" required>
-            </div>
-            <div class="mb-3">
-                <label for="obtainedECTS" class="form-label">Zdobyte ECTS:</label>
-                <input type="number" class="form-control" id="obtainedECTS" name="obtainedECTS" required>
-            </div>
-            <div class="mb-3">
-                <label for="speciality" class="form-label">Specjalizacja:</label>
-                <input type="text" class="form-control" id="speciality" name="speciality" required>
-            </div>
-            <div class="mb-3">
-                <label for="overallResults" class="form-label">Id rezultatów ogólnych:</label>
-                <input type="number" class="form-control" id="overallResults" name="overallResults" required>
-            </div>
+<section id="content-admin" class="hide">
+    <section id="add-term-form">
+        <div class="alert alert-success alert-dismissible fade show" id="success-popup" style="display: none;">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>Sukces!</strong> Pomyślnie dodano nowy rekord
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>Błąd!</strong> Podczas dodawania rekordu wystąpił błąd. Proszę sprawdź podane dane.
+        </div>
+        <div class="container mt-5">
+            <h2 class="mb-4">Nowy semestr studenta</h2>
+            <form th:action="@{/api/term/addTerm}" method="post" id="post-form-data" endpoint="/term/addTerm">
+                <div class="mb-3">
+                    <label for="term_number" class="form-label">Numer semestru:</label>
+                    <input type="number" class="form-control" id="term_number" name="termNumber" required>
+                </div>
+                <div class="mb-3">
+                    <label for="registerType" class="form-label">Typ rejestracji:</label>
+                    <input type="text" class="form-control" id="registerType" name="registerType" required>
+                </div>
+                <div class="mb-3">
+                    <label for="studentGroup" class="form-label">Numer grupy:</label>
+                    <input type="text" class="form-control" id="studentGroup" name="studentGroup" required>
+                </div>
+                <div class="mb-3">
+                    <label for="startingECTS" class="form-label">Początkowe ECTS:</label>
+                    <input type="number" class="form-control" id="startingECTS" name="startingECTS" required>
+                </div>
+                <div class="mb-3">
+                    <label for="finalECTS" class="form-label">Końcowe ECTS:</label>
+                    <input type="number" class="form-control" id="finalECTS" name="finalECTS" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nominalECTS" class="form-label">Nominalne ECTS:</label>
+                    <input type="number" class="form-control" id="nominalECTS" name="nominalECTS" required>
+                </div>
+                <div class="mb-3">
+                    <label for="obtainedECTS" class="form-label">Zdobyte ECTS:</label>
+                    <input type="number" class="form-control" id="obtainedECTS" name="obtainedECTS" required>
+                </div>
+                <div class="mb-3">
+                    <label for="speciality" class="form-label">Specjalizacja:</label>
+                    <input type="text" class="form-control" id="speciality" name="speciality" required>
+                </div>
+                <div class="mb-3">
+                    <label for="overallResults" class="form-label">Id rezultatów ogólnych:</label>
+                    <input type="number" class="form-control" id="overallResults" name="overallResults" required>
+                </div>
 
-            <button type="submit" class="btn btn-primary">Add Term</button>
-        </form>
-    </div>
+                <button type="submit" class="btn btn-primary">Add Term</button>
+            </form>
+        </div>
+    </section>
 </section>
 
 
@@ -87,5 +89,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="/js/newEntity.js"></script>
 <script type="text/javascript" src="/js/popup.js"></script>
+<script type="text/javascript" src="/js/authentication.js"></script>
+
 </body>
 </html>

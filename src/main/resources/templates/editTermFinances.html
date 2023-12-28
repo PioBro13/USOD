@@ -44,49 +44,50 @@
     </div>
   </div>
 </div>
-<section id="add-term-form">
-  <div class="alert alert-success alert-dismissible fade show" id="success-edit-popup" style="display: none;">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Sukces!</strong> Pomyślnie edytowano rekord
-  </div>
-  <div class="alert alert-success alert-dismissible fade show" id="success-remove-popup" style="display: none;">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Sukces!</strong> Pomyślnie usunięto rekord
-  </div>
-  <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Błąd!</strong> Podczas edytowania rekordu wystąpił błąd. Proszę sprawdź podane dane.
-  </div>
-  <div class="container mt-5">
-    <h2 class="mb-4">Edycja semestru studenta</h2>
-    <div class="dropdown" >
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" endpoint="/termFinances">
-        Wybierz element
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdownList">
-      </ul>
+<section id="content-admin" class="hide">
+  <section id="add-term-form">
+    <div class="alert alert-success alert-dismissible fade show" id="success-edit-popup" style="display: none;">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Sukces!</strong> Pomyślnie edytowano rekord
     </div>
-    <br/>
-    <form th:action="@{/api/termFinances/editTermFinances}" method="post" id="put-form-data" endpoint="/termFinances/editTermFinances">
-      <div class="mb-3">
-        <label for="term" class="form-label">Id semestru:</label>
-        <input type="text" class="form-control" id="term" name="term" required>
+    <div class="alert alert-success alert-dismissible fade show" id="success-remove-popup" style="display: none;">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Sukces!</strong> Pomyślnie usunięto rekord
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Błąd!</strong> Podczas edytowania rekordu wystąpił błąd. Proszę sprawdź podane dane.
+    </div>
+    <div class="container mt-5">
+      <h2 class="mb-4">Edycja semestru studenta</h2>
+      <div class="dropdown" >
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" endpoint="/termFinances">
+          Wybierz element
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdownList">
+        </ul>
       </div>
-      <div class="mb-3">
-        <label for="overallFinances" class="form-label">Id całościowego podsumowania finansowego:</label>
-        <input type="text" class="form-control" id="overallFinances" name="overallFinances" required>
-      </div>
+      <br/>
+      <form th:action="@{/api/termFinances/editTermFinances}" method="post" id="put-form-data" endpoint="/termFinances/editTermFinances">
+        <div class="mb-3">
+          <label for="term" class="form-label">Id semestru:</label>
+          <input type="text" class="form-control" id="term" name="term" required>
+        </div>
+        <div class="mb-3">
+          <label for="overallFinances" class="form-label">Id całościowego podsumowania finansowego:</label>
+          <input type="text" class="form-control" id="overallFinances" name="overallFinances" required>
+        </div>
 
-      <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Potwierdź edycję</button>
-        <button type="reset" class="btn btn-secondary" id="reset-button">Reset danych</button>
-        <button type="button" class="btn btn-danger" id="delete-button" endpoint="/termFinances/deleteTermFinances/">Usuń pozycję</button>
-      </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Potwierdź edycję</button>
+          <button type="reset" class="btn btn-secondary" id="reset-button">Reset danych</button>
+          <button type="button" class="btn btn-danger" id="delete-button" endpoint="/termFinances/deleteTermFinances/">Usuń pozycję</button>
+        </div>
 
-    </form>
-  </div>
+      </form>
+    </div>
+  </section>
 </section>
-
 
 <!-- Dodanie Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -97,5 +98,7 @@
 <script type="text/javascript" src="/js/fillFormFromApi.js"></script>
 <script type="text/javascript" src="/js/resetDropdown.js"></script>
 <script type="text/javascript" src="/js/removeEntity.js"></script>
+<script type="text/javascript" src="/js/authentication.js"></script>
+
 </body>
 </html>

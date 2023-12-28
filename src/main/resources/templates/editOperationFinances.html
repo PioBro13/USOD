@@ -44,55 +44,57 @@
     </div>
   </div>
 </div>
-<section id="add-term-form">
-  <div class="alert alert-success alert-dismissible fade show" id="success-edit-popup" style="display: none;">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Sukces!</strong> Pomyślnie edytowano rekord
-  </div>
-  <div class="alert alert-success alert-dismissible fade show" id="success-remove-popup" style="display: none;">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Sukces!</strong> Pomyślnie usunięto rekord
-  </div>
-  <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Błąd!</strong> Podczas edytowania rekordu wystąpił błąd. Proszę sprawdź podane dane.
-  </div>
-  <div class="container mt-5">
-    <h2 class="mb-4">Edycja rekordu finansowego</h2>
-    <div class="dropdown" >
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" endpoint="/operationFinances">
-        Wybierz element
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdownList">
-      </ul>
+<section id="content-admin" class="hide">
+  <section id="add-term-form">
+    <div class="alert alert-success alert-dismissible fade show" id="success-edit-popup" style="display: none;">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Sukces!</strong> Pomyślnie edytowano rekord
     </div>
-    <br/>
-    <form th:action="@{/api/operationFinances/editOperationFinances}" method="post" id="put-form-data" endpoint="/operationFinances/editOperationFinances">
-      <div class="mb-3">
-        <label for="operationName" class="form-label">Rodzaj operacji:</label>
-        <input type="text" class="form-control" id="operationName" name="operationName" required>
+    <div class="alert alert-success alert-dismissible fade show" id="success-remove-popup" style="display: none;">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Sukces!</strong> Pomyślnie usunięto rekord
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <strong>Błąd!</strong> Podczas edytowania rekordu wystąpił błąd. Proszę sprawdź podane dane.
+    </div>
+    <div class="container mt-5">
+      <h2 class="mb-4">Edycja rekordu finansowego</h2>
+      <div class="dropdown" >
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" endpoint="/operationFinances">
+          Wybierz element
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdownList">
+        </ul>
       </div>
-      <div class="mb-3">
-        <label for="value" class="form-label">Wartość:</label>
-        <input type="number" step=".01" class="form-control" id="value" name="value" required>
-      </div>
-      <div class="mb-3">
-        <label for="description" class="form-label">Opis:</label>
-        <input type="textarea" class="form-control" id="description" name="description">
-      </div>
-      <div class="mb-3">
-        <label for="termFinances" class="form-label">Id podsumowania finansowego semestru:</label>
-        <input type="number" class="form-control" id="termFinances" name="termFinances" required>
-      </div>
+      <br/>
+      <form th:action="@{/api/operationFinances/editOperationFinances}" method="post" id="put-form-data" endpoint="/operationFinances/editOperationFinances">
+        <div class="mb-3">
+          <label for="operationName" class="form-label">Rodzaj operacji:</label>
+          <input type="text" class="form-control" id="operationName" name="operationName" required>
+        </div>
+        <div class="mb-3">
+          <label for="value" class="form-label">Wartość:</label>
+          <input type="number" step=".01" class="form-control" id="value" name="value" required>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Opis:</label>
+          <input type="textarea" class="form-control" id="description" name="description">
+        </div>
+        <div class="mb-3">
+          <label for="termFinances" class="form-label">Id podsumowania finansowego semestru:</label>
+          <input type="number" class="form-control" id="termFinances" name="termFinances" required>
+        </div>
 
-      <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Potwierdź edycję</button>
-        <button type="reset" class="btn btn-secondary" id="reset-button">Reset danych</button>
-        <button type="button" class="btn btn-danger" id="delete-button" endpoint="/operationFinances/deleteOperationFinances/">Usuń pozycję</button>
-      </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Potwierdź edycję</button>
+          <button type="reset" class="btn btn-secondary" id="reset-button">Reset danych</button>
+          <button type="button" class="btn btn-danger" id="delete-button" endpoint="/operationFinances/deleteOperationFinances/">Usuń pozycję</button>
+        </div>
 
-    </form>
-  </div>
+      </form>
+    </div>
+  </section>
 </section>
 
 
@@ -105,5 +107,6 @@
 <script type="text/javascript" src="/js/fillFormFromApi.js"></script>
 <script type="text/javascript" src="/js/resetDropdown.js"></script>
 <script type="text/javascript" src="/js/removeEntity.js"></script>
+<script type="text/javascript" src="/js/authentication.js"></script>
 </body>
 </html>
