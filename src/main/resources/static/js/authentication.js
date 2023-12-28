@@ -1,14 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     authentication("/api/auth/user");
     authenticationAdmin("/api/auth/admin");
-
-    if(document.getElementById('logout')){
-        if (localStorage.getItem('jwtToken') != null){
-            document.getElementById('login').classList.add("hide");
-        } else{
-            document.getElementById('logout').classList.add("hide");
-        }
-    }
 });
 
 
