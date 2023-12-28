@@ -51,6 +51,7 @@ public class TermController {
     }
 
     @GetMapping("/editTerm/{termId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String showEditTermForm(@PathVariable Long termId, Model model){
         Term term = termRepository.findById(termId).orElseThrow(() -> new EntityNotFoundException("Term not found. ID: " + termId));
         model.addAttribute("term",term);
@@ -58,12 +59,14 @@ public class TermController {
     }
 
     @PutMapping("/editTerm/{termId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> editTerm(@PathVariable("termId") Term targetTerm, @ModelAttribute Term sourceTerm){
         BeanUtils.copyProperties(sourceTerm,targetTerm);
         return ResponseEntity.ok(termRepository.save(targetTerm));
     }
 
     @DeleteMapping("/deleteTerm/{termId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteTerm(@PathVariable("termId") Long termId){
         termRepository.deleteById(termId);
         return ResponseEntity.ok("Term has been removed. ID: " + termId);

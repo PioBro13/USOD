@@ -49,6 +49,7 @@ public class SubjectController {
     }
 
     @GetMapping("/editSubject/{subjectId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String showEditSubjectForm(@PathVariable Long subjectId, Model model){
         Subject subject = subjectRepository.findById(subjectId).orElseThrow(() -> new EntityNotFoundException("Subject not found. ID: " + subjectId));
         model.addAttribute("subject",subject);
@@ -56,12 +57,14 @@ public class SubjectController {
     }
 
     @PutMapping("/editSubject/{subjectId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> editSubject(@PathVariable("subjectId") Subject targetSubject, @ModelAttribute Subject sourceSubject){
         BeanUtils.copyProperties(sourceSubject,targetSubject,"id");
         return ResponseEntity.ok(subjectRepository.save(targetSubject));
     }
 
     @DeleteMapping("/deleteSubject/{subjectId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteSubject(@PathVariable("subjectId") Long subjectId){
         subjectRepository.deleteById(subjectId);
         return ResponseEntity.ok("Subject has been removed. ID: " + subjectId);

@@ -44,12 +44,14 @@ public class OverallFinancesController {
     }
 
     @PutMapping("/editOverallFinances/{overallFinancesId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> editOverallFinances(@PathVariable("overallFinancesId") OverallFinances targetOverallFinances, @ModelAttribute OverallFinances sourceOverallFinances){
         BeanUtils.copyProperties(sourceOverallFinances,targetOverallFinances);
         return ResponseEntity.ok(overallFinancesRepository.save(targetOverallFinances));
     }
 
     @DeleteMapping("/deleteOverallFinances/{overallFinancesId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteTerm(@PathVariable("overallFinancesId") Long overallFinancesId){
         overallFinancesRepository.deleteById(overallFinancesId);
         return ResponseEntity.ok("Overall finances has been removed. ID: " + overallFinancesId);

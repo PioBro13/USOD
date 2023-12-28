@@ -44,12 +44,14 @@ public class TermFinancesController {
     }
 
     @PutMapping("/editTermFinances/{termFinancesId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> editTermFinances(@PathVariable("termFinancesId") TermFinances targetTermFinances, @ModelAttribute TermFinances sourceTermFinances){
         BeanUtils.copyProperties(sourceTermFinances,targetTermFinances);
         return ResponseEntity.ok(termFinancesRepository.save(targetTermFinances));
     }
 
     @DeleteMapping("/deleteTermFinances/{termFinancesId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteTermFinances(@PathVariable("termFinancesId") Long termFinancesId){
         termFinancesRepository.deleteById(termFinancesId);
         return ResponseEntity.ok("Financal term summary has been removed. ID: " + termFinancesId);
