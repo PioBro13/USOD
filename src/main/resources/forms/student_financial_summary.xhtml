@@ -89,13 +89,10 @@
                 <xf:bind id="personal-data-section-bind" name="personal-data-section"
                          ref="personal-data-section">
                     <xf:bind id="personal-data-grid-bind" ref="personal-data-grid" name="personal-data-grid">
-                        <xf:bind id="name-bind" name="name" ref="name" xxf:whitespace="trim"
-                                 calculate="fr:dataset('studentDataset')//name"/>
-                        <xf:bind id="surname-bind" ref="surname" name="surname" xxf:whitespace="trim"
-                                 calculate="fr:dataset('studentDataset')//surname"/>
+                        <xf:bind id="name-bind" name="name" ref="name" xxf:whitespace="trim"/>
+                        <xf:bind id="surname-bind" ref="surname" name="surname" xxf:whitespace="trim"/>
                         <xf:bind id="student-id-bind" ref="student-id" name="student-id" xxf:whitespace="trim"/>
-                        <xf:bind id="birth-date-bind" ref="birth-date" name="birth-date"
-                                 calculate="format-date(xs:date(substring-before((fr:dataset('studentDataset')//birthDate), 'T')), '[D01]-[M01]-[Y0001]')"/>
+                        <xf:bind id="birth-date-bind" ref="birth-date" name="birth-date"/>
                         <xf:bind id="show-overall-finances-bind" ref="show-overall-finances"
                                  name="show-overall-finances"/>
 
@@ -200,6 +197,7 @@
                     </library-versions>
 
                     <rendered-page-orientation>landscape</rendered-page-orientation>
+                    <readonly-disable-calculate>true</readonly-disable-calculate>
                     <xbl>
                         <fr:number decimal-separator="," grouping-separator=" " digits-after-decimal="2"/>
                         <fr:time output-format="[H]:[m]:[s]"/>
@@ -369,8 +367,10 @@
                            method="get"
                            serialization="application/x-www-form-urlencoded"
                            mediatype="application/x-www-form-urlencoded"/>
-            <xf:action event="xforms-ready">
+            <xf:action event="load-student-data">
                 <xf:delete ref="instance('fr-form-instance')//overall-financial-repeat-iteration"/>
+            </xf:action>
+            <xf:action event="term-changed-data">
                 <xf:delete ref="instance('fr-form-instance')//term-finances-repeat-iteration"/>
             </xf:action>
             <xf:action id="getStudentData-binding">
@@ -401,10 +401,13 @@
             <xf:dispatch name="load-student-data" delay="10" targetid="fr-form-model"
                          event="xforms-submit-done"
                          ev:observer="getStudentData-submission"/>
-            <xf:action event="load-student-data" if="true()">
+            <xf:action event="load-student-data" if="fr:mode() = ('new','edit','test')">
                 <xf:var name="insert-template"
                         select="xxf:extract-document(instance('overall-financial-repeat-template'))">
                 </xf:var>
+                <xf:setvalue ref="instance('fr-form-instance')//name" value="fr:dataset('studentDataset')//name"/>
+                <xf:setvalue ref="instance('fr-form-instance')//surname" value="fr:dataset('studentDataset')//surname"/>
+                <xf:setvalue ref="instance('fr-form-instance')//birth-date" value="fr:dataset('studentDataset')//birthDate"/>
                 <xf:delete ref="instance('fr-form-instance')//overall-financial-repeat-iteration"/>
                 <xf:action iterate="fr:dataset('studentDataset')//overallResults//termFinances//operationFinances//_">
                     <xf:var name="current" select="."/>
@@ -432,7 +435,7 @@
             <xf:dispatch name="term-changed-data" delay="10" targetid="fr-form-model"
                          event="xforms-value-changed"
                          ev:observer="term-control"/>
-            <xf:action event="term-changed-data" if="true()">
+            <xf:action event="term-changed-data" if="fr:mode() = ('new','edit','test')">
                 <xf:var name="insert-template"
                         select="xxf:extract-document(instance('term-finances-repeat-template'))">
                 </xf:var>
