@@ -6,9 +6,7 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -45,6 +43,10 @@ public class User {
     @OneToOne(mappedBy = "user")
     @JsonManagedReference
     private OverallFinances overallFinances;
+
+    @OneToMany(mappedBy = "user",  cascade = CascadeType.ALL )
+    @JsonManagedReference
+    private List<Application> applications = new ArrayList<>();
 
     public User(String username, String email, String encode) {
         this.username = username;
@@ -143,5 +145,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
     }
 }
