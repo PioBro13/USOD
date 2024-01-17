@@ -16,7 +16,7 @@ public class Application {
     private String documentTitle;
 
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
 

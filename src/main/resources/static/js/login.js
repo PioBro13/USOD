@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 // Obsługa sukcesu, np. zapisanie tokena JWT w localStorage
                 localStorage.setItem('userData',data);
-                localStorage.setItem('role', data.roles)
+                localStorage.setItem('role', data.roles);
+                localStorage.setItem('userId',data.id);
                 localStorage.setItem('jwtToken',data.accessToken);
 
                 window.location.href = '/';

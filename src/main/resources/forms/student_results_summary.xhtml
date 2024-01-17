@@ -78,11 +78,11 @@
                 <xf:bind id="personal-data-section-bind" name="personal-data-section"
                          ref="personal-data-section">
                     <xf:bind id="personal-data-grid-bind" ref="personal-data-grid" name="personal-data-grid">
-                        <xf:bind id="name-bind" name="name" ref="name" xxf:whitespace="trim"
-                                 />
-                        <xf:bind id="surname-bind" ref="surname" name="surname" xxf:whitespace="trim"
-                                 />
-                        <xf:bind id="student-id-bind" ref="student-id" name="student-id" xxf:whitespace="trim"/>
+                        <xf:bind id="name-bind" name="name" ref="name" xxf:whitespace="trim"/>
+                        <xf:bind id="surname-bind" ref="surname" name="surname" xxf:whitespace="trim"/>
+                        <xf:bind id="student-id-bind" ref="student-id" name="student-id" xxf:whitespace="trim"
+                                 calculate="xxf:get-request-parameter('id')"
+                                 readonly="false()"/>
                         <xf:bind id="birth-date-bind" ref="birth-date" name="birth-date"/>
 
                     </xf:bind>
@@ -372,9 +372,12 @@
                 <xf:var name="insert-template"
                         select="xxf:extract-document(instance('overall-results-repeat-template'))">
                 </xf:var>
-                <xf:setvalue ref="instance('fr-form-instance')//name" value="fr:dataset('studentDataset')//name"/>
-                <xf:setvalue ref="instance('fr-form-instance')//surname" value="fr:dataset('studentDataset')//surname"/>
-                <xf:setvalue ref="instance('fr-form-instance')//birth-date" value="fr:dataset('studentDataset')//birthDate"/>
+                <xf:setvalue ref="instance('fr-form-instance')//name"
+                             value="fr:dataset('studentDataset')//name"/>
+                <xf:setvalue ref="instance('fr-form-instance')//surname"
+                             value="fr:dataset('studentDataset')//surname"/>
+                <xf:setvalue ref="instance('fr-form-instance')//birth-date"
+                             value="fr:dataset('studentDataset')//birthDate"/>
                 <xf:delete ref="instance('fr-form-instance')//overall-results-repeat-iteration"/>
                 <xf:action iterate="fr:dataset('studentDataset')//overallResults/terms/_">
                     <xf:var name="current" select="."/>
@@ -727,6 +730,7 @@
                         </xf:repeat>
                     </xh:table>
                 </fr:section>
+                <fr:xforms-inspector/>
             </fr:body>
         </fr:view>
     </xh:body>
