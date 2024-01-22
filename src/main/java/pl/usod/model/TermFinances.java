@@ -18,16 +18,16 @@ public class TermFinances {
 
     @OneToOne
     @JoinColumn(name = "term_id")
-    @JsonBackReference
+    @JsonBackReference("termFinancesTerm")
     private Term term;
 
     @ManyToOne
     @JoinColumn(name="overall_finances_id")
-    @JsonBackReference
+    @JsonBackReference("overallFinancesTermFinances")
     private OverallFinances overallFinances;
 
     @OneToMany(mappedBy = "termFinances", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference("termFinancesOperationFinances")
     private List<OperationFinances> operationFinances = new ArrayList<>();
 
     public Long getId() {

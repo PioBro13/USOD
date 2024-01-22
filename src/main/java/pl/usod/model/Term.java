@@ -41,15 +41,15 @@ public class Term {
 
     @ManyToOne
     @JoinColumn(name="overall_results_id")
-    @JsonBackReference
+    @JsonBackReference("overallResultsTerms")
     private OverallResults overallResults;
 
     @OneToMany(mappedBy = "term",  cascade = CascadeType.ALL )
-    @JsonManagedReference
+    @JsonManagedReference("termTermSubjects")
     private List<Subject> subjects = new ArrayList<>();
 
     @OneToOne(mappedBy = "term")
-    @JsonManagedReference
+    @JsonManagedReference("termFinancesTerm")
     private TermFinances termFinances;
 
     public Long getId() {

@@ -17,11 +17,11 @@ public class OverallFinances {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+    @JsonBackReference("userOverallFinances")
     private User user;
 
     @OneToMany(mappedBy = "overallFinances", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference("overallFinancesTermFinances")
     private List<TermFinances> termsFinances = new ArrayList<>();
 
 

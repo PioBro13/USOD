@@ -22,7 +22,7 @@ public class OperationFinances {
 
     @ManyToOne
     @JoinColumn(name="term_finances_id")
-    @JsonBackReference
+    @JsonBackReference("termFinancesOperationFinances")
     private TermFinances termFinances;
 
     public Long getId() {

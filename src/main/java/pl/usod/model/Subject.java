@@ -30,7 +30,7 @@ public class Subject {
 
     @ManyToOne
     @JoinColumn(name="term_id")
-    @JsonBackReference
+    @JsonBackReference("termTermSubjects")
     private Term term;
 
 

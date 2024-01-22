@@ -37,15 +37,15 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     @OneToOne(mappedBy = "user")
-    @JsonManagedReference
+    @JsonManagedReference("userOverallResults")
     private OverallResults overallResults;
 
     @OneToOne(mappedBy = "user")
-    @JsonManagedReference
+    @JsonManagedReference("userOverallFinances")
     private OverallFinances overallFinances;
 
     @OneToMany(mappedBy = "user",  cascade = CascadeType.ALL )
-    @JsonManagedReference
+    @JsonManagedReference("userApplications")
     private List<Application> applications = new ArrayList<>();
 
     public User(String username, String email, String encode) {

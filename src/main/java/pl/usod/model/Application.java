@@ -1,7 +1,9 @@
 package pl.usod.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 @Entity
 public class Application {
@@ -17,7 +19,7 @@ public class Application {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+    @JsonBackReference("userApplications")
     private User user;
 
     public void setId(Long id) {

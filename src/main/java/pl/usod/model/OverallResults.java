@@ -15,16 +15,13 @@ public class OverallResults {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
     @OneToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+    @JsonBackReference("userOverallResults")
     private User user;
 
-
     @OneToMany(mappedBy = "overallResults", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference("overallResultsTerms")
     private List<Term> terms = new ArrayList<>();
 
     public void setId(Long id) {
