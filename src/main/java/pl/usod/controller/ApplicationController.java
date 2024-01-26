@@ -30,7 +30,8 @@ public class ApplicationController {
         List<Application> applications = applicationRepository.findAll();
         for (Application application : applications) {
             ApplicationDTO applicationDTO = new ApplicationDTO(application.getId(),application.getDocumentId(),
-                    application.getDocumentTitle(), application.getId());
+                    application.getDocumentTitle(), application.getUser().getId(),
+                    application.getApplicationName(), application.getFormName());
             applicationsList.add(applicationDTO);
         }
         return applicationsList;
@@ -47,13 +48,14 @@ public class ApplicationController {
     }
 
     @PostMapping(value = "/addApplication")
-    public ResponseEntity<?> addApplicationAlt(@RequestBody ApplicationDTO applicationDTO) {
+    public ResponseEntity<?> addApplication(@RequestBody ApplicationDTO applicationDTO) {
         return userRepository.findById(applicationDTO.getUserId()).map(user -> {
             Application application = new Application();
             application.setDocumentId(applicationDTO.getDocumentId());
             application.setDocumentTitle(applicationDTO.getDocumentTitle());
             application.setUser(user);
-
+            application.setApplicationName(applicationDTO.getApplicationName());
+            application.setFormName(applicationDTO.getFormName());
             try {
                 applicationRepository.save(application);
                 return ResponseEntity.ok( "New application added");

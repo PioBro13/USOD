@@ -1,19 +1,20 @@
-<xh:html xmlns:xh="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<xh:html xmlns:xh="http://www.w3.org/1999/xhtml"
+         xmlns:xxf="http://orbeon.org/oxf/xml/xforms"
+         xmlns:xxi="http://orbeon.org/oxf/xml/xinclude"
+         xmlns:saxon="http://saxon.sf.net/"
+         xmlns:fr="http://orbeon.org/oxf/xml/form-runner"
+         xmlns:xf="http://www.w3.org/2002/xforms"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:sql="http://orbeon.org/oxf/xml/sql"
          xmlns:ev="http://www.w3.org/2001/xml-events"
          xmlns:xi="http://www.w3.org/2001/XInclude"
-         xmlns:xxi="http://orbeon.org/oxf/xml/xinclude"
-         xmlns:xxf="http://orbeon.org/oxf/xml/xforms"
-         xmlns:map="http://www.w3.org/2005/xpath-functions/map"
-         xmlns:array="http://www.w3.org/2005/xpath-functions/array"
-         xmlns:math="http://www.w3.org/2005/xpath-functions/math"
          xmlns:exf="http://www.exforms.org/exf/1-0"
-         xmlns:fr="http://orbeon.org/oxf/xml/form-runner"
-         xmlns:saxon="http://saxon.sf.net/"
-         xmlns:sql="http://orbeon.org/oxf/xml/sql"
-         xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
-         xmlns:fb="http://orbeon.org/oxf/xml/form-builder">
+         xmlns:array="http://www.w3.org/2005/xpath-functions/array"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+         xmlns:fb="http://orbeon.org/oxf/xml/form-builder"
+         xmlns:map="http://www.w3.org/2005/xpath-functions/map"
+         xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
     <xh:head>
         <xh:title>Test of application feature</xh:title>
         <xf:model id="fr-form-model" xxf:expose-xpath-types="true" xxf:analysis.calculate="true">
@@ -26,9 +27,10 @@
                             <userId/>
                             <document-id/>
                             <document-title/>
-
+                            <application-name/>
+                            <form-name/>
+                            <database-flag>false</database-flag>
                         </grid-1>
-
                     </section-1>
                 </form>
             </xf:instance>
@@ -40,14 +42,18 @@
                         <xf:bind id="userId-bind" name="userId" ref="userId" xxf:whitespace="trim"/>
                         <xf:bind id="document-id-bind" ref="document-id" name="document-id"
                                  xxf:whitespace="trim"
-                                 calculate="xxf:document-id()"/>
+                                 calculate="fr:document-id()"/>
                         <xf:bind id="document-title-bind" ref="document-title" name="document-title"
                                  xxf:whitespace="trim"
-                                 calculate="fr:form-title()"
-                                 readonly="false()"/>
-
+                                 calculate="fr:form-title()"/>
+                        <xf:bind id="database-flag-bind" ref="database-flag" name="database-flag"
+                                 type="xf:boolean"/>
+                        <xf:bind id="application-name-bind" ref="application-name" name="application-name"
+                                 xxf:whitespace="trim"
+                                 calculate="fr:app-name()"/>
+                        <xf:bind id="form-name-bind" ref="form-name" name="form-name" xxf:whitespace="trim"
+                                 calculate="fr:form-name()"/>
                     </xf:bind>
-
                 </xf:bind>
             </xf:bind>
 
@@ -59,6 +65,7 @@
                     <title xml:lang="en">Test of application feature</title>
                     <description xml:lang="en"/>
                     <created-with-version>2022.1.4.1.202305310006 PE</created-with-version>
+                    <updated-with-version>2022.1.4.1.202305310006 PE</updated-with-version>
                     <email>
                         <templates>
                             <template name="default">
@@ -88,7 +95,6 @@
                         <userId>
                             <label>UserId</label>
                             <hint/>
-
                         </userId>
                         <document-id>
                             <label>Document Id</label>
@@ -98,26 +104,39 @@
                             <label>Document title</label>
                             <hint/>
                         </document-title>
-
+                        <application-name>
+                            <label>Application name</label>
+                            <hint/>
+                        </application-name>
+                        <form-name>
+                            <label>Form name</label>
+                            <hint/>
+                        </form-name>
+                        <database-flag>
+                            <label>Save to database flag</label>
+                            <hint/>
+                        </database-flag>
                     </resource>
                 </resources>
             </xf:instance>
-
             <xf:instance id="sendAppInfo-instance" class="fr-service" xxf:exclude-result-prefixes="#all">
-                        <body xmlns:xxbl="http://orbeon.org/oxf/xml/xbl"
-                      xmlns:fbf="java:org.orbeon.oxf.fb.FormBuilderXPathApi">&lt;json type="object"&gt;
-    &lt;documentId&gt;&lt;/documentId&gt;
-    &lt;documentTitle&gt;&lt;/documentTitle&gt;
-    &lt;userId&gt;&lt;/userId&gt;
-&lt;/json&gt;</body>
-                    </xf:instance>
+                <body xmlns:fbf="java:org.orbeon.oxf.fb.FormBuilderXPathApi"
+                      xmlns:xxbl="http://orbeon.org/oxf/xml/xbl">&lt;json type="object"&gt;
+                &lt;documentId&gt;&lt;/documentId&gt;
+                &lt;documentTitle&gt;&lt;/documentTitle&gt;
+                &lt;userId&gt;&lt;/userId&gt;
+                &lt;applicationName&gt;&lt;/applicationName&gt;
+                &lt;formName&gt;&lt;/formName&gt;
+                &lt;/json&gt;</body>
+            </xf:instance>
             <xf:submission id="sendAppInfo-submission" class="fr-service"
-                           resource="http://localhost:8080/api/application/addApplicationAlt"
+                           resource="http://localhost:8080/api/application/addApplication"
                            method="post"
                            serialization="application/json"
                            mediatype="application/json"/>
             <xf:action id="sendAppInfo-binding">
-                <xf:action event="xforms-value-changed" ev:observer="userId-control" if="$fr-mode='new'">
+                <xf:action event="xforms-value-changed" ev:observer="userId-control"
+                           if="$fr-mode='new' and //database-flag = false()">
                     <xf:send submission="sendAppInfo-submission"/>
                 </xf:action>
                 <xf:action event="xforms-submit" ev:observer="sendAppInfo-submission">
@@ -135,9 +154,21 @@
                             <xf:var name="control-name" value="'document-title'"/>
                             <xf:var name="path" value="//documentTitle"/>
                         </xf:action>
+                        <xf:action class="fr-set-service-value-action">
+                            <xf:var name="control-name" value="'application-name'"/>
+                            <xf:var name="path" value="//applicationName"/>
+                        </xf:action>
+                        <xf:action class="fr-set-service-value-action">
+                            <xf:var name="control-name" value="'form-name'"/>
+                            <xf:var name="path" value="//formName"/>
+                        </xf:action>
                     </xf:action>
                 </xf:action>
                 <xf:action event="xforms-submit-done" ev:observer="sendAppInfo-submission"/>
+            </xf:action>
+            <xf:action event="xforms-value-changed" ev:observer="userId-control"
+                       if="$fr-mode='new' and //database-flag = false()">
+                <xf:setvalue ref="//database-flag" value="true()"/>
             </xf:action>
         </xf:model>
     </xh:head>
@@ -149,21 +180,18 @@
                     <xf:label ref="$form-resources/section-1/label"/>
                     <fr:grid id="grid-1-grid" bind="grid-1-bind">
                         <fr:c y="1" x="1" w="6">
-                                <xf:input id="userId-control" bind="userId-bind">
-                                    <xf:label ref="$form-resources/userId/label"/>
-                                    <xf:hint ref="$form-resources/userId/hint"/>
+                            <xf:input id="userId-control" bind="userId-bind">
+                                <xf:label ref="$form-resources/userId/label"/>
+                                <xf:hint ref="$form-resources/userId/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
-
-                                </xf:input>
-                            </fr:c>
+                            </xf:input>
+                        </fr:c>
                         <fr:c y="1" x="7" w="6"/>
                         <fr:c x="1" y="2" w="6">
                             <xf:input id="document-id-control" bind="document-id-bind">
                                 <xf:label ref="$form-resources/document-id/label"/>
                                 <xf:hint ref="$form-resources/document-id/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
-
-
                             </xf:input>
                         </fr:c>
                         <fr:c x="7" y="2" w="6">
@@ -172,10 +200,40 @@
                                 <xf:hint ref="$form-resources/document-title/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
 
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="1" y="3" w="6">
+                            <xf:input id="application-name-control" bind="application-name-bind">
+                                <xf:label ref="$form-resources/application-name/label"/>
+                                <xf:hint ref="$form-resources/application-name/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
 
                             </xf:input>
-
                         </fr:c>
+                        <fr:c x="7" y="3" w="6">
+                            <xf:input id="form-name-control" bind="form-name-bind">
+                                <xf:label ref="$form-resources/form-name/label"/>
+                                <xf:hint ref="$form-resources/form-name/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+
+                            </xf:input>
+                        </fr:c>
+                        <fr:c x="1" y="4" w="6">
+                            <fr:checkbox-input xmlns="http://orbeon.org/oxf/xml/form-builder"
+                                               xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                                               xmlns:xxbl="http://orbeon.org/oxf/xml/xbl"
+                                               id="database-flag-control"
+                                               bind="database-flag-bind">
+                                <xf:label ref="$form-resources/database-flag/label"/>
+                                <xf:hint ref="$form-resources/database-flag/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+
+                            </fr:checkbox-input>
+                        </fr:c>
+                        <fr:c x="7" y="4" w="6"/>
                     </fr:grid>
                 </fr:section>
             </fr:body>

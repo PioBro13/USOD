@@ -5,12 +5,16 @@ public class ApplicationDTO {
     private String documentId;
     private String documentTitle;
     private Long userId;
+    private String applicationName;
+    private String formName;
 
-    public ApplicationDTO(Long id, String documentId, String documentTitle, Long userId) {
+    public ApplicationDTO(Long id, String documentId, String documentTitle, Long userId, String applicationName, String formName) {
         this.id = id;
         this.documentId = documentId;
         this.documentTitle = documentTitle;
         this.userId = userId;
+        this.applicationName = applicationName;
+        this.formName = formName;
     }
 
     public void setId(Long id) {
@@ -45,4 +49,19 @@ public class ApplicationDTO {
         this.userId = userId;
     }
 
+    public String getApplicationName() {
+        return applicationName;
+    }
+
+    public void setApplicationName(String applicationName) {
+        this.applicationName = applicationName;
+    }
+
+    public String getFormName() {
+        return formName;
+    }
+
+    public void setFormName(String formName) {
+        this.formName = formName;
+    }
 }

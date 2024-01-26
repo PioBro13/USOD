@@ -22,6 +22,12 @@ public class Application {
     @JsonBackReference("userApplications")
     private User user;
 
+    @Column(name = "application_name")
+    private String applicationName;
+
+    @Column(name = "form_name")
+    private String formName;
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -52,5 +58,21 @@ public class Application {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getApplicationName() {
+        return applicationName;
+    }
+
+    public void setApplicationName(String applicationName) {
+        this.applicationName = applicationName;
+    }
+
+    public String getFormName() {
+        return formName;
+    }
+
+    public void setFormName(String formName) {
+        this.formName = formName;
     }
 }

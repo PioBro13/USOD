@@ -63,5 +63,7 @@ public class RootController {
     public String login(){return "login";}
     @RequestMapping("/auth/register")
     public String register(){return "register";}
+    @RequestMapping("/application/allApplications")
+    public String allApplications(){return "allApplications";}
 
 }
