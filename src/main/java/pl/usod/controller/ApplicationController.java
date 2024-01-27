@@ -42,8 +42,8 @@ public class ApplicationController {
         return applicationRepository.findApplicationById(id);
     }
 
-    @GetMapping("/userId={id}")
-    public Application getByUser(@PathVariable Long userId){
+    @GetMapping("/userId={userId}")
+    public List<Application> getByUser(@PathVariable Long userId){
         return applicationRepository.findByUserId(userId);
     }
 
