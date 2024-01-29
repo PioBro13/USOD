@@ -66,4 +66,7 @@ public class RootController {
     @RequestMapping("/application/allApplications")
     public String allApplications(){return "allApplications";}
 
+    @RequestMapping("/application/userApplications")
+    public String userApplications(){return "userApplications";}
+
 }
