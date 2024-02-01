@@ -65,8 +65,8 @@ public class ApplicationController {
         }).orElse(new ResponseEntity<>("User not found.", HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
-    @DeleteMapping("/deleteTerm/{applicationId}")
-   // @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/deleteApplication/{applicationId}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<String> deleteApplication(@PathVariable("applicationId") Long applicationId){
         applicationRepository.deleteById(applicationId);
         return ResponseEntity.ok("Application has been removed. ID: " + applicationId);

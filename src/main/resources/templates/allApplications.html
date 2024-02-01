@@ -35,9 +35,38 @@
         </ul>
     </div>
 </nav>
-<section>
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Potwierdź operację</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Czy na pewno chcesz usunąć ten rekord?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-danger" id="confirmButton">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>
+<section >
     <section id="applications-table">
         <div class="container mt-5">
+            <div class="alert alert-success alert-dismissible fade show" id="success-edit-popup" style="display: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Sukces!</strong> Pomyślnie edytowano rekord
+            </div>
+            <div class="alert alert-success alert-dismissible fade show" id="success-remove-popup" style="display: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Sukces!</strong> Pomyślnie usunięto rekord
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show" id="error-popup" style="display: none;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Błąd!</strong> Podczas edytowania rekordu wystąpił błąd. Proszę sprawdź podane dane.
+            </div>
             <table class="table table-striped" id="all-apps-table">
                 <thead>
                 <tr>
@@ -61,5 +90,7 @@
 <script type="text/javascript" src="/js/authentication.js"></script>
 <script type="text/javascript" src="/js/logout.js"></script>
 <script type="text/javascript" src="/js/applications.js"></script>
+<script type="text/javascript" src="/js/removeApplication.js"></script>
+<script type="text/javascript" src="/js/popup.js"></script>
 </body>
 </html>

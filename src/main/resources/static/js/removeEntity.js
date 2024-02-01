@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function removeEntity (apiUrl, form){
     const dropdownButton =document.getElementById('dropdownMenu');
-    const apiDropdownUrl = 'http://localhost:8080/api' + dropdownButton.getAttribute('endpoint');
+    const apiDropdwnUrl = 'http://localhost:8080/api' + dropdownButton.getAttribute('endpoint');
     const token = localStorage.getItem('jwtToken');
     fetch( apiUrl, {
         method: 'DELETE',
