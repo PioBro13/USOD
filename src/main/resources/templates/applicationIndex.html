@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uczelniany Sytem Obiegu Dokumentów</title>
+    <title>Uczelniany System Obiegu Dokumentów</title>
     <!-- Dodanie Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/styles.css">
@@ -22,44 +21,33 @@
     <div class="container">
         <ul class="nav nav-tabs justify-content-center">
             <li class="nav-item">
-                <a class="nav-link text-white" href="../formView">Przebieg studiów</a>
+                <a class="nav-link text-white" href="#przebieg-studiow">Przebieg studiów</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="../financialSummary">Finanse</a>
+                <a class="nav-link text-white" href="/financialSummary">Finanse</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white" href="#podania">Podania</a>
-            </li>
-            <li class="nav-item">
-                <a class="text-white btn" id="authentication-test"  redirect="/api/test/user">API TEST</a>
             </li>
         </ul>
     </div>
 </nav>
 <section id="content" class="hide">
-    <section id="przebieg-studiow" class="py-4">
-        <div class="container">
-            <h2 class="border-bottom pb-2">Przebieg studiów</h2>
-            <a class="btn btn-primary" id="results-overall-summary" role="button">Podsumowanie przebiegu studiów</a>
-            <a class="btn btn-primary" href="/formView" role="button">Orbeon embedded test</a>
-        </div>
-    </section>
-    <section id="finanse" class="py-4">
-        <div class="container">
-            <h2 class="border-bottom pb-2">Finanse</h2>
-            <!-- Tutaj umieść zawartość dotyczącą finansów -->
-        </div>
-    </section>
-    <section id="podania" class="py-4">
+    <section id="userApps" class="py-4">
         <div class="container">
             <h2 class="border-bottom pb-2">Podania</h2>
-            <a class="btn btn-primary" href="/application" role="button" id="application-index-button">Przeglądaj podania</a>
+            <a class="btn btn-primary" href="" role="button">Nowe podanie</a>
+            <a class="btn btn-primary" href="/application/userApplications" role="button">Twoje podania</a>
+
         </div>
     </section>
-    <section id="content-admin" class="py-4 hide">
+</section>
+<section id="content-admin" class="hide">
+    <section id="allApps" class="py-4">
         <div class="container">
-            <h2 class="border-bottom pb-2">Administracja</h2>
-            <a class="btn btn-primary" href="/adminIndex" role="button" id="admin-index-button">Działania administracyjne</a>
+            <h2 class="border-bottom pb-2">Działania administracyjne</h2>
+            <a class="btn btn-primary" href="/application/allApplications" role="button">Wszystkie podania</a>
+
         </div>
     </section>
 </section>
@@ -68,6 +56,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="/js/authentication.js"></script>
 <script type="text/javascript" src="/js/logout.js"></script>
-<script type="text/javascript" src="/js/orbeonRedirect.js"></script>
+<script type="text/javascript" src="/js/logout.js"></script>
 </body>
 </html>
