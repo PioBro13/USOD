@@ -72,4 +72,7 @@ public class RootController {
     @RequestMapping("/application/userApplications")
     public String userApplications(){return "userApplications";}
 
+    @RequestMapping("/application/newApplication")
+    public String newApplication(){return "newApplication";}
+
 }

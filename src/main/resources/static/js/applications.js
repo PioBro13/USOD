@@ -62,7 +62,7 @@ function fulfillTable(){
                     const formName = application.formName;
                     const baseLink = "http://localhost:8040/orbeon/fr/" + applicationName +"/" + formName;
                     const viewLink = baseLink + "/view/" + application.documentId;
-                    const editLink = baseLink + "/edit/" + application.documentId;
+                    const editLink = baseLink + "/edit/" + application.documentId +"?id=" + localStorage.getItem('userId');
 
                     const applicationId = row.insertCell(0);
                     applicationId.textContent = application.id;
