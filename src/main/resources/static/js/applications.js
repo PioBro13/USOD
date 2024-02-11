@@ -37,7 +37,7 @@ function fulfillTable(){
                     <a role="button" class="btn btn-warning btn-sm me-2" href=${editLink}>
                         <i class="bi bi-pencil"></i> Edycja
                     </a>
-                    <button role="button" class="btn btn-danger btn-sm" id="delete-button-${application.id}" endpoint="/deleteApplication/${application.id}>
+                    <button role="button" class="btn btn-danger btn-sm" id="delete-button-${application.id}" endpoint="/deleteApplication/${application.id}">
                         <i class="bi bi-x"></i> Usuń
                     </button>
                 `;

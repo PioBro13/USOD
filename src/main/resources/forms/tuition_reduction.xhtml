@@ -16,7 +16,7 @@
          xmlns:map="http://www.w3.org/2005/xpath-functions/map"
          xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
     <xh:head>
-        <xh:title>Wniosek o skreślenie z listy studentów</xh:title>
+        <xh:title>Wniosek o obniżenie wysokości czesnego</xh:title>
         <xh:style type="text/css">
             .hide-section{display: none !important}
         </xh:style>
@@ -29,10 +29,10 @@
                         <grid-1>
                             <application-type/>
                             <student-id/>
-
                             <student-name/>
                             <student-last-name/>
                             <justification/>
+                            <application-value/>
                             <hidden-fields-desc/>
                             <userId/>
                             <user-role/>
@@ -86,7 +86,6 @@
                         <xf:bind id="student-name-bind" ref="student-name" name="student-name"
                                  xxf:whitespace="trim"
                                  calculate="if (fr:mode() = 'new') then fr:dataset('userDataset')//name else ."/>
-
                         <xf:bind id="justification-bind" ref="justification" name="justification"
                                  required="true()">
                             <xf:constraint id="validation-3-validation" value="xxf:max-length(5000)"/>
@@ -97,6 +96,12 @@
                                  readonly="false()"/>
                         <xf:bind id="student-id-bind" ref="student-id" name="student-id" xxf:whitespace="trim"
                                  calculate="if (fr:mode() = 'new') then xxf:get-request-parameter('id') else ."/>
+                        <xf:bind id="application-value-bind" ref="application-value" name="application-value"
+                                 type="xf:decimal"
+                                 calculate="format-number(.,'0.00')"
+                                 readonly="false()">
+                            <xf:constraint id="validation-4-validation" value="xxf:positive()"/>
+                        </xf:bind>
                     </xf:bind>
                 </xf:bind>
                 <xf:bind id="evaluation-bind" ref="evaluation" name="evaluation"
@@ -129,8 +134,8 @@
             <xf:instance id="fr-form-metadata" xxf:readonly="true" xxf:exclude-result-prefixes="#all">
                 <metadata>
                     <application-name>application</application-name>
-                    <form-name>removal_application</form-name>
-                    <title xml:lang="pl">Wniosek o skreślenie z listy studentów</title>
+                    <form-name>tuition_reduction</form-name>
+                    <title xml:lang="pl">Wniosek o obniżenie wysokości czesnego</title>
                     <description xml:lang="pl"/>
                     <created-with-version>2022.1.4.1.202305310006 PE</created-with-version>
                     <updated-with-version>2022.1.4.1.202305310006 PE</updated-with-version>
@@ -195,7 +200,6 @@
                             <label>Id studenta</label>
                             <hint/>
                         </student-id>
-
                         <student-name>
                             <label>Imię</label>
                             <hint/>
@@ -210,6 +214,12 @@
                             <alert>Maksymalnie 5000 znaków</alert>
                             <alert>Pole wymagane</alert>
                         </justification>
+                        <application-value>
+                            <label>Wnioskowana kwota</label>
+                            <hint/>
+                            <alert>Wnioskowana kwota musi być dodatnia</alert>
+                            <alert>Pole wymagane</alert>
+                        </application-value>
                         <hidden-fields-desc>
                             <text xmlns:xbl="http://www.w3.org/ns/xbl" xmlns:p="http://www.orbeon.com/oxf/pipeline"
                                   xmlns:xxbl="http://orbeon.org/oxf/xml/xbl">&lt;div&gt; &lt;/div&gt;
@@ -355,7 +365,6 @@
                                 <xf:hint ref="$form-resources/student-id/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
                             </xf:input>
-
                         </fr:c>
                         <fr:c x="7" y="2" w="6"/>
                         <fr:c x="1" y="3" w="6">
@@ -387,6 +396,23 @@
                             </xf:textarea>
                         </fr:c>
                         <fr:c x="1" y="5" w="12">
+                            <fr:number xmlns="http://orbeon.org/oxf/xml/form-builder"
+                                       xmlns:NumberSupport="java:org.orbeon.xbl.NumberSupportJava"
+                                       xmlns:xxbl="http://orbeon.org/oxf/xml/xbl"
+                                       id="application-value-control"
+                                       bind="application-value-bind"
+                                       suffix="PLN"
+                                       decimal-separator=","
+                                       grouping-separator=" "
+                                       digits-after-decimal="2">
+                                <xf:label ref="$form-resources/application-value/label"/>
+                                <xf:hint ref="$form-resources/application-value/hint"/>
+                                <xf:alert ref="$form-resources/application-value/alert[1]"
+                                          validation="validation-4-validation"/>
+                                <xf:alert ref="$form-resources/application-value/alert[2]"/>
+                            </fr:number>
+                        </fr:c>
+                        <fr:c x="1" y="6" w="12">
                             <fr:explanation xmlns:xxbl="http://orbeon.org/oxf/xml/xbl" id="hidden-fields-desc-control"
                                             bind="hidden-fields-desc-bind"
                                             class="hide-section">
@@ -394,50 +420,49 @@
                                 <fr:text ref="$form-resources/hidden-fields-desc/text" mediatype="text/html"/>
                             </fr:explanation>
                         </fr:c>
-                        <fr:c y="6" x="1" w="6">
+                        <fr:c y="7" x="1" w="6">
                             <xf:input id="userId-control" bind="userId-bind" class="hide-section">
                                 <xf:label ref="$form-resources/userId/label"/>
                                 <xf:hint ref="$form-resources/userId/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
-
                             </xf:input>
                         </fr:c>
-                        <fr:c y="6" x="7" w="6">
+                        <fr:c y="7" x="7" w="6">
                             <xf:input id="user-role-control" bind="user-role-bind" class="hide-section">
                                 <xf:label ref="$form-resources/user-role/label"/>
                                 <xf:hint ref="$form-resources/user-role/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
                             </xf:input>
                         </fr:c>
-                        <fr:c x="1" y="7" w="6">
+                        <fr:c x="1" y="8" w="6">
                             <xf:input id="document-id-control" bind="document-id-bind" class="hide-section">
                                 <xf:label ref="$form-resources/document-id/label"/>
                                 <xf:hint ref="$form-resources/document-id/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
                             </xf:input>
                         </fr:c>
-                        <fr:c x="7" y="7" w="6">
+                        <fr:c x="7" y="8" w="6">
                             <xf:input id="document-title-control" bind="document-title-bind" class="hide-section">
                                 <xf:label ref="$form-resources/document-title/label"/>
                                 <xf:hint ref="$form-resources/document-title/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
                             </xf:input>
                         </fr:c>
-                        <fr:c x="1" y="8" w="6">
+                        <fr:c x="1" y="9" w="6">
                             <xf:input id="application-name-control" bind="application-name-bind" class="hide-section">
                                 <xf:label ref="$form-resources/application-name/label"/>
                                 <xf:hint ref="$form-resources/application-name/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
                             </xf:input>
                         </fr:c>
-                        <fr:c x="7" y="8" w="6">
+                        <fr:c x="7" y="9" w="6">
                             <xf:input id="form-name-control" bind="form-name-bind" class="hide-section">
                                 <xf:label ref="$form-resources/form-name/label"/>
                                 <xf:hint ref="$form-resources/form-name/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
                             </xf:input>
                         </fr:c>
-                        <fr:c x="1" y="9" w="6">
+                        <fr:c x="1" y="10" w="6">
                             <fr:checkbox-input xmlns="http://orbeon.org/oxf/xml/form-builder"
                                                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                                                xmlns:xxbl="http://orbeon.org/oxf/xml/xbl"
@@ -447,11 +472,9 @@
                                 <xf:label ref="$form-resources/database-flag/label"/>
                                 <xf:hint ref="$form-resources/database-flag/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
-
-
                             </fr:checkbox-input>
                         </fr:c>
-                        <fr:c x="7" y="9" w="6"/>
+                        <fr:c x="7" y="10" w="6"/>
                     </fr:grid>
                 </fr:section>
                 <fr:section id="evaluation-section" bind="evaluation-bind">
@@ -506,7 +529,6 @@
                         </fr:c>
                     </fr:grid>
                 </fr:section>
-
             </fr:body>
         </fr:view>
     </xh:body>

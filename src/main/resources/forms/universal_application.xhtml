@@ -16,7 +16,7 @@
          xmlns:map="http://www.w3.org/2005/xpath-functions/map"
          xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
     <xh:head>
-        <xh:title>Wniosek o skreślenie z listy studentów</xh:title>
+        <xh:title>Wniosek uniwersalny</xh:title>
         <xh:style type="text/css">
             .hide-section{display: none !important}
         </xh:style>
@@ -33,6 +33,19 @@
                             <student-name/>
                             <student-last-name/>
                             <justification/>
+                            <control-1/>
+
+
+
+
+
+
+
+
+
+                        </grid-1>
+                        <attachments-section/>
+                        <grid-4>
                             <hidden-fields-desc/>
                             <userId/>
                             <user-role/>
@@ -41,7 +54,7 @@
                             <application-name/>
                             <form-name/>
                             <database-flag>false</database-flag>
-                        </grid-1>
+                        </grid-4>
                     </application>
                     <evaluation>
                         <grid-2>
@@ -59,27 +72,17 @@
             <xf:bind id="fr-form-binds" ref="instance('fr-form-instance')">
                 <xf:bind id="application-bind" name="application" ref="application">
                     <xf:bind id="grid-1-bind" ref="grid-1" name="grid-1">
-                        <xf:bind id="userId-bind" name="userId" ref="userId" xxf:whitespace="trim"
-                                 calculate="if (xxf:get-request-parameter('id') != '') then xxf:get-request-parameter('id') else $student-id"
-                                 readonly="false()"/>
-                        <xf:bind id="document-id-bind" ref="document-id" name="document-id"
-                                 xxf:whitespace="trim"
-                                 calculate="fr:document-id()"/>
-                        <xf:bind id="document-title-bind" ref="document-title" name="document-title"
-                                 xxf:whitespace="trim"
-                                 calculate="fr:form-title()"/>
-                        <xf:bind id="database-flag-bind" ref="database-flag" name="database-flag"
-                                 type="xf:boolean"
-                                 calculate="if (fr:mode() = 'edit' and . = false()) then true() else ."
-                                 readonly="false()"/>
-                        <xf:bind id="application-name-bind" ref="application-name" name="application-name"
-                                 xxf:whitespace="trim"
-                                 calculate="fr:app-name()"/>
-                        <xf:bind id="form-name-bind" ref="form-name" name="form-name" xxf:whitespace="trim"
-                                 calculate="fr:form-name()"/>
+
+
+
+
+
+
                         <xf:bind id="application-type-bind" ref="application-type" name="application-type"
                                  xxf:whitespace="trim"
-                                 calculate="$document-title"/>
+                                 required="true()">
+                            <xf:constraint id="validation-4-validation" value="xxf:max-length(200)"/>
+                        </xf:bind>
                         <xf:bind id="student-last-name-bind" ref="student-last-name" name="student-last-name"
                                  xxf:whitespace="trim"
                                  calculate="if (fr:mode() = 'new') then fr:dataset('userDataset')//surname else ."/>
@@ -91,12 +94,46 @@
                                  required="true()">
                             <xf:constraint id="validation-3-validation" value="xxf:max-length(5000)"/>
                         </xf:bind>
+
+
+                        <xf:bind id="student-id-bind" ref="student-id" name="student-id" xxf:whitespace="trim"
+                                 calculate="if (fr:mode() = 'new') then xxf:get-request-parameter('id') else ."/>
+                        <xf:bind id="control-1-bind" ref="control-1" name="control-1"/>
+
+                    </xf:bind>
+                    <xf:bind id="grid-4-bind" ref="grid-4" name="grid-4">
                         <xf:bind id="hidden-fields-desc-bind" ref="hidden-fields-desc" name="hidden-fields-desc"/>
+                        <xf:bind id="userId-bind" name="userId" ref="userId" xxf:whitespace="trim"
+                                 calculate="if (xxf:get-request-parameter('id') != '') then xxf:get-request-parameter('id') else $student-id"
+                                 readonly="false()"/>
                         <xf:bind id="user-role-bind" ref="user-role" name="user-role" xxf:whitespace="trim"
                                  calculate="string-join( fr:dataset('userDataset')//roles//_//name , ' , ')"
                                  readonly="false()"/>
-                        <xf:bind id="student-id-bind" ref="student-id" name="student-id" xxf:whitespace="trim"
-                                 calculate="if (fr:mode() = 'new') then xxf:get-request-parameter('id') else ."/>
+                        <xf:bind id="document-title-bind" ref="document-title" name="document-title"
+                                 xxf:whitespace="trim"
+                                 calculate="fr:form-title()"/>
+                        <xf:bind id="document-id-bind" ref="document-id" name="document-id"
+                                 xxf:whitespace="trim"
+                                 calculate="fr:document-id()"/>
+                        <xf:bind id="application-name-bind" ref="application-name" name="application-name"
+                                 xxf:whitespace="trim"
+                                 calculate="fr:app-name()"/>
+                        <xf:bind id="form-name-bind" ref="form-name" name="form-name" xxf:whitespace="trim"
+                                 calculate="fr:form-name()"/>
+                        <xf:bind id="database-flag-bind" ref="database-flag" name="database-flag"
+                                 type="xf:boolean"
+                                 calculate="if (fr:mode() = 'edit' and . = false()) then true() else ."
+                                 readonly="false()"/>
+                    </xf:bind>
+                    <xf:bind id="attachments-section-bind" ref="attachments-section"
+                             name="attachments-section">
+                        <xf:bind id="attachments-section-iteration-bind" ref="attachments-section-iteration"
+                                 name="attachments-section-iteration">
+                            <xf:bind id="attachment-bind" ref="attachment" name="attachment" type="xf:anyURI">
+                                <xf:constraint id="validation-5-validation" value="xxf:upload-mediatypes('application/pdf')"/>
+                                <xf:constraint id="validation-6-validation" value="xxf:upload-max-size(2097152)"/>
+                            </xf:bind>
+                        </xf:bind>
                     </xf:bind>
                 </xf:bind>
                 <xf:bind id="evaluation-bind" ref="evaluation" name="evaluation"
@@ -129,8 +166,8 @@
             <xf:instance id="fr-form-metadata" xxf:readonly="true" xxf:exclude-result-prefixes="#all">
                 <metadata>
                     <application-name>application</application-name>
-                    <form-name>removal_application</form-name>
-                    <title xml:lang="pl">Wniosek o skreślenie z listy studentów</title>
+                    <form-name>universal_application</form-name>
+                    <title xml:lang="pl">Wniosek uniwersalny</title>
                     <description xml:lang="pl"/>
                     <created-with-version>2022.1.4.1.202305310006 PE</created-with-version>
                     <updated-with-version>2022.1.4.1.202305310006 PE</updated-with-version>
@@ -157,6 +194,45 @@
             <xf:instance xxf:readonly="true" id="fr-form-resources" xxf:exclude-result-prefixes="#all">
                 <resources>
                     <resource xml:lang="pl">
+                        <attachment>
+                            <label>Załącznik</label>
+                            <hint>Plik tylko w formacie .pdf, maksymalnie 2mb</hint>
+                            <alert>Tylko pliki PDF</alert>
+                            <alert>Maksymalny rozmiar pliku: 2mb</alert>
+                        </attachment>
+                        <hidden-fields-desc>
+                            <text xmlns:xbl="http://www.w3.org/ns/xbl" xmlns:p="http://www.orbeon.com/oxf/pipeline"
+                                  xmlns:xxbl="http://orbeon.org/oxf/xml/xbl">&lt;div&gt; &lt;/div&gt;
+                                &lt;div&gt;&lt;strong&gt;Ukryte pola techniczne&lt;/strong&gt;&lt;/div&gt;</text>
+                        </hidden-fields-desc>
+                        <userId>
+                            <label>UserId</label>
+                            <hint/>
+                        </userId>
+                        <user-role>
+                            <label>User role</label>
+                            <hint/>
+                        </user-role>
+                        <document-id>
+                            <label>Document Id</label>
+                            <hint/>
+                        </document-id>
+                        <document-title>
+                            <label>Document title</label>
+                            <hint/>
+                        </document-title>
+                        <application-name>
+                            <label>Application name</label>
+                            <hint/>
+                        </application-name>
+                        <form-name>
+                            <label>Form name</label>
+                            <hint/>
+                        </form-name>
+                        <database-flag>
+                            <label>Save to database flag</label>
+                            <hint/>
+                        </database-flag>
                         <show-evaluation>
                             <label>Ocena udostępniona</label>
                             <hint/>
@@ -190,6 +266,8 @@
                         <application-type>
                             <label>Typ podania</label>
                             <hint/>
+                            <alert>Uwaga: maksymalnie 200 znaków</alert>
+                            <alert>Pole wymagane</alert>
                         </application-type>
                         <student-id>
                             <label>Id studenta</label>
@@ -210,47 +288,34 @@
                             <alert>Maksymalnie 5000 znaków</alert>
                             <alert>Pole wymagane</alert>
                         </justification>
-                        <hidden-fields-desc>
-                            <text xmlns:xbl="http://www.w3.org/ns/xbl" xmlns:p="http://www.orbeon.com/oxf/pipeline"
-                                  xmlns:xxbl="http://orbeon.org/oxf/xml/xbl">&lt;div&gt; &lt;/div&gt;
-                                &lt;div&gt;&lt;strong&gt;Ukryte pola techniczne&lt;/strong&gt;&lt;/div&gt;</text>
-                        </hidden-fields-desc>
+                        <control-1>
+                            <text xmlns:xxbl="http://orbeon.org/oxf/xml/xbl" xmlns:xbl="http://www.w3.org/ns/xbl"
+                                  xmlns:p="http://www.orbeon.com/oxf/pipeline">&lt;div&gt; &lt;/div&gt;
+                                &lt;div&gt;&lt;strong&gt;Załączniki &lt;/strong&gt;&lt;strong&gt;opcjonalne &lt;/strong&gt;(możliwość dodania 5 załączników)&lt;/div&gt;</text>
+                        </control-1>
+
+
                         <application>
                             <label>Podanie</label>
                         </application>
                         <evaluation>
                             <label>Ocena wniosku</label>
                         </evaluation>
-                        <userId>
-                            <label>UserId</label>
-                            <hint/>
-                        </userId>
-                        <user-role>
-                            <label>User role</label>
-                            <hint/>
-                        </user-role>
-                        <document-id>
-                            <label>Document Id</label>
-                            <hint/>
-                        </document-id>
-                        <document-title>
-                            <label>Document title</label>
-                            <hint/>
-                        </document-title>
-                        <application-name>
-                            <label>Application name</label>
-                            <hint/>
-                        </application-name>
-                        <form-name>
-                            <label>Form name</label>
-                            <hint/>
-                        </form-name>
-                        <database-flag>
-                            <label>Save to database flag</label>
-                            <hint/>
-                        </database-flag>
+
+
+
+
+
+
+
                     </resource>
                 </resources>
+            </xf:instance>
+            <xf:instance xxf:readonly="true" id="attachments-section-template"
+                         xxf:exclude-result-prefixes="#all">
+                <attachments-section-iteration>
+                    <attachment filename="" mediatype="" size=""/>
+                </attachments-section-iteration>
             </xf:instance>
             <xf:instance id="sendAppInfo-instance" class="fr-service" xxf:exclude-result-prefixes="#all">
                 <body xmlns:fbf="java:org.orbeon.oxf.fb.FormBuilderXPathApi"
@@ -346,7 +411,10 @@
                             <xf:input id="application-type-control" bind="application-type-bind">
                                 <xf:label ref="$form-resources/application-type/label"/>
                                 <xf:hint ref="$form-resources/application-type/hint"/>
-                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+                                <xf:alert ref="$form-resources/application-type/alert[1]"
+                                          validation="validation-4-validation"/>
+                                <xf:alert ref="$form-resources/application-type/alert[2]"/>
+
                             </xf:input>
                         </fr:c>
                         <fr:c x="1" y="2" w="6">
@@ -387,6 +455,46 @@
                             </xf:textarea>
                         </fr:c>
                         <fr:c x="1" y="5" w="12">
+                            <fr:explanation xmlns:xxbl="http://orbeon.org/oxf/xml/xbl" id="control-1-control"
+                                            bind="control-1-bind">
+                                <fr:text ref="$form-resources/control-1/text" mediatype="text/html"/>
+                            </fr:explanation>
+                        </fr:c>
+
+
+
+
+
+
+
+
+
+
+                    </fr:grid>
+                    <fr:grid id="attachments-section-grid" bind="attachments-section-bind" repeat="content"
+                             template="instance('attachments-section-template')"
+                             apply-defaults="true"
+                             fb:initial-iterations="first"
+                             max="5"
+                             number-rows="true">
+                        <fr:c x="1" y="1" w="12">
+                            <fr:attachment xmlns="http://orbeon.org/oxf/xml/form-builder"
+                                           xmlns:xxbl="http://orbeon.org/oxf/xml/xbl"
+                                           id="attachment-control"
+                                           bind="attachment-bind"
+                                           class="fr-attachment">
+                                <xf:label ref="$form-resources/attachment/label"/>
+                                <xf:hint ref="$form-resources/attachment/hint"/>
+                                <xf:alert ref="$form-resources/attachment/alert[1]" validation="validation-5-validation"/>
+                                <xf:alert ref="$form-resources/attachment/alert[2]" validation="validation-6-validation"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+
+                            </fr:attachment>
+                        </fr:c>
+                    </fr:grid>
+                    <fr:grid id="grid-4-grid" bind="grid-4-bind">
+                        <fr:c x="1" y="1" w="12">
                             <fr:explanation xmlns:xxbl="http://orbeon.org/oxf/xml/xbl" id="hidden-fields-desc-control"
                                             bind="hidden-fields-desc-bind"
                                             class="hide-section">
@@ -394,7 +502,7 @@
                                 <fr:text ref="$form-resources/hidden-fields-desc/text" mediatype="text/html"/>
                             </fr:explanation>
                         </fr:c>
-                        <fr:c y="6" x="1" w="6">
+                        <fr:c x="1" y="2" w="6">
                             <xf:input id="userId-control" bind="userId-bind" class="hide-section">
                                 <xf:label ref="$form-resources/userId/label"/>
                                 <xf:hint ref="$form-resources/userId/hint"/>
@@ -402,42 +510,42 @@
 
                             </xf:input>
                         </fr:c>
-                        <fr:c y="6" x="7" w="6">
+                        <fr:c x="7" y="2" w="6">
                             <xf:input id="user-role-control" bind="user-role-bind" class="hide-section">
                                 <xf:label ref="$form-resources/user-role/label"/>
                                 <xf:hint ref="$form-resources/user-role/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
                             </xf:input>
                         </fr:c>
-                        <fr:c x="1" y="7" w="6">
+                        <fr:c x="1" y="3" w="6">
                             <xf:input id="document-id-control" bind="document-id-bind" class="hide-section">
                                 <xf:label ref="$form-resources/document-id/label"/>
                                 <xf:hint ref="$form-resources/document-id/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
                             </xf:input>
                         </fr:c>
-                        <fr:c x="7" y="7" w="6">
+                        <fr:c x="7" y="3" w="6">
                             <xf:input id="document-title-control" bind="document-title-bind" class="hide-section">
                                 <xf:label ref="$form-resources/document-title/label"/>
                                 <xf:hint ref="$form-resources/document-title/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
                             </xf:input>
                         </fr:c>
-                        <fr:c x="1" y="8" w="6">
+                        <fr:c x="1" y="4" w="6">
                             <xf:input id="application-name-control" bind="application-name-bind" class="hide-section">
                                 <xf:label ref="$form-resources/application-name/label"/>
                                 <xf:hint ref="$form-resources/application-name/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
                             </xf:input>
                         </fr:c>
-                        <fr:c x="7" y="8" w="6">
+                        <fr:c x="7" y="4" w="6">
                             <xf:input id="form-name-control" bind="form-name-bind" class="hide-section">
                                 <xf:label ref="$form-resources/form-name/label"/>
                                 <xf:hint ref="$form-resources/form-name/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
                             </xf:input>
                         </fr:c>
-                        <fr:c x="1" y="9" w="6">
+                        <fr:c x="1" y="5" w="6">
                             <fr:checkbox-input xmlns="http://orbeon.org/oxf/xml/form-builder"
                                                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                                                xmlns:xxbl="http://orbeon.org/oxf/xml/xbl"
@@ -451,7 +559,7 @@
 
                             </fr:checkbox-input>
                         </fr:c>
-                        <fr:c x="7" y="9" w="6"/>
+                        <fr:c x="7" y="5" w="6"/>
                     </fr:grid>
                 </fr:section>
                 <fr:section id="evaluation-section" bind="evaluation-bind">
@@ -506,7 +614,6 @@
                         </fr:c>
                     </fr:grid>
                 </fr:section>
-
             </fr:body>
         </fr:view>
     </xh:body>
