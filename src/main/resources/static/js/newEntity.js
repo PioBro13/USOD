@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // if statement for boolean input on new subject form
         if((document.getElementById('exam'))){
-            console.log('inside if');
             requestData.exam = document.getElementById('exam').getAttribute('value');
         }
 
