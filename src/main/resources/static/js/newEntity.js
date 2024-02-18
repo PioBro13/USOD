@@ -13,7 +13,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // if statement for boolean input on new subject form
         if((document.getElementById('exam'))){
-            requestData.exam = document.getElementById('exam').getAttribute('value');
+            console.log(requestData.exam);
+            if(document.getElementById('exam').getAttribute('value') != null){
+                requestData.exam = document.getElementById('exam').getAttribute('value');
+            } else {
+                requestData.exam = false;
+            }
+            console.log(requestData.exam);
         }
 
         const token = localStorage.getItem('jwtToken');
