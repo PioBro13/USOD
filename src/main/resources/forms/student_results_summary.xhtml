@@ -32,6 +32,8 @@
                             <birth-date/>
 
                             <student-id/>
+                            <user-role/>
+
                         </personal-data-grid>
                     </personal-data-section>
                     <overall-results-section>
@@ -78,12 +80,17 @@
                 <xf:bind id="personal-data-section-bind" name="personal-data-section"
                          ref="personal-data-section">
                     <xf:bind id="personal-data-grid-bind" ref="personal-data-grid" name="personal-data-grid">
-                        <xf:bind id="name-bind" name="name" ref="name" xxf:whitespace="trim"/>
-                        <xf:bind id="surname-bind" ref="surname" name="surname" xxf:whitespace="trim"/>
+                        <xf:bind id="name-bind" name="name" ref="name" xxf:whitespace="trim" readonly="true()"/>
+                        <xf:bind id="surname-bind" ref="surname" name="surname" xxf:whitespace="trim"
+                                 readonly="true()"/>
                         <xf:bind id="student-id-bind" ref="student-id" name="student-id" xxf:whitespace="trim"
-                                 calculate="xxf:get-request-parameter('id')"
+                                 calculate="if(contains($user-role , 'ROLE_ADMIN')) then . else&#xA;xxf:get-request-parameter('id')"
+                                 readonly="if(contains($user-role , 'ROLE_ADMIN')) then false() else true()"/>
+                        <xf:bind id="birth-date-bind" ref="birth-date" name="birth-date" readonly="true()"/>
+                        <xf:bind id="user-role-bind" ref="user-role" name="user-role" xxf:whitespace="trim"
+                                 calculate="if(contains(. , 'ROLE_ADMIN')) then . else&#xA;string-join( fr:dataset('studentDataset')//roles//_//name , ' , ')"
                                  readonly="false()"/>
-                        <xf:bind id="birth-date-bind" ref="birth-date" name="birth-date"/>
+
 
                     </xf:bind>
                 </xf:bind>
@@ -285,6 +292,11 @@
                             <label>Id studenta</label>
                             <hint/>
                         </student-id>
+                        <user-role>
+                            <label>Rola użytkownika</label>
+                            <hint/>
+                        </user-role>
+
                     </resource>
                 </resources>
             </xf:instance>
@@ -341,7 +353,9 @@
                 <xf:delete ref="instance('fr-form-instance')//term-subjects-repeat-iteration"/>
             </xf:action>
             <xf:action id="getStudentData-binding">
-                <xf:action event="xforms-value-changed" ev:observer="student-id-control" if="true()">
+                <xf:action event="xforms-value-changed xforms-enabled DOMActivate xforms-disabled"
+                           ev:observer="student-id-control"
+                           if="true()">
                     <xf:send submission="getStudentData-submission"/>
                 </xf:action>
                 <xf:action event="xforms-submit" ev:observer="getStudentData-submission">
@@ -358,6 +372,7 @@
                         <xf:var name="dataset-name">studentDataset</xf:var>
                     </xf:action>
                     <xf:action class="fr-itemset-action">
+                        <xf:var name="item-hint" value=""/>
                         <xf:var name="control-name" value="'term'"/>
                         <xf:var name="response-items" value="(//terms/_ | instance('empty-term')//_)"/>
                         <xf:var name="item-label" value="termNumber | empty-item-label"/>
@@ -442,7 +457,7 @@
     </xh:head>
     <xh:body>
         <fr:view>
-            <fr:body xmlns:xbl="http://www.w3.org/ns/xbl" xmlns:p="http://www.orbeon.com/oxf/pipeline"
+            <fr:body xmlns:p="http://www.orbeon.com/oxf/pipeline" xmlns:xbl="http://www.w3.org/ns/xbl"
                      xmlns:oxf="http://www.orbeon.com/oxf/processors">
                 <fr:section id="personal-data-section-section" bind="personal-data-section-bind">
                     <xf:label ref="$form-resources/personal-data-section/label"/>
@@ -453,6 +468,7 @@
                                 <xf:hint ref="$form-resources/name/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
 
+
                             </xf:input>
                         </fr:c>
                         <fr:c y="1" x="7" w="6">
@@ -460,6 +476,7 @@
                                 <xf:label ref="$form-resources/surname/label"/>
                                 <xf:hint ref="$form-resources/surname/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
 
                             </xf:input>
                         </fr:c>
@@ -470,6 +487,7 @@
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
 
 
+
                             </xf:input>
 
                         </fr:c>
@@ -478,8 +496,22 @@
                                 <xf:label ref="$form-resources/student-id/label"/>
                                 <xf:hint ref="$form-resources/student-id/hint"/>
                                 <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+
                             </xf:input>
                         </fr:c>
+                        <fr:c x="1" y="3" w="6">
+                            <xf:input id="user-role-control" bind="user-role-bind" class="hide-section">
+                                <xf:label ref="$form-resources/user-role/label"/>
+                                <xf:hint ref="$form-resources/user-role/hint"/>
+                                <xf:alert ref="$fr-resources/detail/labels/alert"/>
+
+
+
+                            </xf:input>
+
+                        </fr:c>
+                        <fr:c x="7" y="3" w="6"/>
                     </fr:grid>
                 </fr:section>
                 <fr:section id="overall-results-section-section" bind="overall-results-section-bind">
@@ -730,7 +762,6 @@
                         </xf:repeat>
                     </xh:table>
                 </fr:section>
-
             </fr:body>
         </fr:view>
     </xh:body>

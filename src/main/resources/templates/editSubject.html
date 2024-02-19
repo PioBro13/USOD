@@ -65,7 +65,7 @@
       <strong>Błąd!</strong> Podczas edytowania rekordu wystąpił błąd. Proszę sprawdź podane dane.
     </div>
     <div class="container mt-5">
-      <h2 class="mb-4">Edycja rekordu finansowego</h2>
+      <h2 class="mb-4">Edycja danych o przedmiocie</h2>
       <div class="dropdown" >
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" endpoint="/subject">
           Wybierz element
@@ -94,6 +94,10 @@
         <div class="mb-3">
           <label for="instructor" class="form-label">Imię i Nazwisko prowadzącego:</label>
           <input type="text" class="form-control" id="instructor" name="instructor" required>
+        </div>
+        <div class="mb-3">
+          <label for="grade" class="form-label">Ocena:</label>
+          <input type="number" class="form-control" id="grade" name="grade" required>
         </div>
         <div class="mb-3">
           <label for="termId" class="form-label">Id semestru:</label>
