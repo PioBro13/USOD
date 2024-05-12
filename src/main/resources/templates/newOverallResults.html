@@ -10,6 +10,11 @@
 </head>
 <body>
 <header class="bg-primary text-white text-center py-4">
+    <div class="container">
+        <a class="btn btn-primary float-end" id="login" href="/auth/login" role="button">Logowanie</a>
+        <a class="btn btn-primary float-end" id="logout" role="button">Wyloguj</a>
+    </div>
+    <br/>
     <h1><a class="nav-link" href="../">Uczelniany System Obiegu Dokumentów</a></h1>
 </header>
 <nav class="bg-info py-2">
@@ -38,7 +43,7 @@
             <strong>Błąd!</strong> Podczas dodawania rekordu wystąpił błąd. Proszę sprawdź podane dane.
         </div>
         <div class="container mt-5">
-            <h2 class="mb-4">Nowy przedmiot w semestrze studenta</h2>
+            <h2 class="mb-4">Nowe podsumowanie wyników studiów</h2>
             <form th:action="@{/api/overallResults/addOverallResults}" method="post" id="post-form-data" endpoint="/overallResults/addOverallResults">
                 <div class="mb-3">
                     <label for="user" class="form-label">Id studenta:</label>

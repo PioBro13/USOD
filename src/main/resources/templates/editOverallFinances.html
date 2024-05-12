@@ -10,6 +10,11 @@
 </head>
 <body>
 <header class="bg-primary text-white text-center py-4">
+    <div class="container">
+        <a class="btn btn-primary float-end" id="login" href="/auth/login" role="button">Logowanie</a>
+        <a class="btn btn-primary float-end" id="logout" role="button">Wyloguj</a>
+    </div>
+    <br/>
     <h1><a class="nav-link" href="../">Uczelniany System Obiegu Dokumentów</a></h1>
 </header>
 <nav class="bg-info py-2">
@@ -59,7 +64,7 @@
             <strong>Błąd!</strong> Podczas edytowania rekordu wystąpił błąd. Proszę sprawdź podane dane.
         </div>
         <div class="container mt-5">
-            <h2 class="mb-4">Edycja podsumowania wyników</h2>
+            <h2 class="mb-4">Edycja podsumowania finansowego</h2>
             <div class="dropdown" >
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false" endpoint="/overallFinances">
                     Wybierz element

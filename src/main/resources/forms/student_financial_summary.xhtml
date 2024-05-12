@@ -431,7 +431,7 @@
                 <xf:action iterate="fr:dataset('studentDataset')//overallResults//termFinances//operationFinances//_">
                     <xf:var name="current" select="."/>
                     <xf:setvalue ref="$insert-template//overall-operation-id" value="$current//id"/>
-                    <xf:setvalue ref="$insert-template//term-number" value="$current/../../../..//termNumber"/>
+                    <xf:setvalue ref="$insert-template//term-number" value="$current/../../..//termNumber"/>
                     <xf:setvalue ref="$insert-template//overall-operation-type" value="$current//operationName"/>
                     <xf:setvalue ref="$insert-template//overall-value" value="$current//value"/>
                     <xf:setvalue ref="$insert-template//overall-description" value="$current//description"/>
