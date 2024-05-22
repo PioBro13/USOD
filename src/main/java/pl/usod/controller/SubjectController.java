@@ -51,7 +51,8 @@ public class SubjectController {
     @GetMapping("/editSubject/{subjectId}")
     @PreAuthorize("hasRole('ADMIN')")
     public String showEditSubjectForm(@PathVariable Long subjectId, Model model){
-        Subject subject = subjectRepository.findById(subjectId).orElseThrow(() -> new EntityNotFoundException("Subject not found. ID: " + subjectId));
+        Subject subject = subjectRepository.findById(subjectId).orElseThrow(()
+                -> new EntityNotFoundException("Subject not found. ID: " + subjectId));
         model.addAttribute("subject",subject);
         return "editSubject";
     }
